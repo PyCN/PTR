@@ -236,12 +236,7 @@ creation))
 
 ### PEP 487: 描述符协议增强¶
 
-[**PEP 487**][44] 扩展描述符协议必须包括新的可选的[`__set_name __（）`](https://docs.python.org/3.6/reference/datamodel.html#object.\_\_set\_name\_\_ "object.\_\_set\_name\_\_" )方法。 每当定义一个新类时，新方法将会调用定义中所有的描述符， Whenever a new class is defined, the new method will be called on all
-descriptors included in the definition, providing them with a reference to the
-class being defined and the name given to the descriptor within the class
-namespace. In other words, instances of descriptors can now know the attribute
-name of the descriptor in the owner class:
-
+[**PEP 487**][44] 扩展描述符协议必须包括新的可选的[`__set_name __（）`](https://docs.python.org/3.6/reference/datamodel.html#object.\_\_set\_name\_\_ "object.\_\_set\_name\_\_" )方法。 每当定义一个新类时，新方法将会调用定义中所有的描述符，并给它们提供定义类的引用，以及类命名空间中给予描述符的名字。 换句话说，描述符的实例现在可以获知所有者类的属性名：
 ```
 
     class IntField:
@@ -262,14 +257,13 @@ name of the descriptor in the owner class:
 
 ```
 
-See also
+参见
 
-[**PEP 487**][45] - Simpler
-customization of class creation
+[**PEP 487**][45] - 用于建立类的更简单的自定义
 
 	由Yury Selivanov撰写并实现的PEP。
 
-[Feature documentation](https://docs.python.org/3.6/reference/datamodel.html#d
+[功能文档](https://docs.python.org/3.6/reference/datamodel.html#d
 escriptors)
 
 ### PEP 519: Adding a file system path protocol¶
