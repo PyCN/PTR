@@ -151,13 +151,11 @@ Windows上的改进:
 
 	PEP由Georg Brandl和Serhiy Storchaka编写。
 
-### PEP 525: Asynchronous Generators¶
+### PEP 525: 异步生成器¶
 
-[**PEP 492**][38] introduced support for
-native coroutines and `async` / `await` syntax to Python 3.5. A notable
-limitation of the Python 3.5 implementation is that it was not possible to use
-`await` and `yield` in the same function body. In Python 3.6 this restriction
-has been lifted, making it possible to define _asynchronous generators_:
+[**PEP 492**][38] 引入支持原生协程和`async` /`await`的语法到Python 3.5。 在Python 3.5实现里的一个值得注意的
+局限性就在于它不可能使用`await`和`yield'在同一个函数体中。 而在Python 3.6中，这个限制
+已解除，这使得定义_异步生成器_成为可能：
 
 ```
 
