@@ -30,9 +30,9 @@ Schedule
 
   * [`secrets`](https://docs.python.org/3.6/library/secrets.html#module-secrets "secrets: Generate secure random numbers for managing secrets." ): PEP 506 - 在标准库中添加了Secrets模块
 
-CPython implementation improvements:
+CPython实现的改进：
 
-  * The [dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping) type has been reimplemented to use a more compact representation similar to the [PyPy dict implementation](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html). This resulted in dictionaries using 20% to 25% less memory when compared to Python 3.5.
+  * 重新实现了[字典(dict)](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型，以便能像[PyPy](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html)的字典类型一样使用更紧凑的表达方式。与Python 3.5相比，这使字典的内存用量减少了20%到25%。
   * Customization of class creation has been simplified with the new protocol.
   * The class attribute definition order is now preserved.
   * The order of elements in `**kwargs` now corresponds to the order in which keyword arguments were passed to the function.
