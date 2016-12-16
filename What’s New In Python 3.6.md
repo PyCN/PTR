@@ -1285,9 +1285,7 @@ socketserver "socketserver: A framework for network servers." ) 模块,
 [`http.server`](https://docs.python.org/3.6/library/http.server.html#module-
 http.server "http.server: HTTP server and request handlers." ),
 [`xmlrpc.server`](https://docs.python.org/3.6/library/xmlrpc.server.html#module-xmlrpc.server "xmlrpc.server: Basic XML-RPC server implementations." )
-和 [`wsgiref.simple_server`](https://docs.python.org/3.6/library/wsgiref.html
-# module-wsgiref.simple\_server "wsgiref.simple\_server: A simple WSGI HTTP
-server." )的Servers 现在支持 [context
+和 [`wsgiref.simple_server`](https://docs.python.org/3.6/library/wsgiref.html#module-wsgiref.simple_server)的Servers 现在支持 [context
 manager](https://docs.python.org/3.6/glossary.html#term-context-manager)
 protocol. (Contributed by Aviv Palivoda in [issue
 26404](https://bugs.python.org/issue26404).)
