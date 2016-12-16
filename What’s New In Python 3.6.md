@@ -462,9 +462,9 @@ Disambiguation
 
 ### PEP 529: 更改windows下文件系统编码格式为UTF-8¶
 
-使用str (Unicode) 表示文件系统路径比bytes能获得更佳效果。尽管如此，在某些情况下bytes就足以胜任并且也是正确的。
+使用str (Unicode) 表示文件系统路径比bytes能获得更好的效果。尽管如此，在某些情况下bytes也足以胜任并且是正确的。
 
-在3.6之前,使用bytes路径可能导致数据丢失。做出这一改变之后, windows下现在支持使用bytes表示路径了,这些bytes将以[`sys.getfilesy
+在3.6之前,使用bytes路径可能导致数据丢失。更改后, windows下现在支持使用bytes表示路径,这些bytes将以[`sys.getfilesy
 stemencoding()`](https://docs.python.org/3.6/library/sys.html#sys.getfilesystemencoding "sys.getfilesystemencoding" )的方式编码，默认编码格式为`'utf-8'`。
 
 不使用str方式表示路径的应用程序应当使用[`os.fsencode()`](https://docs.python.org/3.6/library/os.html#os.fsencode "os.fsencode" )和[`os.fsdecode()`](https://docs.python.org/3.6/library/os.html#os.fsdecode "os.fsdecode" ) 以确保他们的bytes被正确编码。要回复到之前的状态, 设置 [`PYTHONLEGACYWINDOWSFSENCODING`](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSFSENCODING) 或者调用 [`sys._enablelegacywindowsfsencoding()`](https://docs.python.org/3.6/library/sys.html#sys._enablelegacywindowsfsencoding "sys._enablelegacywindowsfsencoding" )。
