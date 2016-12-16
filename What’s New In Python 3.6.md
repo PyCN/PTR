@@ -462,9 +462,9 @@ Disambiguation
 
 ### PEP 529: 更改windows下文件系统编码格式为UTF-8¶
 
-使用str (Unicode) 表示文件系统路径比bytes能获得更好的效果。尽管如此，在某些情况下bytes也足以胜任并且是正确的。
+使用str (Unicode) 表示文件系统路径比bytes能获得更好的效果。尽管如此，在某些情况下bytes也足以胜任并且也是正确的。
 
-在3.6之前,使用bytes路径可能导致数据丢失。更改后, windows下现在支持使用bytes表示路径,这些bytes将以[`sys.getfilesy
+在3.6之前,使用bytes路径可能导致数据丢失。改进后, windows下现在支持使用bytes表示路径,这些bytes将以[`sys.getfilesy
 stemencoding()`](https://docs.python.org/3.6/library/sys.html#sys.getfilesystemencoding "sys.getfilesystemencoding" )的方式编码，默认编码格式为`'utf-8'`。
 
 不使用str方式表示路径的应用程序应当使用[`os.fsencode()`](https://docs.python.org/3.6/library/os.html#os.fsencode "os.fsencode" )和[`os.fsdecode()`](https://docs.python.org/3.6/library/os.html#os.fsdecode "os.fsdecode" ) 以确保他们的bytes被正确编码。要回复到之前的状态, 设置 [`PYTHONLEGACYWINDOWSFSENCODING`](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSFSENCODING) 或者调用 [`sys._enablelegacywindowsfsencoding()`](https://docs.python.org/3.6/library/sys.html#sys._enablelegacywindowsfsencoding "sys._enablelegacywindowsfsencoding" )。
@@ -473,10 +473,10 @@ stemencoding()`](https://docs.python.org/3.6/library/sys.html#sys.getfilesysteme
 
 ### PEP 528: 更改windows控制台编码为UTF-8¶
 
-windows下的默认控制台现在支持所有的Unicode字符并为Python代码提供正确读取的str对象。 `sys.stdin`, `sys.stdout`
+windows下的默认控制台现在支持所有的Unicode字符并可以正确读取Python代码中的str对象。 `sys.stdin`, `sys.stdout`
 以及 `sys.stderr` 现在的默认使用utf-8编码。
 
-这一变化仅适用于使用交互控制台，而非重定向文件或者管道。如果要使用之前的交互控制台, 设置 [`PYTHONLEGACYWINDOWSIOENCODING`](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSIOENCODING)。
+这一变化仅适用于使用交互控制台之时，而非重定向文件或者管道。如果要使用之前的交互控制台, 需设置 [`PYTHONLEGACYWINDOWSIOENCODING`](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSIOENCODING)。
 
 另请参阅
 
@@ -486,9 +486,9 @@ windows下的默认控制台现在支持所有的Unicode字符并为Python代码
 
 ### PEP 520: 保存类属性定义顺序¶
 
-类的定义体中的属性都有一个自然顺序：即源码中属性名出现的顺序。 这个顺序现在保存在新的类[`__dict__`](https://docs.python.org/3.6/library/stdtypes.html#object.__dict__ "object.__dict__" ) 的属性中.
+类的定义体中的属性有一个自然顺序：即源码中属性名出现的顺序。 这个顺序现在保存在新的类[`__dict__`](https://docs.python.org/3.6/library/stdtypes.html#object.__dict__ "object.__dict__" ) 的属性中.
 
-同样， 有效的缺省类的执行空间 (从[type.____prepare____()](https://docs.python.org/3.6/reference/datamodel.html#prepare)返回)是一个保存插入顺序的映射。
+同样， 有效的缺省类和执行空间 (从[type.__prepare__()](https://docs.python.org/3.6/reference/datamodel.html#prepare)返回)是一个保存插入顺序的映射。
 
 另请参阅
 
@@ -498,7 +498,7 @@ windows下的默认控制台现在支持所有的Unicode字符并为Python代码
 
 ### PEP 468: 保存关键字参数顺序¶
 
-函数声明中的`**kwargs` 现在被保证是一个保存插入顺序的映射。
+函数声明中的`**kwargs` 的顺序现在被保证是插入顺序的映射。
 
 另请参阅
 
@@ -506,9 +506,9 @@ windows下的默认控制台现在支持所有的Unicode字符并为Python代码
 
     该PEP由Eric Snow编写和实现。
 
-### 新的 [dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)实现¶
+### 新的 [字典dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型的实现¶
 
-[dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型现在使用 [PyPy首创](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html)的 "紧凑" 表现。 新[`dict()`](https://docs.python.org/3.6/library/stdtypes.html#dict "dict" ) 的内存占用比Python3.5中减少20%-25%。
+[字典dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型现在使用 [PyPy首创](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html)的 "紧凑" 表达方式。 新[`字典dict()`](https://docs.python.org/3.6/library/stdtypes.html#dict "dict" ) 的内存占用比Python3.5中减少20%到25%。
 
 新的实现中保存顺序的功能被认为是不可过于依赖的(未来也许会改变，不过在将所有当前和未来的Python实现的语言规范转换为保证顺序的语法之前的几个版本中，新的dict有望被实现的; 这也能帮助保证对那些仍旧是随机迭代顺序的旧版本的向后兼容，比如Python 3.5)。
 
