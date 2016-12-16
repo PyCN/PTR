@@ -55,13 +55,13 @@ CPython实现的改进：
   * 改进了[`ssl模块`](https://docs.python.org/3.6/library/ssl.html#module-ssl "ssl: TLS/SSL wrapper for socket objects" )的默认设置和特性集。
   * 新增了[`hashlib模块`](https://docs.python.org/3.6/library/hashlib-blake2.html#module-hashlib "hashlib: BLAKE2 hash function for Python" )对BLAKE2、SHA-3、SHAKE哈希算法以及[`scrypt()`](https://docs.python.org/3.6/library/hashlib.html#hashlib.scrypt "hashlib.scrypt" )密钥导出函数的支持。
 
-Windows improvements:
+Windows上的改进:
 
-  * PEP 528 and PEP 529, Windows filesystem and console encoding changed to UTF-8.
-  * The `py.exe` launcher, when used interactively, no longer prefers Python 2 over Python 3 when the user doesn't specify a version (via command line arguments or a config file). Handling of shebang lines remains unchanged - "python" refers to Python 2 in that case.
-  * `python.exe` and `pythonw.exe` have been marked as long-path aware, which means that the 260 character path limit may no longer apply. See [removing the MAX_PATH limitation](https://docs.python.org/3.6/using/windows.html#max-path) for details.
-  * A `._pth` file can be added to force isolated mode and fully specify all search paths to avoid registry and environment lookup. See [the documentation](https://docs.python.org/3.6/using/windows.html#finding-modules) for more information.
-  * A `python36.zip` file now works as a landmark to infer [`PYTHONHOME`](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONHOME). See [the documentation](https://docs.python.org/3.6/using/windows.html#finding-modules) for more information.
+  * PEP 528与PEP 529，Windows文件系统和控制台的编码已更改为UTF-8。
+  * 当用户没有指定版本（通过命令行参数或配置文件）时，py.exe启动器以交互方式使用时，不再以Python 2优先于Python 3。 处理shebang行的方式保持不变 - 此处的“python”依旧指Python 2。
+  * python.exe和pythonw.exe已标记为长路径敏感(long-path aware)，这意味着260字符路径限制可能不再适用。 有关详细信息，请参阅[删除MAX_PATH限制](https://docs.python.org/3.6/using/windows.html#max-path)。
+  * 可以添加`._pth`文件以强制隔离模式(isolated mode)并完全指定所有搜索路径，以避免注册表查找和环境查找。 有关详细信息，请参阅[文档](https://docs.python.org/3.6/using/windows.html#finding-modules)。
+  * 一个python36.zip文件现可用作一个地标(landmark)以臆指[`PYTHONHOME`](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONHOME)。 有关详细信息，请参阅[文档](https://docs.python.org/3.6/using/windows.html#finding-modules)。
 
 ## 新特性
 
