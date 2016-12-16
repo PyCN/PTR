@@ -234,12 +234,9 @@ creation))
 	
 [功能文档](https://docs.python.org/3.6/reference/datamodel.html#class-customization)
 
-### PEP 487: Descriptor Protocol Enhancements¶
+### PEP 487: 描述符协议增强¶
 
-[**PEP 487**][44] extends the descriptor
-protocol has to include the new optional [`__set_name__()`](https://docs.pytho
-n.org/3.6/reference/datamodel.html#object.\_\_set\_name\_\_ "object.\_\_set\_name\_\_" )
-method. Whenever a new class is defined, the new method will be called on all
+[**PEP 487**][44] 扩展描述符协议必须包括新的可选的[`__set_name __（）`](https://docs.python.org/3.6/reference/datamodel.html#object.\_\_set\_name\_\_ "object.\_\_set\_name\_\_" )方法。 每当定义一个新类时，新方法将会调用定义中所有的描述符， Whenever a new class is defined, the new method will be called on all
 descriptors included in the definition, providing them with a reference to the
 class being defined and the name given to the descriptor within the class
 namespace. In other words, instances of descriptors can now know the attribute
