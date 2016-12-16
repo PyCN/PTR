@@ -32,7 +32,7 @@ Schedule
 
 CPython实现的改进：
 
-  * 重新实现了[字典(dict)](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型，以便能像[PyPy](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html)的字典类型一样使用更紧凑的表达方式。与Python 3.5相比，这使字典的内存用量减少了20%到25%。
+  * 重新实现了[字典(dict)](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型，以便能像[PyPy的字典类型](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html)一样使用更紧凑的表达方式。与Python 3.5相比，这使字典的内存用量减少了20%到25%。
   * Customization of class creation has been simplified with the new protocol.
   * The class attribute definition order is now preserved.
   * The order of elements in `**kwargs` now corresponds to the order in which keyword arguments were passed to the function.
