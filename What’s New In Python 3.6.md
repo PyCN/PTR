@@ -1406,11 +1406,9 @@ Added methods `trace_add()`, `trace_remove()` and `trace_info()` in the
 commands and might not work in future versions of Tcl. (Contributed by Serhiy
 Storchaka in [issue 22115][144]).
 
-### traceback¶
+### traceback
 
-Both the traceback module and the interpreter's builtin exception display now
-abbreviate long sequences of repeated lines in tracebacks as shown in the
-following example:
+traceback模块和解释器内置的异常展示现在都省略回溯中重复行的长串，如以下例子所示：
 
 ```
 
@@ -1427,72 +1425,34 @@ following example:
 
 ```
 
-(Contributed by Emanuel Barry in [issue
-26823](https://bugs.python.org/issue26823).)
+(由Emanuel Barry在[issue 26823](https://bugs.python.org/issue26823)中贡献。)
 
-### tracemalloc¶
+### tracemalloc
 
-The [`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html
-# module-tracemalloc "tracemalloc: Trace memory allocations." ) module now
-supports tracing memory allocations in multiple different address spaces.
+[`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-tracemalloc)模块限制支持跟踪多个不同地址空间内的内存分配。
 
-The new [`DomainFilter`](https://docs.python.org/3.6/library/tracemalloc.html\#
-tracemalloc.DomainFilter "tracemalloc.DomainFilter" ) filter class has been
-added to filter block traces by their address space (domain).
+已添加新的[`DomainFilter`](https://docs.python.org/3.6/library/tracemalloc.html#tracemalloc.DomainFilter "tracemalloc.DomainFilter" )过滤器类来根据地址空间（域）过滤块跟踪。
 
-(Contributed by Victor Stinner in [issue
-26588](https://bugs.python.org/issue26588).)
+(由Victor Stinner在[issue 26588](https://bugs.python.org/issue26588)中贡献。)
 
-### typing¶
+### typing
 
-Starting with Python 3.6 the
-[`typing`](https://docs.python.org/3.6/library/typing.html#module-typing
-"typing: Support for type hints \(see PEP 484\)." ) module is no longer
-provisional and its API is considered stable.
+从Python 3.6起，[`typing`](https://docs.python.org/3.6/library/typing.html#module-typing "typing: Support for type hints \(see PEP 484\)." )模块不再是临时的了，可以把它的API当成稳定版本使用。
 
-Since the [`typing`](https://docs.python.org/3.6/library/typing.html#module-
-typing "typing: Support for type hints \(see PEP 484\)." ) module was
-[provisional][145]
-in Python 3.5, all changes introduced in Python 3.6 have also been backported
-to Python 3.5.x.
+由于[`typing`](https://docs.python.org/3.6/library/typing.html#module-typing "typing: Support for type hints \(see PEP 484\)." )模块在Python 3.5中是[临时的](https://docs.python.org/3.6/glossary.html#term-provisional-api)，因此Python 3.6中引入的所有变动也已向后移植到Python 3.5.x。
 
-The [`typing`](https://docs.python.org/3.6/library/typing.html#module-typing
-"typing: Support for type hints \(see PEP 484\)." ) module has a much improved
-support for generic type aliases. For example `Dict[str, Tuple[S, T]]` is now
-a valid type annotation. (Contributed by Guido van Rossum in [Github
-# 195](https://github.com/python/typing/pull/195).)
+[`typing`](https://docs.python.org/3.6/library/typing.html#module-typing "typing: Support for type hints \(see PEP 484\)." )模块很大提高了对范型别名的支持。例如，`Dict[str, Tuple[S, T]]`现在是一个有效的类型注释了。(由Guido van Rossum在[Github #195](https://github.com/python/typing/pull/195)中贡献。)
 
-The [`typing.ContextManager`](https://docs.python.org/3.6/library/typing.html\#
-typing.ContextManager "typing.ContextManager" ) class has been added for
-representing [`contextlib.AbstractContextManager`](https://docs.python.org/3.6
-/library/contextlib.html#contextlib.AbstractContextManager
-"contextlib.AbstractContextManager" ). (Contributed by Brett Cannon in [issue
-25609](https://bugs.python.org/issue25609).)
+已添加[`typing.ContextManager`](https://docs.python.org/3.6/library/typing.html#typing.ContextManager "typing.ContextManager" )类来展示[`contextlib.AbstractContextManager`](https://docs.python.org/3.6/library/contextlib.html#contextlib.AbstractContextManager "contextlib.AbstractContextManager" )。 (由Brett Cannon在[issue 25609](https://bugs.python.org/issue25609)中贡献。)
 
-The [`typing.Collection`](https://docs.python.org/3.6/library/typing.html#typi
-ng.Collection "typing.Collection" ) class has been added for representing [\`co
-llections.abc.Collection\`](https://docs.python.org/3.6/library/collections.abc
-.html#collections.abc.Collection "collections.abc.Collection" ). (Contributed
-by Ivan Levkivskyi in [issue 27598][146].)
+已添加[`typing.Collection`](https://docs.python.org/3.6/library/typing.html#typing.Collection "typing.Collection" )类来展示[`collections.abc.Collection`](https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Collection "collections.abc.Collection" )。 (由Ivan Levkivskyi在[issue 27598](https://bugs.python.org/issue27598)中贡献。)
 
-The [`typing.ClassVar`](https://docs.python.org/3.6/library/typing.html#typing
-.ClassVar "typing.ClassVar" ) type construct has been added to mark class
-variables. As introduced in [\*\*PEP
-526\*\*](https://www.python.org/dev/peps/pep-0526), a variable annotation
-wrapped in ClassVar indicates that a given attribute is intended to be used as
-a class variable and should not be set on instances of that class.
-(Contributed by Ivan Levkivskyi in [Github
-# 280](https://github.com/python/typing/issues/280).)
+已添加[`typing.ClassVar`](https://docs.python.org/3.6/library/typing.html#typing.ClassVar "typing.ClassVar" )类型构造，来标识类变量。如[\*\*PEP 526\*\*](https://www.python.org/dev/peps/pep-0526)中所述，封装在ClassVar中的一个变量注释暗示着一个给定的属性打算作为一个类变量使用，并且不应该在那个类的实例上设置它。(由Ivan Levkivskyi在[Github #280](https://github.com/python/typing/issues/280)中贡献。)
 
-A new [`TYPE_CHECKING`](https://docs.python.org/3.6/library/typing.html#typing
-.TYPE\_CHECKING "typing.TYPE\_CHECKING" ) constant that is assumed to be `True`
-by the static type chekers, but is `False` at runtime. (Contributed by Guido
-van Rossum in [Github #230][147].)
+一个新的[`TYPE_CHECKING`](https://docs.python.org/3.6/library/typing.html#typing.TYPE\_CHECKING "typing.TYPE\_CHECKING" )常量被静态类型检查器假设为`True`，但在运行时则为`False`。 (由Guido van Rossum在[Github #230](https://github.com/python/typing/issues/230)中贡献。)
 
-A new
-[`NewType()`](https://docs.python.org/3.6/library/typing.html#typing.NewType
-"typing.NewType" ) helper function has been added to create lightweight
-distinct types for annotations:
+已添加一个新的[`NewType()`](https://docs.python.org/3.6/library/typing.html#typing.NewType
+"typing.NewType" )辅助函数来为注释创建轻量单值类型：
 
 ```
 
@@ -1503,9 +1463,7 @@ distinct types for annotations:
 
 ```
 
-The static type checker will treat the new type as if it were a subclass of
-the original type. (Contributed by Ivan Levkivskyi in [Github
-# 189](https://github.com/python/typing/issues/189).)
+静态类型检查器将会把新的类型当成原始类型的一个子类。 (由Ivan Levkivskyi在[Github #189](https://github.com/python/typing/issues/189)中贡献。)
 
 ### unicodedata¶
 
