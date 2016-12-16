@@ -484,59 +484,35 @@ windows下的默认控制台现在支持所有的Unicode字符并为Python代码
 
     PEP 由Steve Dower编写和实现。
 
-### PEP 520: Preserving Class Attribute Definition Order¶
+### PEP 520: 保存类属性定义顺序¶
 
-Attributes in a class definition body have a natural ordering: the same order
-in which the names appear in the source. This order is now preserved in the
-new class's
-[`__dict__`](https://docs.python.org/3.6/library/stdtypes.html#object.__dict__
-"object.__dict__" ) attribute.
+类的定义体中的属性都有一个自然顺序：即源码中属性名出现的顺序。 这个顺序现在保存在新的类[`__dict__`](https://docs.python.org/3.6/library/stdtypes.html#object.__dict__ "object.__dict__" ) 的属性中.
 
-Also, the effective default class _execution_ namespace (returned from [type._
-_prepare__()](https://docs.python.org/3.6/reference/datamodel.html#prepare))
-is now an insertion-order-preserving mapping.
+同样， 有效的缺省类的执行空间 (从[type.____prepare____()](https://docs.python.org/3.6/reference/datamodel.html#prepare)返回)是一个保存插入顺序的映射。
 
-See also
+另请参阅
 
-[**PEP 520**](https://www.python.org/dev/peps/pep-0520) - Preserving Class
-Attribute Definition Order
+[**PEP 520**](https://www.python.org/dev/peps/pep-0520) - 保存类属性定义顺序
 
-    PEP written and implemented by Eric Snow.
+    该PEP由Eric Snow编写和实现。
 
-### PEP 468: Preserving Keyword Argument Order¶
+### PEP 468: 保存关键字参数顺序¶
 
-`**kwargs` in a function signature is now guaranteed to be an insertion-order-
-preserving mapping.
+函数声明中的`**kwargs` 现在被保证是一个保存插入顺序的映射。
 
-See also
+另请参阅
 
-[**PEP 468**](https://www.python.org/dev/peps/pep-0468) - Preserving Keyword
-Argument Order
+[**PEP 468**](https://www.python.org/dev/peps/pep-0468) - 保存关键字参数顺序
 
-    PEP written and implemented by Eric Snow.
+    该PEP由Eric Snow编写和实现。
 
-### New [dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)
-implementation¶
+### 新的 [dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)实现¶
 
-The [dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)
-type now uses a "compact" representation [pioneered by
-PyPy](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-
-more.html). The memory usage of the new
-[`dict()`](https://docs.python.org/3.6/library/stdtypes.html#dict "dict" ) is
-between 20% and 25% smaller compared to Python 3.5.
+[dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型现在使用 [PyPy首创](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html)的 "紧凑" 表现。 新[`dict()`](https://docs.python.org/3.6/library/stdtypes.html#dict "dict" ) 的内存占用比Python3.5中减少20%-25%。
 
-The order-preserving aspect of this new implementation is considered an
-implementation detail and should not be relied upon (this may change in the
-future, but it is desired to have this new dict implementation in the language
-for a few releases before changing the language spec to mandate order-
-preserving semantics for all current and future Python implementations; this
-also helps preserve backwards-compatibility with older versions of the
-language where random iteration order is still in effect, e.g. Python 3.5).
+新的实现中保存顺序的部分被认为是不可过于依赖的(未来可能会发生变化， 但是在将所有当前和未来的Python实现的语言规范转为保证顺序的语法之前，新的dict实现在现在的版本是可以期待的; 这也能帮助保证对那些仍旧是随机迭代顺序的旧版本的向后兼容，比如Python 3.5)。
 
-(Contributed by INADA Naoki in [issue
-27350](https://bugs.python.org/issue27350). Idea [originally suggested by
-Raymond Hettinger](https://mail.python.org/pipermail/python-
-dev/2012-December/123028.html).)
+(由INADA Naoki在[issue 27350](https://bugs.python.org/issue27350)提供。 想法 [最初由Raymond Hettinger提出](https://mail.python.org/pipermail/python-dev/2012-December/123028.html).)
 
 ### PEP 523: Adding a frame evaluation API to CPython¶
 
