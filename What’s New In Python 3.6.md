@@ -8,7 +8,7 @@ Date:| December 15, 2016
 Editors:| Elvis Pranskevichus
 &lt;[elvis@magic.io][2]&gt;, Yury Selivanov
 &lt;[yury@magic.io][3]&gt;  
-  
+
 This article explains the new features in Python 3.6, compared to 3.5.
 
 See also
@@ -81,7 +81,7 @@ Windows上的改进:
     >>> value = decimal.Decimal("12.34567")
     >>> f"result: {value:{width}.{precision}}"  # nested fields
     'result:      12.35'
-    
+
 ```
 
 又见
@@ -99,12 +99,12 @@ Windows上的改进:
 ```
 
     primes: List[int] = []
-    
+
     captain: str  # Note: no initial value!
-    
+
     class Starship:
         stats: Dict[str, int] = {}
-    
+
 ```
 
 正如函数注释，Python解释器不附加任何特殊意义到变量注释上，只是将它们存储在一个类或者模块的`__annotations__`属性中。
@@ -129,7 +129,7 @@ Windows上的改进:
     1000000000000000
     >>> 0x_FF_FF_FF_FF
     4294967295
-    
+
 ```
 
 数字之间和任何基本符号之后允许单个下划线。不允许前置、后置或者多个连续的下划线。
@@ -142,7 +142,7 @@ Windows上的改进:
     '1_000_000'
     >>> '{:_x}'.format(0xFFFFFFFF)
     'ffff_ffff'
-    
+
 ```
 
 又见
@@ -164,7 +164,7 @@ Windows上的改进:
         for i in range(to):
             yield i
             await asyncio.sleep(delay)
-    
+
 ```
 新的语法允许更快更简洁的代码。
 
@@ -180,7 +180,7 @@ Windows上的改进:
 ```
 
     result = [i async for i in aiter() if i % 2]
-    
+
 ```
 
 此外，所有解析式都支持“await”表达式：
@@ -188,7 +188,7 @@ Windows上的改进:
 ```
 
     result = [await fun() for fun in funcs if await condition()]
-    
+
 ```
 
 参见
@@ -204,17 +204,17 @@ Windows上的改进:
 
     class PluginBase:
         subclasses = []
-    
+
         def __init_subclass__(cls, **kwargs):
             super().__init_subclass__(**kwargs)
             cls.subclasses.append(cls)
-    
+
     class Plugin1(PluginBase):
         pass
-    
+
     class Plugin2(PluginBase):
         pass
-    
+
 ```
 
 In order to allow zero-argument
@@ -253,19 +253,19 @@ name of the descriptor in the owner class:
     class IntField:
         def __get__(self, instance, owner):
             return instance.__dict__[self.name]
-    
+
         def __set__(self, instance, value):
             if not isinstance(value, int):
                 raise ValueError(f'expecting integer in {self.name}')
             instance.__dict__[self.name] = value
-    
+
         # this is the new initializer:
         def __set_name__(self, owner, name):
             self.name = name
-    
+
     class Model:
         int_field = IntField()
-    
+
 ```
 
 See also
@@ -363,7 +363,7 @@ code:
     >>> import os
     >>> os.fspath(pathlib.Path("some_file.txt"))
     'some_file.txt'
-    
+
 ```
 
 (Implemented by Brett Cannon, Ethan Furman, Dusty Phillips, and Jelle
@@ -403,7 +403,7 @@ which local times are the same:
     05:00:00 UTC = 01:00:00 EDT 0
     06:00:00 UTC = 01:00:00 EST 1
     07:00:00 UTC = 02:00:00 EST 0
-    
+
 ```
 
 The values of the [`fold`](https://docs.python.org/3.6/library/datetime.html#d
@@ -593,16 +593,16 @@ Example of fatal error on buffer overflow using `python3.6 -X tracemalloc=5`
             at tail+7: 0xfb
         The block was made by call #1233329 to debug malloc/realloc.
         Data at p: 1a 2b 30 00
-    
+
     Memory block allocated at (most recent call first):
       File "test/test_bytes.py", line 323
       File "unittest/case.py", line 600
       File "unittest/case.py", line 648
       File "unittest/suite.py", line 122
       File "unittest/suite.py", line 84
-    
+
     Fatal Python error: bad trailing pad byte
-    
+
     Current thread 0x00007fbcdbd32700 (most recent call first):
       File "test/test_bytes.py", line 323 in test_hex
       File "unittest/case.py", line 600 in run
@@ -612,7 +612,7 @@ Example of fatal error on buffer overflow using `python3.6 -X tracemalloc=5`
       File "unittest/suite.py", line 122 in run
       File "unittest/suite.py", line 84 in __call__
       ...
-    
+
 ```
 
 (Contributed by Victor Stinner in [issue
@@ -862,7 +862,7 @@ positive denominator:
 
     >>> Decimal('-3.14').as_integer_ratio()
     (-157, 50)
-    
+
 ```
 
 (Contributed by Stefan Krah amd Mark Dickinson in [issue
@@ -943,7 +943,7 @@ automatically:
     ...
     >>> list(Color)
     [<Color.red: 1>, <Color.blue: 2>, <Color.green: 3>]
-    
+
 ```
 
 ### faulthandler¶
@@ -1284,8 +1284,7 @@ socketserver "socketserver: A framework for network servers." ) 模块,
 包括了
 [`http.server`](https://docs.python.org/3.6/library/http.server.html#module-
 http.server "http.server: HTTP server and request handlers." ),
-[`xmlrpc.server`](https://docs.python.org/3.6/library/xmlrpc.server.html
-# module-xmlrpc.server "xmlrpc.server: Basic XML-RPC server implementations." )
+[`xmlrpc.server`](https://docs.python.org/3.6/library/xmlrpc.server.html#module-xmlrpc.server "xmlrpc.server: Basic XML-RPC server implementations." )
 和 [`wsgiref.simple_server`](https://docs.python.org/3.6/library/wsgiref.html
 # module-wsgiref.simple\_server "wsgiref.simple\_server: A simple WSGI HTTP
 server." )的Servers 现在支持 [context
@@ -1439,7 +1438,7 @@ following example:
       File "<stdin>", line 1, in f
       [Previous line repeated 995 more times]
     RecursionError: maximum recursion depth exceeded
-    
+
 ```
 
 (Contributed by Emanuel Barry in [issue
@@ -1512,10 +1511,10 @@ distinct types for annotations:
 ```
 
     from typing import NewType
-    
+
     UserId = NewType('UserId', int)
     some_id = UserId(524313)
-    
+
 ```
 
 The static type checker will treat the new type as if it were a subclass of
@@ -1581,13 +1580,13 @@ Example with the script `example.py`:
 ```
 
     import warnings
-    
+
     def func():
         return open(__file__)
-    
+
     f = func()
     f = None
-    
+
 ```
 
 Output of the command `python3.6 -Wd -X tracemalloc=5 example.py`:
@@ -1601,7 +1600,7 @@ Output of the command `python3.6 -Wd -X tracemalloc=5 example.py`:
         return open(__file__)
       File "example.py", lineno 6
         f = func()
-    
+
 ```
 
 The "Object allocated at" traceback is new and is only displayed if
@@ -1707,7 +1706,7 @@ $ ./python -VV
 
     Python 3.6.0b4+ (3.6:223967b49e49+, Nov 21 2016, 20:55:04)
     [GCC 4.2.1 Compatible Apple LLVM 8.0.0 (clang-800.0.42.1)]
-    
+
 ```
 
 ## Deprecated¶
@@ -1969,7 +1968,7 @@ require changes to your code.
 ```     [sdist]
 
     formats=zip
-    
+
 ```
 
 This behavior has also been backported to earlier Python versions by
@@ -2014,7 +2013,7 @@ There have been several major changes to the
   * The function call opcodes have been heavily reworked for better performance and simpler implementation. The [`MAKE_FUNCTION`][373], [`CALL_FUNCTION`][374], [`CALL_FUNCTION_KW`][375] and `BUILD_MAP_UNPACK_WITH_CALL` opcodes have been modified, the new `CALL_FUNCTION_EX` and `BUILD_TUPLE_UNPACK_WITH_CALL` have been added, and `CALL_FUNCTION_VAR`, `CALL_FUNCTION_VAR_KW` and `MAKE_CLOSURE` opcodes have been removed. (Contributed by Demur Rumed in [issue 27095][376], and Serhiy Storchaka in [issue 27213][377], [issue 28257][378].)
   * The new [`SETUP_ANNOTATIONS`][379] and [`STORE_ANNOTATION`][380] opcodes have been added to support the new [variable annotation][381] syntax. (Contributed by Ivan Levkivskyi in [issue 27985][382].)
 
----- 
+----
 (C) [Copyright][383] 2001-2016, Python
 Software Foundation.  
 The Python Software Foundation is a non-profit corporation. [Please
