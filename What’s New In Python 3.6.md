@@ -180,7 +180,7 @@ Windows上的改进:
 ```
 
     result = [i async for i in aiter() if i % 2]
-
+    
 ```
 
 此外，所有解析式都支持“await”表达式：
@@ -188,7 +188,7 @@ Windows上的改进:
 ```
 
     result = [await fun() for fun in funcs if await condition()]
-
+    
 ```
 
 参见
@@ -196,7 +196,7 @@ Windows上的改进:
 
 	由Yury Selivanov撰写并实现的PEP。
 
-### PEP 487: 建类的更简自定义Simpler customization of class creation¶
+### PEP 487: 用于建立类的更简单的自定义¶
 
 现在可以在不使用元类的情况下自定义子类。每当创建一个新的子类时，新的`__init_subclass__`类方法将在基类上被调用，：
 
@@ -204,36 +204,34 @@ Windows上的改进:
 
     class PluginBase:
         subclasses = []
-
+    
         def __init_subclass__(cls, **kwargs):
             super().__init_subclass__(**kwargs)
             cls.subclasses.append(cls)
-
+    
     class Plugin1(PluginBase):
         pass
-
+    
     class Plugin2(PluginBase):
         pass
-
+    
 ```
-
-In order to allow zero-argument
-[`super()`][42]
-calls to work correctly from [`__init_subclass__()`](https://docs.python.org/3
+为了允许零参数
+[`super（）`] [42]
+从[`_init_subclass __（）`](https://docs.python.org/3
 .6/reference/datamodel.html#object.\_\_init\_subclass\_\_
-"object.\_\_init\_subclass\_\_" ) implementations, custom metaclasses must ensure
-that the new `__classcell__` namespace entry is propagated to `type.__new__`
-(as described in [Creating the class
-object](https://docs.python.org/3.6/reference/datamodel.html#class-object-
-creation)).
+"object.\_\_init\_subclass\_\_" )实现中被正确的调用并工作，自定义元类必须确保
+新的`__classcell__`命名空间输入传递到`type .__ new__`
+（如[创建类
+对象](https://docs.python.org/3.6/reference/datamodel.html#class-object-
+creation))
 
-See also
+参见
 
-[**PEP 487**][43] - Simpler
-customization of class creation
+[**PEP 487**][43] - 用于建立类的更简单的自定义
 
-	PEP written and implemented by Martin Teichmann.
-
+	由Martin Teichmann撰写并实现的PEP。
+	
 [Feature documentation](https://docs.python.org/3.6/reference/datamodel.html
 # class-customization)
 
