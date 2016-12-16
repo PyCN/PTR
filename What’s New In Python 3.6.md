@@ -42,9 +42,9 @@ CPython实现的改进：
 标准库的重大改进：
 
   * 为[asyncio](https://docs.python.org/3.6/library/asyncio.html#module-asyncio "asyncio: Asynchronous I/O, event loop, coroutines and tasks." )模块开发了新功能、显著的可用性、性能优化，以及大量的错误修复。 从Python 3.6开始，asyncio模块不再是临时的了，其API也进入了稳定状态。
-  * A new file system path protocol has been implemented to support [path-like objects](https://docs.python.org/3.6/glossary.html#term-path-like-object). All standard library functions operating on paths have been updated to work with the new protocol.
-  * The [`datetime`](https://docs.python.org/3.6/library/datetime.html#module-datetime "datetime: Basic date and time types." ) module has gained support for Local Time Disambiguation.
-  * The [`typing`](https://docs.python.org/3.6/library/typing.html#module-typing "typing: Support for type hints \(see PEP 484\)." ) module received a number of improvements and is no longer provisional.
+  * 实现了用于支持[类路径对象(path-like objects)](https://docs.python.org/3.6/glossary.html#term-path-like-object)的新文件系统路径协议。 所有在路径(path)上使用的标准库函数都已更新，以便适应于新协议。
+  * [datetime](https://docs.python.org/3.6/library/datetime.html#module-datetime "datetime: Basic date and time types." )模块已获得对本地时间消歧(Local Time Disambiguation)的支持。
+  * 针对[typing](https://docs.python.org/3.6/library/typing.html#module-typing "typing: Support for type hints \(see PEP 484\)." )模块的一些改进，使其不再是临时模块。
   * The [`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-tracemalloc "tracemalloc: Trace memory allocations." ) module has been significantly reworked and is now used to provide better output for [`ResourceWarning`](https://docs.python.org/3.6/library/exceptions.html#ResourceWarning "ResourceWarning" ) as well as provide better diagnostics for memory allocation errors. See the PYTHONMALLOC section for more information.
 
 Security improvements:
