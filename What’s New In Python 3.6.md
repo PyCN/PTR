@@ -168,16 +168,14 @@ Windows上的改进:
 ```
 新的语法允许更快更简洁的代码。
 
-参阅
-[**PEP 525**][39] - Asynchronous
-Generators
+参见
+[**PEP 525**][39] - 异步生成器
 
-	PEP written and implemented by Yury Selivanov.
+	由Yury Selivanov撰写并实现的PEP。
 
-### PEP 530: Asynchronous Comprehensions¶
+### PEP 530: 异步解析式¶
 
-[**PEP 530**][40] adds support for using
-`async for` in list, set, dict comprehensions and generator expressions:
+[**PEP 530**][40] 添加了对`async for`在list、set、dict解析式以及generator表达式中的使用支持：
 
 ```
 
@@ -185,8 +183,7 @@ Generators
     
 ```
 
-Additionally, `await` expressions are supported in all kinds of
-comprehensions:
+此外，所有解析式都支持“await”表达式：
 
 ```
 
@@ -194,10 +191,8 @@ comprehensions:
     
 ```
 
-See also
-
-[**PEP 530**][41] - Asynchronous
-Comprehensions
+参见
+[**PEP 530**][41] - 异步解析式
 
 	PEP written and implemented by Yury Selivanov.
 
