@@ -63,22 +63,13 @@ Windows improvements:
   * A `._pth` file can be added to force isolated mode and fully specify all search paths to avoid registry and environment lookup. See [the documentation](https://docs.python.org/3.6/using/windows.html#finding-modules) for more information.
   * A `python36.zip` file now works as a landmark to infer [`PYTHONHOME`](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONHOME). See [the documentation](https://docs.python.org/3.6/using/windows.html#finding-modules) for more information.
 
-## New Features¶
+## 新特性
 
-### PEP 498: Formatted string literals¶
+### PEP 498: 格式化字符串
 
-[**PEP 498**](https://www.python.org/dev/peps/pep-0498) introduces a new kind
-of string literals: _f-strings_, or [formatted string literals](https://docs.p
-ython.org/3.6/reference/lexical_analysis.html#f-strings).
+[**PEP 498**](https://www.python.org/dev/peps/pep-0498)引入了一种新的字符串：_f-strings_, 或者[格式化字符串](https://docs.python.org/3.6/reference/lexical_analysis.html#f-strings)。
 
-Formatted string literals are prefixed with `'f'` and are similar to the
-format strings accepted by
-[`str.format()`](https://docs.python.org/3.6/library/stdtypes.html#str.format
-"str.format" ). They contain replacement fields surrounded by curly braces.
-The replacement fields are expressions, which are evaluated at run time, and
-then formatted using the
-[`format()`](https://docs.python.org/3.6/library/functions.html#format
-"format" ) protocol:
+格式化字符串带`'f'`前缀，类似于[`str.format()`](https://docs.python.org/3.6/library/stdtypes.html#str.format "str.format" )接受的格式字符串。它们包含了由花括号括起来的替换字段。替换字段是表达式，它们会在运行时计算，然后使用[`format()`](https://docs.python.org/3.6/library/functions.html#format "format" )协议进行格式化：
 
 ```
 
@@ -93,22 +84,17 @@ then formatted using the
     
 ```
 
-See also
+又见
 
-[**PEP 498**](https://www.python.org/dev/peps/pep-0498) - Literal String
-Interpolation.
+[**PEP 498**](https://www.python.org/dev/peps/pep-0498) - 字符串插值。
 
-    PEP written and implemented by Eric V. Smith.
+    PEP由Eric V. Smith编写和实现。
 
-[Feature documentation](https://docs.python.org/3.6/reference/lexical_analysis
-.html#f-strings).
+[特性文档](https://docs.python.org/3.6/reference/lexical_analysis.html#f-strings)。
 
-### PEP 526: Syntax for variable annotations¶
+### PEP 526: 变量注释语法
 
-[**PEP 484**](https://www.python.org/dev/peps/pep-0484) introduced the
-standard for type annotations of function parameters, a.k.a. type hints. This
-PEP adds syntax to Python for annotating the types of variables including
-class variables and instance variables:
+[**PEP 484**](https://www.python.org/dev/peps/pep-0484)引入了函数参数的类型注释的标准，又名类型提示。这个PEP添加了用来注释变量（包括类变量和实例变量）类型的语法：
 
 ```
 
@@ -121,30 +107,21 @@ class variables and instance variables:
     
 ```
 
-Just as for function annotations, the Python interpreter does not attach any
-particular meaning to variable annotations and only stores them in the
-`__annotations__` attribute of a class or module.
+正如函数注释，Python解释器不附加任何特殊意义到变量注释上，只是将它们存储在一个类或者模块的`__annotations__`属性中。
 
-In contrast to variable declarations in statically typed languages, the goal
-of annotation syntax is to provide an easy way to specify structured type
-metadata for third party tools and libraries via the abstract syntax tree and
-the `__annotations__` attribute.
+与静态类型语言中的变量声明相比，注释语法的目的在于提供一种简单的方式，通过抽象语法树和`__annotations__`属性，来为第三方工具和库指定结构化类型元数据。
 
-See also
+又见
 
-[**PEP 526**](https://www.python.org/dev/peps/pep-0526) - Syntax for variable
-annotations.
+[**PEP 526**](https://www.python.org/dev/peps/pep-0526) - 变量注释语法。
 
-    PEP written by Ryan Gonzalez, Philip House, Ivan Levkivskyi, Lisa Roach, and Guido van Rossum. Implemented by Ivan Levkivskyi.
+    PEP由Ryan Gonzalez, Philip House, Ivan Levkivskyi, Lisa Roach, 和Guido van Rossum编写。由Ivan Levkivskyi实现。
 
-Tools that use or will use the new syntax:
-[mypy](http://github.com/python/mypy),
-[pytype](http://github.com/google/pytype), PyCharm, etc.
+使用或将要使用这个新语法的工具：[mypy](http://github.com/python/mypy), [pytype](http://github.com/google/pytype), PyCharm等等。
 
-### PEP 515: Underscores in Numeric Literals¶
+### PEP 515: 数值文字中的下划线
 
-[**PEP 515**](https://www.python.org/dev/peps/pep-0515) adds the ability to
-use underscores in numeric literals for improved readability. For example:
+[**PEP 515**](https://www.python.org/dev/peps/pep-0515)添加了在数值文字中使用下划线的能力，以提高可读性。例如：
 
 ```
 
@@ -155,15 +132,9 @@ use underscores in numeric literals for improved readability. For example:
     
 ```
 
-Single underscores are allowed between digits and after any base specifier.
-Leading, trailing, or multiple underscores in a row are not allowed.
+数字之间和任何基本符号之后允许单个下划线。不允许前置、后置或者多个连续的下划线。
 
-The [string
-formatting](https://docs.python.org/3.6/library/string.html#formatspec)
-language also now has support for the `'_'` option to signal the use of an
-underscore for a thousands separator for floating point presentation types and
-for integer presentation type `'d'`. For integer presentation types `'b'`,
-`'o'`, `'x'`, and `'X'`, underscores will be inserted every 4 digits:
+[字符串格式化](https://docs.python.org/3.6/library/string.html#formatspec)语言现在还支持`'_'`选项，该选项用来通知对浮点表示类型和整型表示类型`'d'`，会把下划线当成千位分隔符使用。对于整型表示类型`'b'`, `'o'`, `'x'`, 和`'X'`, 下划线将会被插入到每4个数字之间：
 
 ```
 
@@ -174,12 +145,11 @@ for integer presentation type `'d'`. For integer presentation types `'b'`,
     
 ```
 
-See also
+又见
 
-[**PEP 515**](https://www.python.org/dev/peps/pep-0515) - Underscores in
-Numeric Literals
+[**PEP 515**](https://www.python.org/dev/peps/pep-0515) - 数值文字中的下划线
 
-    PEP written by Georg Brandl and Serhiy Storchaka.
+    PEP由Georg Brandl和Serhiy Storchaka编写。
 
 ### PEP 525: Asynchronous Generators¶
 
