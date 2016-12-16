@@ -28,7 +28,7 @@ Schedule
 
 新的库模块
 
-  * [`secrets`](https://docs.python.org/3.6/library/secrets.html#module-secrets "secrets: Generate secure random numbers for managing secrets." ): PEP 506 - Adding A Secrets Module To The Standard Library.
+  * [`secrets`](https://docs.python.org/3.6/library/secrets.html#module-secrets "secrets: Generate secure random numbers for managing secrets." ): PEP 506 - 在标准库中添加了Secrets模块
 
 CPython implementation improvements:
 
