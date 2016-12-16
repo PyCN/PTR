@@ -45,12 +45,12 @@ CPython实现的改进：
   * 实现了用于支持[类路径对象(path-like objects)](https://docs.python.org/3.6/glossary.html#term-path-like-object)的新文件系统路径协议。 所有在路径(path)上使用的标准库函数都已更新，以便适应于新协议。
   * [datetime](https://docs.python.org/3.6/library/datetime.html#module-datetime "datetime: Basic date and time types." )模块已获得对本地时间消歧(Local Time Disambiguation)的支持。
   * 针对[typing](https://docs.python.org/3.6/library/typing.html#module-typing "typing: Support for type hints \(see PEP 484\)." )模块的一些改进，使其不再是临时模块。
-  * The [`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-tracemalloc "tracemalloc: Trace memory allocations." ) module has been significantly reworked and is now used to provide better output for [`ResourceWarning`](https://docs.python.org/3.6/library/exceptions.html#ResourceWarning "ResourceWarning" ) as well as provide better diagnostics for memory allocation errors. See the PYTHONMALLOC section for more information.
+  * [tracemalloc](https://docs.python.org/3.6/library/tracemalloc.html#module-tracemalloc "tracemalloc: Trace memory allocations." )模块已重大改进，现用于为ResourceWarning提供更好的输出，并为内存分配错误提供更好的诊断。 欲知详情，请参阅PYTHONMALLOC部分。
 
-Security improvements:
+安全相关的改进:
 
-  * The new [`secrets`](https://docs.python.org/3.6/library/secrets.html#module-secrets "secrets: Generate secure random numbers for managing secrets." ) module has been added to simplify the generation of cryptographically strong pseudo-random numbers suitable for managing secrets such as account authentication, tokens, and similar.
-  * On Linux, [`os.urandom()`](https://docs.python.org/3.6/library/os.html#os.urandom "os.urandom" ) now blocks until the system urandom entropy pool is initialized to increase the security. See the [**PEP 524**](https://www.python.org/dev/peps/pep-0524) for the rationale.
+  * 新[secrets模块](https://docs.python.org/3.6/library/secrets.html#module-secrets "secrets: Generate secure random numbers for managing secrets." )被用于简化那些适用于管理密文的密码学安全伪随机数生成器(cryptographically strong pseudo-random numbers)的生成过程，如认证、token等。
+  * 在Linux上，现将[os.urandom()](https://docs.python.org/3.6/library/os.html#os.urandom "os.urandom" )改成了阻塞模式，直到系统的urandom的熵池(entropy pool)的初始化具有更高的安全性。 解释请参见[**PEP 524**](https://www.python.org/dev/peps/pep-0524)。
   * The [`hashlib`](https://docs.python.org/3.6/library/hashlib-blake2.html#module-hashlib "hashlib: BLAKE2 hash function for Python" ) and [`ssl`](https://docs.python.org/3.6/library/ssl.html#module-ssl "ssl: TLS/SSL wrapper for socket objects" ) modules now support OpenSSL 1.1.0.
   * The default settings and feature set of the [`ssl`](https://docs.python.org/3.6/library/ssl.html#module-ssl "ssl: TLS/SSL wrapper for socket objects" ) module have been improved.
   * The [`hashlib`](https://docs.python.org/3.6/library/hashlib-blake2.html#module-hashlib "hashlib: BLAKE2 hash function for Python" ) module received support for the BLAKE2, SHA-3 and SHAKE hash algorithms and the [`scrypt()`](https://docs.python.org/3.6/library/hashlib.html#hashlib.scrypt "hashlib.scrypt" ) key derivation function.
