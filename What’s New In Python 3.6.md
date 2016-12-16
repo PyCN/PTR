@@ -471,21 +471,18 @@ stemencoding()`](https://docs.python.org/3.6/library/sys.html#sys.getfilesysteme
 
 查看 [**PEP 529**](https://www.python.org/dev/peps/pep-0529)以获取更多信息并讨论可能需要变更的代码。 
 
-The default console on Windows will now accept all Unicode characters and
-provide correctly read str objects to Python code. `sys.stdin`, `sys.stdout`
-and `sys.stderr` now default to utf-8 encoding.
+### PEP 528: 更改windows控制台编码为UTF-8¶
 
-This change only applies when using an interactive console, and not when
-redirecting files or pipes. To revert to the previous behaviour for
-interactive console use, set [`PYTHONLEGACYWINDOWSIOENCODING`](https://docs.py
-thon.org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSIOENCODING).
+windows下的默认控制台现在支持所有的Unicode字符并为Python代码提供正确读取的str对象。 `sys.stdin`, `sys.stdout`
+以及 `sys.stderr` 现在的默认使用utf-8编码。
 
-See also
+这一变化仅适用于使用交互控制台，而非重定向文件或者管道。如果要使用之前的交互控制台, 设置 [`PYTHONLEGACYWINDOWSIOENCODING`](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSIOENCODING)。
 
-[**PEP 528**](https://www.python.org/dev/peps/pep-0528) - Change Windows
-console encoding to UTF-8
+另请参阅
 
-    PEP written and implemented by Steve Dower.
+[**PEP 528**](https://www.python.org/dev/peps/pep-0528) - 修改windows控制台编码为UTF-8
+
+    PEP 由Steve Dower编写和实现。
 
 ### PEP 520: Preserving Class Attribute Definition Order¶
 
