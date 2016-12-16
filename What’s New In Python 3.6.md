@@ -33,15 +33,15 @@ Schedule
 CPython实现的改进：
 
   * 重新实现了[字典(dict)](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型，以便能像[PyPy的字典类型](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html)一样使用更紧凑的表达方式。与Python 3.5相比，这使字典的内存用量减少了20%到25%。
-  * Customization of class creation has been simplified with the new protocol.
-  * The class attribute definition order is now preserved.
-  * The order of elements in `**kwargs` now corresponds to the order in which keyword arguments were passed to the function.
-  * DTrace and SystemTap probing support has been added.
-  * The new PYTHONMALLOC environment variable can now be used to debug the interpreter memory allocation and access errors.
+  * 用新协定优化了类的自定义建立。
+  * 类属性定义顺序(class attribute definition order)现在被保留了
+  * **kwargs内的元素顺序现在对应于将关键字(保留字）参数传递给函数的顺序
+  * 新增了对DTrace和SystemTap probing的支持。
+  * 新PYTHONMALLOC环境变量现在可用于调试解释器内存分配与访问错误。
 
-Significant improvements in the standard library:
+标准库的重大改进：
 
-  * The [`asyncio`](https://docs.python.org/3.6/library/asyncio.html#module-asyncio "asyncio: Asynchronous I/O, event loop, coroutines and tasks." ) module has received new features, significant usability and performance improvements, and a fair amount of bug fixes. Starting with Python 3.6 the `asyncio` module is no longer provisional and its API is considered stable.
+  * 为[asyncio](https://docs.python.org/3.6/library/asyncio.html#module-asyncio "asyncio: Asynchronous I/O, event loop, coroutines and tasks." )模块开发了新功能、显著的可用性、性能优化，以及大量的错误修复。 从Python 3.6开始，asyncio模块不再是临时的了，其API也进入了稳定状态。
   * A new file system path protocol has been implemented to support [path-like objects](https://docs.python.org/3.6/glossary.html#term-path-like-object). All standard library functions operating on paths have been updated to work with the new protocol.
   * The [`datetime`](https://docs.python.org/3.6/library/datetime.html#module-datetime "datetime: Basic date and time types." ) module has gained support for Local Time Disambiguation.
   * The [`typing`](https://docs.python.org/3.6/library/typing.html#module-typing "typing: Support for type hints \(see PEP 484\)." ) module received a number of improvements and is no longer provisional.
