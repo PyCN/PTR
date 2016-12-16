@@ -266,15 +266,9 @@ creation))
 [功能文档](https://docs.python.org/3.6/reference/datamodel.html#d
 escriptors)
 
-### PEP 519: Adding a file system path protocol¶
+### PEP 519: 添加文件系统路径协议¶
 
-File system paths have historically been represented as
-[`str`][46] or
-[`bytes`][47]
-objects. This has led to people who write code which operate on file system
-paths to assume that such objects are only one of those two types (an
-[`int`][48]
-representing a file descriptor does not count as that is not a file path).
+文件系统路径过去被表示为[`str`][46]或[`bytes`][47]对象。这会导致那些编写操作文件系统路径代码的人，假定这些对象只能是这两种类型之一(一个代表着文件描述符的[`int`][48]对象将不被计入即它不是一个文件路径)。
 Unfortunately that assumption prevents alternative object representations of
 file system paths like
 [`pathlib`](https://docs.python.org/3.6/library/pathlib.html#module-pathlib
