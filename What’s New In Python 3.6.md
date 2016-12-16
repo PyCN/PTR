@@ -166,11 +166,9 @@ Windows上的改进:
             await asyncio.sleep(delay)
     
 ```
+新的语法允许更快更简洁的代码。
 
-The new syntax allows for faster and more concise code.
-
-See also
-
+参阅
 [**PEP 525**][39] - Asynchronous
 Generators
 
