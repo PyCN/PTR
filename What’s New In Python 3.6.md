@@ -51,7 +51,7 @@ CPython实现的改进：
 
   * 新[secrets模块](https://docs.python.org/3.6/library/secrets.html#module-secrets "secrets: Generate secure random numbers for managing secrets." )被用于简化那些适用于管理密文的密码学安全伪随机数生成器(cryptographically strong pseudo-random numbers)的生成过程，如认证、token等。
   * 在Linux上，现将[os.urandom()](https://docs.python.org/3.6/library/os.html#os.urandom "os.urandom" )改成了阻塞模式，直到系统的urandom的熵池(entropy pool)的初始化具有更高的安全性。 解释请参见[**PEP 524**](https://www.python.org/dev/peps/pep-0524)。
-  * The [`hashlib`](https://docs.python.org/3.6/library/hashlib-blake2.html#module-hashlib "hashlib: BLAKE2 hash function for Python" ) and [`ssl`](https://docs.python.org/3.6/library/ssl.html#module-ssl "ssl: TLS/SSL wrapper for socket objects" ) modules now support OpenSSL 1.1.0.
+  * [`hashlib`](https://docs.python.org/3.6/library/hashlib-blake2.html#module-hashlib "hashlib: BLAKE2 hash function for Python" )和[`ssl`](https://docs.python.org/3.6/library/ssl.html#module-ssl "ssl: TLS/SSL wrapper for socket objects" )模块现已支持OpenSSL 1.1.0。
   * The default settings and feature set of the [`ssl`](https://docs.python.org/3.6/library/ssl.html#module-ssl "ssl: TLS/SSL wrapper for socket objects" ) module have been improved.
   * The [`hashlib`](https://docs.python.org/3.6/library/hashlib-blake2.html#module-hashlib "hashlib: BLAKE2 hash function for Python" ) module received support for the BLAKE2, SHA-3 and SHAKE hash algorithms and the [`scrypt()`](https://docs.python.org/3.6/library/hashlib.html#hashlib.scrypt "hashlib.scrypt" ) key derivation function.
 
