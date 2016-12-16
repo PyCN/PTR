@@ -232,8 +232,7 @@ creation))
 
 	由Martin Teichmann撰写并实现的PEP。
 	
-[Feature documentation](https://docs.python.org/3.6/reference/datamodel.html
-# class-customization)
+[功能文档](https://docs.python.org/3.6/reference/datamodel.html#class-customization)
 
 ### PEP 487: Descriptor Protocol Enhancements¶
 
