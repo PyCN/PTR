@@ -16,17 +16,17 @@ See also
 [**PEP 494**](https://www.python.org/dev/peps/pep-0494) \- Python 3.6 Release
 Schedule
 
-## Summary - Release highlights¶
+## 摘要 - 发布亮点¶
 
-New syntax features:
+新的语法特性：
 
-  * PEP 498, formatted string literals.
-  * PEP 515, underscores in numeric literals.
-  * PEP 526, syntax for variable annotations.
-  * PEP 525, asynchronous generators.
-  * PEP 530: asynchronous comprehensions.
+  * PEP 498, 格式化字符串字面量
+  * PEP 515, 数字字面量中的下划线
+  * PEP 526, 变量注解中的语法
+  * PEP 525, 异步生成器
+  * PEP 520: 异步解析式
 
-New library modules:
+新的库模块
 
   * [`secrets`](https://docs.python.org/3.6/library/secrets.html#module-secrets "secrets: Generate secure random numbers for managing secrets." ): PEP 506 - Adding A Secrets Module To The Standard Library.
 
