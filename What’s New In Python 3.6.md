@@ -400,102 +400,59 @@ Disambiguation
 
 	PEP written by Alexander Belopolsky and Tim Peters, implementation by Alexander Belopolsky.
 
-### PEP 529: Change Windows filesystem encoding to UTF-8¶
+### PEP 529: 更改windows下文件系统编码格式为UTF-8¶
 
-Representing filesystem paths is best performed with str (Unicode) rather than
-bytes. However, there are some situations where using bytes is sufficient and
-correct.
+使用str (Unicode) 表示文件系统路径比bytes能获得更好的效果。尽管如此，在某些情况下bytes也足以胜任并且也是正确的。
 
-Prior to Python 3.6, data loss could result when using bytes paths on Windows.
-With this change, using bytes to represent paths is now supported on Windows,
-provided those bytes are encoded with the encoding returned by [\`sys.getfilesy
-stemencoding()\`](https://docs.python.org/3.6/library/sys.html#sys.getfilesyste
-mencoding "sys.getfilesystemencoding" ), which now defaults to `'utf-8'`.
+在3.6之前,使用bytes路径可能导致数据丢失。改进后, windows下现在支持使用bytes表示路径,这些bytes将以[`sys.getfilesy
+stemencoding()`](https://docs.python.org/3.6/library/sys.html#sys.getfilesystemencoding "sys.getfilesystemencoding" )的方式编码，默认编码格式为`'utf-8'`。
 
-Applications that do not use str to represent paths should use
-[`os.fsencode()`](https://docs.python.org/3.6/library/os.html#os.fsencode
-"os.fsencode" ) and
-[`os.fsdecode()`](https://docs.python.org/3.6/library/os.html#os.fsdecode
-"os.fsdecode" ) to ensure their bytes are correctly encoded. To revert to the
-previous behaviour, set [`PYTHONLEGACYWINDOWSFSENCODING`](https://docs.python.
-org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSFSENCODING) or call [\`sys
-.\_enablelegacywindowsfsencoding()\`](https://docs.python.org/3.6/library/sys.ht
-ml#sys.\_enablelegacywindowsfsencoding "sys.\_enablelegacywindowsfsencoding" ).
+不使用str方式表示路径的应用程序应当使用[`os.fsencode()`](https://docs.python.org/3.6/library/os.html#os.fsencode "os.fsencode" )和[`os.fsdecode()`](https://docs.python.org/3.6/library/os.html#os.fsdecode "os.fsdecode" ) 以确保他们的bytes被正确编码。要回复到之前的状态, 设置 [`PYTHONLEGACYWINDOWSFSENCODING`](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSFSENCODING) 或者调用 [`sys._enablelegacywindowsfsencoding()`](https://docs.python.org/3.6/library/sys.html#sys._enablelegacywindowsfsencoding "sys._enablelegacywindowsfsencoding" )。
 
-See [**PEP 529**][58] for more
-information and discussion of code modifications that may be required.
+查看 [**PEP 529**](https://www.python.org/dev/peps/pep-0529)以获取更多信息并讨论可能需要变更的代码。 
 
-### PEP 528: Change Windows console encoding to UTF-8¶
+### PEP 528: 更改windows控制台编码为UTF-8¶
 
-The default console on Windows will now accept all Unicode characters and
-provide correctly read str objects to Python code. `sys.stdin`, `sys.stdout`
-and `sys.stderr` now default to utf-8 encoding.
+windows下的默认控制台现在支持所有的Unicode字符并可以正确读取Python代码中的str对象。 `sys.stdin`, `sys.stdout`
+以及 `sys.stderr` 现在的默认使用utf-8编码。
 
-This change only applies when using an interactive console, and not when
-redirecting files or pipes. To revert to the previous behaviour for
-interactive console use, set [`PYTHONLEGACYWINDOWSIOENCODING`](https://docs.py
-thon.org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSIOENCODING).
+这一变化仅适用于使用交互控制台之时，而非重定向文件或者管道。如果要使用之前的交互控制台, 需设置 [`PYTHONLEGACYWINDOWSIOENCODING`](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSIOENCODING)。
 
-See also
+另请参阅
 
-[**PEP 528**][59] - Change Windows
-console encoding to UTF-8
+[**PEP 528**](https://www.python.org/dev/peps/pep-0528) - 修改windows控制台编码为UTF-8
 
-	PEP written and implemented by Steve Dower.
+    PEP 由Steve Dower编写和实现。
 
-### PEP 520: Preserving Class Attribute Definition Order¶
+### PEP 520: 保存类属性定义顺序¶
 
-Attributes in a class definition body have a natural ordering: the same order
-in which the names appear in the source. This order is now preserved in the
-new class's
-[`__dict__`](https://docs.python.org/3.6/library/stdtypes.html#object.\_\_dict\_\_
-"object.\_\_dict\_\_" ) attribute.
+类的定义体中的属性有一个自然顺序：即源码中属性名出现的顺序。 这个顺序现在保存在新的类[`__dict__`](https://docs.python.org/3.6/library/stdtypes.html#object.__dict__ "object.__dict__" ) 的属性中.
 
-Also, the effective default class _execution_ namespace (returned from [type.\_
-_prepare_\_()](https://docs.python.org/3.6/reference/datamodel.html#prepare))
-is now an insertion-order-preserving mapping.
+同样， 有效的缺省类和执行空间 (从[type.__prepare__()](https://docs.python.org/3.6/reference/datamodel.html#prepare)返回)是一个保存插入顺序的映射。
 
-See also
+另请参阅
 
-[**PEP 520**][60] - Preserving Class
-Attribute Definition Order
+[**PEP 520**](https://www.python.org/dev/peps/pep-0520) - 保存类属性定义顺序
 
-	PEP written and implemented by Eric Snow.
+    该PEP由Eric Snow编写和实现。
 
-### PEP 468: Preserving Keyword Argument Order¶
+### PEP 468: 保存关键字参数顺序¶
 
-`**kwargs` in a function signature is now guaranteed to be an insertion-order-
-preserving mapping.
+函数声明中的`**kwargs` 的顺序现在被保证是插入顺序的映射。
 
-See also
+另请参阅
 
-[**PEP 468**][61] - Preserving Keyword
-Argument Order
+[**PEP 468**](https://www.python.org/dev/peps/pep-0468) - 保存关键字参数顺序
 
-	PEP written and implemented by Eric Snow.
+    该PEP由Eric Snow编写和实现。
 
-### New [dict][62]
-implementation¶
+### 新的 [字典dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型的实现¶
 
-The [dict][63]
-type now uses a "compact" representation [pioneered by
-PyPy](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-
-more.html). The memory usage of the new
-[`dict()`][64] is
-between 20% and 25% smaller compared to Python 3.5.
+[字典dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型现在使用 [PyPy首创](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html)的 "紧凑" 表达方式。 新[`字典dict()`](https://docs.python.org/3.6/library/stdtypes.html#dict "dict" ) 的内存占用比Python3.5中减少20%到25%。
 
-The order-preserving aspect of this new implementation is considered an
-implementation detail and should not be relied upon (this may change in the
-future, but it is desired to have this new dict implementation in the language
-for a few releases before changing the language spec to mandate order-
-preserving semantics for all current and future Python implementations; this
-also helps preserve backwards-compatibility with older versions of the
-language where random iteration order is still in effect, e.g. Python 3.5).
+新的实现中保存顺序的功能被认为是不可过于依赖的(未来也许会改变，不过在将所有当前和未来的Python实现的语言规范转换为保证顺序的语法之前的几个版本中，新的dict有望被实现的; 这也能帮助保证对那些仍旧是随机迭代顺序的旧版本的向后兼容，比如Python 3.5)。
 
-(Contributed by INADA Naoki in [issue
-27350](https://bugs.python.org/issue27350). Idea [originally suggested by
-Raymond Hettinger](https://mail.python.org/pipermail/python-
-dev/2012-December/123028.html).)
+(由INADA Naoki在[issue 27350](https://bugs.python.org/issue27350)提供。 想法 [最初由Raymond Hettinger提出](https://mail.python.org/pipermail/python-dev/2012-December/123028.html).)
 
 ### PEP 523: Adding a frame evaluation API to CPython¶
 
@@ -1400,11 +1357,9 @@ Added methods `trace_add()`, `trace_remove()` and `trace_info()` in the
 commands and might not work in future versions of Tcl. (Contributed by Serhiy
 Storchaka in [issue 22115][144]).
 
-### traceback¶
+### traceback
 
-Both the traceback module and the interpreter's builtin exception display now
-abbreviate long sequences of repeated lines in tracebacks as shown in the
-following example:
+traceback模块和解释器内置的异常展示现在都省略回溯中重复行的长串，如以下例子所示：
 
 ```
 
@@ -1421,72 +1376,34 @@ following example:
 
 ```
 
-(Contributed by Emanuel Barry in [issue
-26823](https://bugs.python.org/issue26823).)
+(由Emanuel Barry在[issue 26823](https://bugs.python.org/issue26823)中贡献。)
 
-### tracemalloc¶
+### tracemalloc
 
-The [`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html
-# module-tracemalloc "tracemalloc: Trace memory allocations." ) module now
-supports tracing memory allocations in multiple different address spaces.
+[`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-tracemalloc)模块限制支持跟踪多个不同地址空间内的内存分配。
 
-The new [`DomainFilter`](https://docs.python.org/3.6/library/tracemalloc.html\#
-tracemalloc.DomainFilter "tracemalloc.DomainFilter" ) filter class has been
-added to filter block traces by their address space (domain).
+已添加新的[`DomainFilter`](https://docs.python.org/3.6/library/tracemalloc.html#tracemalloc.DomainFilter "tracemalloc.DomainFilter" )过滤器类来根据地址空间（域）过滤块跟踪。
 
-(Contributed by Victor Stinner in [issue
-26588](https://bugs.python.org/issue26588).)
+(由Victor Stinner在[issue 26588](https://bugs.python.org/issue26588)中贡献。)
 
-### typing¶
+### typing
 
-Starting with Python 3.6 the
-[`typing`](https://docs.python.org/3.6/library/typing.html#module-typing
-"typing: Support for type hints \(see PEP 484\)." ) module is no longer
-provisional and its API is considered stable.
+从Python 3.6起，[`typing`](https://docs.python.org/3.6/library/typing.html#module-typing "typing: Support for type hints \(see PEP 484\)." )模块不再是临时的了，可以把它的API当成稳定版本使用。
 
-Since the [`typing`](https://docs.python.org/3.6/library/typing.html#module-
-typing "typing: Support for type hints \(see PEP 484\)." ) module was
-[provisional][145]
-in Python 3.5, all changes introduced in Python 3.6 have also been backported
-to Python 3.5.x.
+由于[`typing`](https://docs.python.org/3.6/library/typing.html#module-typing "typing: Support for type hints \(see PEP 484\)." )模块在Python 3.5中是[临时的](https://docs.python.org/3.6/glossary.html#term-provisional-api)，因此Python 3.6中引入的所有变动也已向后移植到Python 3.5.x。
 
-The [`typing`](https://docs.python.org/3.6/library/typing.html#module-typing
-"typing: Support for type hints \(see PEP 484\)." ) module has a much improved
-support for generic type aliases. For example `Dict[str, Tuple[S, T]]` is now
-a valid type annotation. (Contributed by Guido van Rossum in [Github
-# 195](https://github.com/python/typing/pull/195).)
+[`typing`](https://docs.python.org/3.6/library/typing.html#module-typing "typing: Support for type hints \(see PEP 484\)." )模块很大提高了对范型别名的支持。例如，`Dict[str, Tuple[S, T]]`现在是一个有效的类型注释了。(由Guido van Rossum在[Github #195](https://github.com/python/typing/pull/195)中贡献。)
 
-The [`typing.ContextManager`](https://docs.python.org/3.6/library/typing.html\#
-typing.ContextManager "typing.ContextManager" ) class has been added for
-representing [`contextlib.AbstractContextManager`](https://docs.python.org/3.6
-/library/contextlib.html#contextlib.AbstractContextManager
-"contextlib.AbstractContextManager" ). (Contributed by Brett Cannon in [issue
-25609](https://bugs.python.org/issue25609).)
+已添加[`typing.ContextManager`](https://docs.python.org/3.6/library/typing.html#typing.ContextManager "typing.ContextManager" )类来展示[`contextlib.AbstractContextManager`](https://docs.python.org/3.6/library/contextlib.html#contextlib.AbstractContextManager "contextlib.AbstractContextManager" )。 (由Brett Cannon在[issue 25609](https://bugs.python.org/issue25609)中贡献。)
 
-The [`typing.Collection`](https://docs.python.org/3.6/library/typing.html#typi
-ng.Collection "typing.Collection" ) class has been added for representing [\`co
-llections.abc.Collection\`](https://docs.python.org/3.6/library/collections.abc
-.html#collections.abc.Collection "collections.abc.Collection" ). (Contributed
-by Ivan Levkivskyi in [issue 27598][146].)
+已添加[`typing.Collection`](https://docs.python.org/3.6/library/typing.html#typing.Collection "typing.Collection" )类来展示[`collections.abc.Collection`](https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Collection "collections.abc.Collection" )。 (由Ivan Levkivskyi在[issue 27598](https://bugs.python.org/issue27598)中贡献。)
 
-The [`typing.ClassVar`](https://docs.python.org/3.6/library/typing.html#typing
-.ClassVar "typing.ClassVar" ) type construct has been added to mark class
-variables. As introduced in [\*\*PEP
-526\*\*](https://www.python.org/dev/peps/pep-0526), a variable annotation
-wrapped in ClassVar indicates that a given attribute is intended to be used as
-a class variable and should not be set on instances of that class.
-(Contributed by Ivan Levkivskyi in [Github
-# 280](https://github.com/python/typing/issues/280).)
+已添加[`typing.ClassVar`](https://docs.python.org/3.6/library/typing.html#typing.ClassVar "typing.ClassVar" )类型构造，来标识类变量。如[\*\*PEP 526\*\*](https://www.python.org/dev/peps/pep-0526)中所述，封装在ClassVar中的一个变量注释暗示着一个给定的属性打算作为一个类变量使用，并且不应该在那个类的实例上设置它。(由Ivan Levkivskyi在[Github #280](https://github.com/python/typing/issues/280)中贡献。)
 
-A new [`TYPE_CHECKING`](https://docs.python.org/3.6/library/typing.html#typing
-.TYPE\_CHECKING "typing.TYPE\_CHECKING" ) constant that is assumed to be `True`
-by the static type chekers, but is `False` at runtime. (Contributed by Guido
-van Rossum in [Github #230][147].)
+一个新的[`TYPE_CHECKING`](https://docs.python.org/3.6/library/typing.html#typing.TYPE\_CHECKING "typing.TYPE\_CHECKING" )常量被静态类型检查器假设为`True`，但在运行时则为`False`。 (由Guido van Rossum在[Github #230](https://github.com/python/typing/issues/230)中贡献。)
 
-A new
-[`NewType()`](https://docs.python.org/3.6/library/typing.html#typing.NewType
-"typing.NewType" ) helper function has been added to create lightweight
-distinct types for annotations:
+已添加一个新的[`NewType()`](https://docs.python.org/3.6/library/typing.html#typing.NewType
+"typing.NewType" )辅助函数来为注释创建轻量单值类型：
 
 ```
 
@@ -1497,9 +1414,7 @@ distinct types for annotations:
 
 ```
 
-The static type checker will treat the new type as if it were a subclass of
-the original type. (Contributed by Ivan Levkivskyi in [Github
-# 189](https://github.com/python/typing/issues/189).)
+静态类型检查器将会把新的类型当成原始类型的一个子类。 (由Ivan Levkivskyi在[Github #189](https://github.com/python/typing/issues/189)中贡献。)
 
 ### unicodedata¶
 
@@ -1664,23 +1579,23 @@ Zhang in [issue 16764][161] respectively.)
   * [`xml.etree.ElementTree`][196] parsing, iteration and deepcopy performance has been significantly improved. (Contributed by Serhiy Storchaka in [issue 25638][197], [issue 25873][198], and [issue 25869][199].)
   * Creation of [`fractions.Fraction`][200] instances from floats and decimals is now 2 to 3 times faster. (Contributed by Serhiy Storchaka in [issue 25971][201].)
 
-## Build and C API Changes¶
+## 构建和C API变动
 
-  * Python now requires some C99 support in the toolchain to build. Most notably, Python now uses standard integer types and macros in place of custom macros like `PY_LONG_LONG`. For more information, see [**PEP 7**][202] and [issue 17884][203].
-  * Cross-compiling CPython with the Android NDK and the Android API level set to 21 (Android 5.0 Lollilop) or greater runs successfully. While Android is not yet a supported platform, the Python test suite runs on the Android emulator with only about 16 tests failures. See the Android meta-issue [issue 26865][204].
-  * The `--enable-optimizations` configure flag has been added. Turning it on will activate expensive optimizations like PGO. (Original patch by Alecsandru Patrascu of Intel in [issue 26539][205].)
-  * The [GIL][206] must now be held when allocator functions of [`PYMEM_DOMAIN_OBJ`][207] (ex: `PyObject_Malloc()`) and [`PYMEM_DOMAIN_MEM`][208] (ex: [`PyMem_Malloc()`][209]) domains are called.
-  * New [`Py_FinalizeEx()`][210] API which indicates if flushing buffered data failed. (Contributed by Martin Panter in [issue 5319][211].)
-  * [`PyArg_ParseTupleAndKeywords()`][212] now supports [positional-only parameters][213]. Positional-only parameters are defined by empty names. (Contributed by Serhiy Storchaka in [issue 26282][214]).
-  * `PyTraceback_Print` method now abbreviates long sequences of repeated lines as `"[Previous line repeated {count} more times]"`. (Contributed by Emanuel Barry in [issue 26823][215].)
-  * The new [`PyErr_SetImportErrorSubclass()`][216] function allows for specifying a subclass of [`ImportError`][217] to raise. (Contributed by Eric Snow in [issue 15767][218].)
-  * The new [`PyErr_ResourceWarning()`][219] function can be used to generate a [`ResourceWarning`][220] providing the source of the resource allocation. (Contributed by Victor Stinner in [issue 26567][221].)
-  * The new [`PyOS_FSPath()`][222] function returns the file system representation of a [path-like object][223]. (Contributed by Brett Cannon in [issue 27186][224].)
-  * The [`PyUnicode_FSConverter()`][225] and [`PyUnicode_FSDecoder()`][226] functions will now accept [path-like objects][227].
+  * Python现在构建需要工具链中的一些C99支持。最值得注意的是，Python现在使用标准的整型类型和宏来替代诸如`PY_LONG_LONG`的自定义宏。欲知详情，见[**PEP 7**](https://www.python.org/dev/peps/pep-0007)和[issue 17884](https://bugs.python.org/issue17884)。
+  * 带Android NDK和Android API level 21 (Android 5.0 Lollilop) 或者更高版本交叉编译CPython可以成功运行。虽然Android尚未是一个支持的平台，但是Python测试套件在Android模拟器上运行只有大约16个测试错误。见Android元问题[issue 26865](https://bugs.python.org/issue26865)。
+  * 已添加`--enable-optimizations`配置标志。打开它将会激活昂贵的优化，例如PGO。(原始补丁由Intel的Alecsandru Patrascu在[issue 26539](https://bugs.python.org/issue26539)中提出。)
+  * 当[`PYMEM_DOMAIN_OBJ`](https://docs.python.org/3.6/c-api/memory.html#c.PYMEM_DOMAIN_OBJ) (例如：`PyObject_Malloc()`)和[`PYMEM_DOMAIN_MEM`](https://docs.python.org/3.6/c-api/memory.html#c.PYMEM_DOMAIN_MEM) (例如：[`PyMem_Malloc()`](https://docs.python.org/3.6/c-api/memory.html#c.PyMem_Malloc))域的分配函数被调用的时候，现在必须使用[GIL](https://docs.python.org/3.6/glossary.html#term-global-interpreter-lock)。
+  * 新的[`Py_FinalizeEx()`](https://docs.python.org/3.6/c-api/init.html#c.Py_FinalizeEx) API，它表示是否清除缓冲数据失败。 (由Martin Panter在[issue 5319](https://bugs.python.org/issue5319)中贡献。)
+  * [`PyArg_ParseTupleAndKeywords()`](https://docs.python.org/3.6/c-api/arg.html#c.PyArg_ParseTupleAndKeywords)现在支持[仅位置参数](https://docs.python.org/3.6/glossary.html#positional-only-parameter)。仅位置参数是由空名称定义的。 (由Serhiy Storchaka在[issue 26282](https://bugs.python.org/issue26282)中贡献)。
+  * `PyTraceback_Print`方法现在省略了重复行的长串，变成`"[Previous line repeated {count} more times]"`。 (由Emanuel Barry在[issue 26823](https://bugs.python.org/issue26823)中贡献。)
+  * 新的[`PyErr_SetImportErrorSubclass()`](https://docs.python.org/3.6/c-api/exceptions.html#c.PyErr_SetImportErrorSubclass)函数指定要引发的[`ImportError`](https://docs.python.org/3.6/library/exceptions.html#ImportError)的子类。 (由Eric Snow在[issue 15767](https://bugs.python.org/issue15767)中贡献。)
+  * 新的[`PyErr_ResourceWarning()`](https://docs.python.org/3.6/c-api/exceptions.html#c.PyErr_ResourceWarning)函数可以被用来生成一个[`ResourceWarning`](https://docs.python.org/3.6/library/exceptions.html#ResourceWarning)，提供资源分配的来源。(由Victor Stinner在[issue 26567](https://bugs.python.org/issue26567)中贡献。)
+  * 新的[`PyOS_FSPath()`](https://docs.python.org/3.6/c-api/sys.html#c.PyOS_FSPath)函数返回一个[类路径(path-like)对象](https://docs.python.org/3.6/glossary.html#term-path-like-object)的文件系统表示。(由Brett Cannon在[issue 27186](https://bugs.python.org/issue27186)中贡献。)
+  * [`PyUnicode_FSConverter()`](https://docs.python.org/3.6/c-api/unicode.html#c.PyUnicode_FSConverter)和[`PyUnicode_FSDecoder()`](https://docs.python.org/3.6/c-api/unicode.html#c.PyUnicode_FSDecoder)函数现在会接受[类路径(path-like)对象](https://docs.python.org/3.6/glossary.html#term-path-like-object)。
 
-## Other Improvements¶
+## 其他改进
 
-  * When [`--version`][228] (short form: [`-V`][229]) is supplied twice, Python prints [`sys.version`][230] for detailed information.
+  * 当使用[`--version`](https://docs.python.org/3.6/using/cmdline.html#cmdoption--version) (短格式：[`-V`](https://docs.python.org/3.6/using/cmdline.html#cmdoption-V))两次的时候，Python打印[`sys.version`](https://docs.python.org/3.6/library/sys.html#sys.version)以获得详细信息。
 ```     
 $ ./python -VV
 
