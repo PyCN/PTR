@@ -1557,27 +1557,27 @@ The [`compress()`](https://docs.python.org/3.6/library/zlib.html#zlib.compress
 Aviv Palivoda in [issue 26243][160] and Xiang
 Zhang in [issue 16764][161] respectively.)
 
-## Optimizations¶
+## 优化
 
-  * The Python interpreter now uses a 16-bit wordcode instead of bytecode which made a number of opcode optimizations possible. (Contributed by Demur Rumed with input and reviews from Serhiy Storchaka and Victor Stinner in [issue 26647][162] and [issue 28050][163].)
-  * The [`asyncio.Future`][164] class now has an optimized C implementation. (Contributed by Yury Selivanov and INADA Naoki in [issue 26081][165].)
-  * The [`asyncio.Task`][166] class now has an optimized C implementation. (Contributed by Yury Selivanov in [issue 28544][167].)
-  * Various implementation improvements in the [`typing`][168] module (such as caching of generic types) allow up to 30 times performance improvements and reduced memory footprint.
-  * The ASCII decoder is now up to 60 times as fast for error handlers `surrogateescape`, `ignore` and `replace` (Contributed by Victor Stinner in [issue 24870][169]).
-  * The ASCII and the Latin1 encoders are now up to 3 times as fast for the error handler `surrogateescape` (Contributed by Victor Stinner in [issue 25227][170]).
-  * The UTF-8 encoder is now up to 75 times as fast for error handlers `ignore`, `replace`, `surrogateescape`, `surrogatepass` (Contributed by Victor Stinner in [issue 25267][171]).
-  * The UTF-8 decoder is now up to 15 times as fast for error handlers `ignore`, `replace` and `surrogateescape` (Contributed by Victor Stinner in [issue 25301][172]).
-  * `bytes % args` is now up to 2 times faster. (Contributed by Victor Stinner in [issue 25349][173]).
-  * `bytearray % args` is now between 2.5 and 5 times faster. (Contributed by Victor Stinner in [issue 25399][174]).
-  * Optimize [`bytes.fromhex()`][175] and [`bytearray.fromhex()`][176]: they are now between 2x and 3.5x faster. (Contributed by Victor Stinner in [issue 25401][177]).
-  * Optimize `bytes.replace(b'', b'.')` and `bytearray.replace(b'', b'.')`: up to 80% faster. (Contributed by Josh Snider in [issue 26574][178]).
-  * Allocator functions of the [`PyMem_Malloc()`][179] domain ([`PYMEM_DOMAIN_MEM`][180]) now use the [pymalloc memory allocator][181] instead of `malloc()` function of the C library. The pymalloc allocator is optimized for objects smaller or equal to 512 bytes with a short lifetime, and use `malloc()` for larger memory blocks. (Contributed by Victor Stinner in [issue 26249][182]).
-  * [`pickle.load()`][183] and [`pickle.loads()`][184] are now up to 10% faster when deserializing many small objects (Contributed by Victor Stinner in [issue 27056][185]).
-  * Passing [keyword arguments][186] to a function has an overhead in comparison with passing [positional arguments][187]. Now in extension functions implemented with using Argument Clinic this overhead is significantly decreased. (Contributed by Serhiy Storchaka in [issue 27574][188]).
-  * Optimized [`glob()`][189] and [`iglob()`][190] functions in the [`glob`][191] module; they are now about 3-6 times faster. (Contributed by Serhiy Storchaka in [issue 25596][192]).
-  * Optimized globbing in [`pathlib`][193] by using [`os.scandir()`][194]; it is now about 1.5-4 times faster. (Contributed by Serhiy Storchaka in [issue 26032][195]).
-  * [`xml.etree.ElementTree`][196] parsing, iteration and deepcopy performance has been significantly improved. (Contributed by Serhiy Storchaka in [issue 25638][197], [issue 25873][198], and [issue 25869][199].)
-  * Creation of [`fractions.Fraction`][200] instances from floats and decimals is now 2 to 3 times faster. (Contributed by Serhiy Storchaka in [issue 25971][201].)
+  * Python解释器现在使用16位编码而不是字节码，这使得你可以实现多种操作码的优化。(由Demur Rumed，Serhiy Storchaka和Victor Stinner在[issue 26647][162] 以及 [issue 28050][163]中贡献。)
+  * [`asyncio.Future`][164]类现在有一种优化的C实现。(由Yury Selivanov和INADA Naoki在[issue 26081][165]中贡献。)
+  * [`asyncio.Task`][166]类现在有一种优化的C实现。(由Yury Selivanov在[issue 28544][167]中贡献。)
+  * 在[`typing`][168]模块中通过各种改进的实施(如泛型类型的缓存)，使得其允许高达30倍的性能优化，并且减少了内存占用。
+  * ASCII解码器的错误处理程序 `surrogateescape`, `ignore` 以及 `replace` 速度提高了60倍。(由Victor Stinner在[issue 24870][169]中贡献)。
+  * ASCII和Latin1解码器的错误处理程序 `surrogateescape` 速度提高了3倍。(由Victor Stinner在[issue 25227][170]中贡献)。
+  * UTF-8解码器的错误处理程序 `ignore`, `replace`, `surrogateescape`, `surrogatepass`速度提高了75倍。(由Victor Stinner在[issue 25267][171]中贡献)。
+  * UTF-8解码器的错误处理程序`ignore`, `replace` and `surrogateescape`速度提高了15倍。由Victor Stinner在[issue 25301][172]中贡献)。
+  * `bytes % args`现在速度可以提高到2倍。(由Victor Stinner在[issue 25349][173]中贡献)。
+  * `bytearray % args` 现在速度是以前的2.5到5倍。(由Victor Stinner在[issue 25399][174]中贡献)。
+  * 对[`bytes.fromhex()`][175]和[`bytearray.fromhex()`][176]进行优化:现在比以前快2x到3.5x倍。(由Victor Stinner在[issue 25401][177]中贡献)。
+  * 对`bytes.replace(b'', b'.')`和`bytearray.replace(b'', b'.')`进行优化:速度可提高80%。 (由Josh Snider在[issue 26574][178]中贡献)。
+  * 现在[`PyMem_Malloc()`][179]域([`PYMEM_DOMAIN_MEM`][180])的分配函数使用[pymalloc memory allocator][181]，而不是C库中的`malloc()`函数。 pymalloc分配器针对大小小于等于512字节、生命周期较短的对象进行了优化，而当需要占用较大内存块时则使用`malloc()`。 (由Victor Stinner在[issue 26249][182]中贡献)。
+  * 当对大量小对象进行反序列化时，[`pickle.load()`][183]和[`pickle.loads()`][184]的速度可提高10%。(由Victor Stinner在[issue 27056][185]中贡献)。
+  * 与传递[positional arguments][187]相比，将[keyword arguments][186]传递给函数会带来额外的开销。 现在在通过使用Argument Clinic实现的扩展功能中，这种开销将会显著的降低。(由Serhiy Storchaka在[issue 27574][188]中贡献)。
+  *对[`glob`][191]模块中的[`glob()`][189]及[`iglob()`][190]进行优化;使得它们现在大概快了3-6倍。(由Serhiy Storchaka在[issue 25596][192]中贡献)。
+  * 使用[`os.scandir()`][194]对[`pathlib`][193]中的glob进行优化;使它大概快了1.5-4倍。(由Serhiy Storchaka在[issue 26032][195]中贡献)。
+  * [`xml.etree.ElementTree`][196]中解析、迭代和深拷贝的性能有了显著的提高。 (由Serhiy Storchaka在[issue 25638][197]、[issue 25873][198]及[issue 25869][199]中贡献。)
+  * 由浮点数和小数创建[`fractions.Fraction`][200]实例的速度提高了2到3倍。(由Serhiy Storchaka在[issue 25971][201]中贡献。)
 
 ## 构建和C API变动
 
