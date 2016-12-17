@@ -1628,23 +1628,23 @@ Zhang in [issue 16764][161] respectively.)
   * [`xml.etree.ElementTree`][196] parsing, iteration and deepcopy performance has been significantly improved. (Contributed by Serhiy Storchaka in [issue 25638][197], [issue 25873][198], and [issue 25869][199].)
   * Creation of [`fractions.Fraction`][200] instances from floats and decimals is now 2 to 3 times faster. (Contributed by Serhiy Storchaka in [issue 25971][201].)
 
-## Build and C API Changes¶
+## 构建和C API变动
 
-  * Python now requires some C99 support in the toolchain to build. Most notably, Python now uses standard integer types and macros in place of custom macros like `PY_LONG_LONG`. For more information, see [**PEP 7**][202] and [issue 17884][203].
-  * Cross-compiling CPython with the Android NDK and the Android API level set to 21 (Android 5.0 Lollilop) or greater runs successfully. While Android is not yet a supported platform, the Python test suite runs on the Android emulator with only about 16 tests failures. See the Android meta-issue [issue 26865][204].
-  * The `--enable-optimizations` configure flag has been added. Turning it on will activate expensive optimizations like PGO. (Original patch by Alecsandru Patrascu of Intel in [issue 26539][205].)
-  * The [GIL][206] must now be held when allocator functions of [`PYMEM_DOMAIN_OBJ`][207] (ex: `PyObject_Malloc()`) and [`PYMEM_DOMAIN_MEM`][208] (ex: [`PyMem_Malloc()`][209]) domains are called.
-  * New [`Py_FinalizeEx()`][210] API which indicates if flushing buffered data failed. (Contributed by Martin Panter in [issue 5319][211].)
-  * [`PyArg_ParseTupleAndKeywords()`][212] now supports [positional-only parameters][213]. Positional-only parameters are defined by empty names. (Contributed by Serhiy Storchaka in [issue 26282][214]).
-  * `PyTraceback_Print` method now abbreviates long sequences of repeated lines as `"[Previous line repeated {count} more times]"`. (Contributed by Emanuel Barry in [issue 26823][215].)
-  * The new [`PyErr_SetImportErrorSubclass()`][216] function allows for specifying a subclass of [`ImportError`][217] to raise. (Contributed by Eric Snow in [issue 15767][218].)
-  * The new [`PyErr_ResourceWarning()`][219] function can be used to generate a [`ResourceWarning`][220] providing the source of the resource allocation. (Contributed by Victor Stinner in [issue 26567][221].)
-  * The new [`PyOS_FSPath()`][222] function returns the file system representation of a [path-like object][223]. (Contributed by Brett Cannon in [issue 27186][224].)
-  * The [`PyUnicode_FSConverter()`][225] and [`PyUnicode_FSDecoder()`][226] functions will now accept [path-like objects][227].
+  * Python现在构建需要工具链中的一些C99支持。最值得注意的是，Python现在使用标准的整型类型和宏来替代诸如`PY_LONG_LONG`的自定义宏。欲知详情，见[**PEP 7**](https://www.python.org/dev/peps/pep-0007)和[issue 17884](https://bugs.python.org/issue17884)。
+  * 带Android NDK和Android API level 21 (Android 5.0 Lollilop) 或者更高版本交叉编译CPython可以成功运行。虽然Android尚未是一个支持的平台，但是Python测试套件在Android模拟器上运行只有大约16个测试错误。见Android元问题[issue 26865](https://bugs.python.org/issue26865)。
+  * 已添加`--enable-optimizations`配置标志。打开它将会激活昂贵的优化，例如PGO。(原始补丁由Intel的Alecsandru Patrascu在[issue 26539](https://bugs.python.org/issue26539)中提出。)
+  * 当[`PYMEM_DOMAIN_OBJ`](https://docs.python.org/3.6/c-api/memory.html#c.PYMEM_DOMAIN_OBJ) (例如：`PyObject_Malloc()`)和[`PYMEM_DOMAIN_MEM`](https://docs.python.org/3.6/c-api/memory.html#c.PYMEM_DOMAIN_MEM) (例如：[`PyMem_Malloc()`](https://docs.python.org/3.6/c-api/memory.html#c.PyMem_Malloc))域的分配函数被调用的时候，现在必须使用[GIL](https://docs.python.org/3.6/glossary.html#term-global-interpreter-lock)。
+  * 新的[`Py_FinalizeEx()`](https://docs.python.org/3.6/c-api/init.html#c.Py_FinalizeEx) API，它表示是否清除缓冲数据失败。 (由Martin Panter在[issue 5319](https://bugs.python.org/issue5319)中贡献。)
+  * [`PyArg_ParseTupleAndKeywords()`](https://docs.python.org/3.6/c-api/arg.html#c.PyArg_ParseTupleAndKeywords)现在支持[仅位置参数](https://docs.python.org/3.6/glossary.html#positional-only-parameter)。仅位置参数是由空名称定义的。 (由Serhiy Storchaka在[issue 26282](https://bugs.python.org/issue26282)中贡献)。
+  * `PyTraceback_Print`方法现在省略了重复行的长串，变成`"[Previous line repeated {count} more times]"`。 (由Emanuel Barry在[issue 26823](https://bugs.python.org/issue26823)中贡献。)
+  * 新的[`PyErr_SetImportErrorSubclass()`](https://docs.python.org/3.6/c-api/exceptions.html#c.PyErr_SetImportErrorSubclass)函数指定要引发的[`ImportError`](https://docs.python.org/3.6/library/exceptions.html#ImportError)的子类。 (由Eric Snow在[issue 15767](https://bugs.python.org/issue15767)中贡献。)
+  * 新的[`PyErr_ResourceWarning()`](https://docs.python.org/3.6/c-api/exceptions.html#c.PyErr_ResourceWarning)函数可以被用来生成一个[`ResourceWarning`](https://docs.python.org/3.6/library/exceptions.html#ResourceWarning)，提供资源分配的来源。(由Victor Stinner在[issue 26567](https://bugs.python.org/issue26567)中贡献。)
+  * 新的[`PyOS_FSPath()`](https://docs.python.org/3.6/c-api/sys.html#c.PyOS_FSPath)函数返回一个[类路径(path-like)对象](https://docs.python.org/3.6/glossary.html#term-path-like-object)的文件系统表示。(由Brett Cannon在[issue 27186](https://bugs.python.org/issue27186)中贡献。)
+  * [`PyUnicode_FSConverter()`](https://docs.python.org/3.6/c-api/unicode.html#c.PyUnicode_FSConverter)和[`PyUnicode_FSDecoder()`](https://docs.python.org/3.6/c-api/unicode.html#c.PyUnicode_FSDecoder)函数现在会接受[类路径(path-like)对象](https://docs.python.org/3.6/glossary.html#term-path-like-object)。
 
-## Other Improvements¶
+## 其他改进
 
-  * When [`--version`][228] (short form: [`-V`][229]) is supplied twice, Python prints [`sys.version`][230] for detailed information.
+  * 当使用[`--version`](https://docs.python.org/3.6/using/cmdline.html#cmdoption--version) (短格式：[`-V`](https://docs.python.org/3.6/using/cmdline.html#cmdoption-V))两次的时候，Python打印[`sys.version`](https://docs.python.org/3.6/library/sys.html#sys.version)以获得详细信息。
 ```     
 $ ./python -VV
 
