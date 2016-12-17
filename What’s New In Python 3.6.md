@@ -1573,7 +1573,7 @@ Zhang in [issue 16764][161] respectively.)
   * 对`bytes.replace(b'', b'.')`和`bytearray.replace(b'', b'.')`进行优化:速度可提高80%。 (由Josh Snider在[issue 26574][178]中贡献)。
   * 现在[`PyMem_Malloc()`][179]域([`PYMEM_DOMAIN_MEM`][180])的分配函数使用[pymalloc memory allocator][181]，而不是C库中的`malloc()`函数。 pymalloc分配器针对大小小于等于512字节、生命周期较短的对象进行了优化，而当需要占用较大内存块时则使用`malloc()`。 (由Victor Stinner在[issue 26249][182]中贡献)。
   * 当对大量小对象进行反序列化时，[`pickle.load()`][183]和[`pickle.loads()`][184]的速度可提高10%。(由Victor Stinner在[issue 27056][185]中贡献)。
-  * 与传递[位置参数][187]相比，将[关键字参数][186]传递给函数会带来额外的开销。 现在在通过使用Argument Clinic实现的扩展功能中，这种开销将会显著的降低。(由Serhiy Storchaka在[issue 27574][188]中贡献)。
+  * 与传递[位置参数][187]相比，将[关键字参数][186]传递给函数会带来额外的开销。 现在在通过使用Argument Clinic实现的扩展功能中，这种开销将会显著的降低。(由Serhiy Storchaka在[issue 27574][188]中贡献)。
   * 对[`glob`][191]模块中的[`glob()`][189]及[`iglob()`][190]进行优化;使得它们现在大概快了3-6倍。(由Serhiy Storchaka在[issue 25596][192]中贡献)。
   * 使用[`os.scandir()`][194]对[`pathlib`][193]中的glob进行优化;使它大概快了1.5-4倍。(由Serhiy Storchaka在[issue 26032][195]中贡献)。
   * [`xml.etree.ElementTree`][196]中解析、迭代和深拷贝的性能有了显著的提高。 (由Serhiy Storchaka在[issue 25638][197]、[issue 25873][198]及[issue 25869][199]中贡献。)
