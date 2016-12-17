@@ -406,102 +406,59 @@ Disambiguation
 
 	PEP written by Alexander Belopolsky and Tim Peters, implementation by Alexander Belopolsky.
 
-### PEP 529: Change Windows filesystem encoding to UTF-8¶
+### PEP 529: 更改windows下文件系统编码格式为UTF-8¶
 
-Representing filesystem paths is best performed with str (Unicode) rather than
-bytes. However, there are some situations where using bytes is sufficient and
-correct.
+使用str (Unicode) 表示文件系统路径比bytes能获得更好的效果。尽管如此，在某些情况下bytes也足以胜任并且也是正确的。
 
-Prior to Python 3.6, data loss could result when using bytes paths on Windows.
-With this change, using bytes to represent paths is now supported on Windows,
-provided those bytes are encoded with the encoding returned by [\`sys.getfilesy
-stemencoding()\`](https://docs.python.org/3.6/library/sys.html#sys.getfilesyste
-mencoding "sys.getfilesystemencoding" ), which now defaults to `'utf-8'`.
+在3.6之前,使用bytes路径可能导致数据丢失。改进后, windows下现在支持使用bytes表示路径,这些bytes将以[`sys.getfilesy
+stemencoding()`](https://docs.python.org/3.6/library/sys.html#sys.getfilesystemencoding "sys.getfilesystemencoding" )的方式编码，默认编码格式为`'utf-8'`。
 
-Applications that do not use str to represent paths should use
-[`os.fsencode()`](https://docs.python.org/3.6/library/os.html#os.fsencode
-"os.fsencode" ) and
-[`os.fsdecode()`](https://docs.python.org/3.6/library/os.html#os.fsdecode
-"os.fsdecode" ) to ensure their bytes are correctly encoded. To revert to the
-previous behaviour, set [`PYTHONLEGACYWINDOWSFSENCODING`](https://docs.python.
-org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSFSENCODING) or call [\`sys
-.\_enablelegacywindowsfsencoding()\`](https://docs.python.org/3.6/library/sys.ht
-ml#sys.\_enablelegacywindowsfsencoding "sys.\_enablelegacywindowsfsencoding" ).
+不使用str方式表示路径的应用程序应当使用[`os.fsencode()`](https://docs.python.org/3.6/library/os.html#os.fsencode "os.fsencode" )和[`os.fsdecode()`](https://docs.python.org/3.6/library/os.html#os.fsdecode "os.fsdecode" ) 以确保他们的bytes被正确编码。要回复到之前的状态, 设置 [`PYTHONLEGACYWINDOWSFSENCODING`](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSFSENCODING) 或者调用 [`sys._enablelegacywindowsfsencoding()`](https://docs.python.org/3.6/library/sys.html#sys._enablelegacywindowsfsencoding "sys._enablelegacywindowsfsencoding" )。
 
-See [**PEP 529**][58] for more
-information and discussion of code modifications that may be required.
+查看 [**PEP 529**](https://www.python.org/dev/peps/pep-0529)以获取更多信息并讨论可能需要变更的代码。 
 
-### PEP 528: Change Windows console encoding to UTF-8¶
+### PEP 528: 更改windows控制台编码为UTF-8¶
 
-The default console on Windows will now accept all Unicode characters and
-provide correctly read str objects to Python code. `sys.stdin`, `sys.stdout`
-and `sys.stderr` now default to utf-8 encoding.
+windows下的默认控制台现在支持所有的Unicode字符并可以正确读取Python代码中的str对象。 `sys.stdin`, `sys.stdout`
+以及 `sys.stderr` 现在的默认使用utf-8编码。
 
-This change only applies when using an interactive console, and not when
-redirecting files or pipes. To revert to the previous behaviour for
-interactive console use, set [`PYTHONLEGACYWINDOWSIOENCODING`](https://docs.py
-thon.org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSIOENCODING).
+这一变化仅适用于使用交互控制台之时，而非重定向文件或者管道。如果要使用之前的交互控制台, 需设置 [`PYTHONLEGACYWINDOWSIOENCODING`](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSIOENCODING)。
 
-See also
+另请参阅
 
-[**PEP 528**][59] - Change Windows
-console encoding to UTF-8
+[**PEP 528**](https://www.python.org/dev/peps/pep-0528) - 修改windows控制台编码为UTF-8
 
-	PEP written and implemented by Steve Dower.
+    PEP 由Steve Dower编写和实现。
 
-### PEP 520: Preserving Class Attribute Definition Order¶
+### PEP 520: 保存类属性定义顺序¶
 
-Attributes in a class definition body have a natural ordering: the same order
-in which the names appear in the source. This order is now preserved in the
-new class's
-[`__dict__`](https://docs.python.org/3.6/library/stdtypes.html#object.\_\_dict\_\_
-"object.\_\_dict\_\_" ) attribute.
+类的定义体中的属性有一个自然顺序：即源码中属性名出现的顺序。 这个顺序现在保存在新的类[`__dict__`](https://docs.python.org/3.6/library/stdtypes.html#object.__dict__ "object.__dict__" ) 的属性中.
 
-Also, the effective default class _execution_ namespace (returned from [type.\_
-_prepare_\_()](https://docs.python.org/3.6/reference/datamodel.html#prepare))
-is now an insertion-order-preserving mapping.
+同样， 有效的缺省类和执行空间 (从[type.__prepare__()](https://docs.python.org/3.6/reference/datamodel.html#prepare)返回)是一个保存插入顺序的映射。
 
-See also
+另请参阅
 
-[**PEP 520**][60] - Preserving Class
-Attribute Definition Order
+[**PEP 520**](https://www.python.org/dev/peps/pep-0520) - 保存类属性定义顺序
 
-	PEP written and implemented by Eric Snow.
+    该PEP由Eric Snow编写和实现。
 
-### PEP 468: Preserving Keyword Argument Order¶
+### PEP 468: 保存关键字参数顺序¶
 
-`**kwargs` in a function signature is now guaranteed to be an insertion-order-
-preserving mapping.
+函数声明中的`**kwargs` 的顺序现在被保证是插入顺序的映射。
 
-See also
+另请参阅
 
-[**PEP 468**][61] - Preserving Keyword
-Argument Order
+[**PEP 468**](https://www.python.org/dev/peps/pep-0468) - 保存关键字参数顺序
 
-	PEP written and implemented by Eric Snow.
+    该PEP由Eric Snow编写和实现。
 
-### New [dict][62]
-implementation¶
+### 新的 [字典dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型的实现¶
 
-The [dict][63]
-type now uses a "compact" representation [pioneered by
-PyPy](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-
-more.html). The memory usage of the new
-[`dict()`][64] is
-between 20% and 25% smaller compared to Python 3.5.
+[字典dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型现在使用 [PyPy首创](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html)的 "紧凑" 表达方式。 新[`字典dict()`](https://docs.python.org/3.6/library/stdtypes.html#dict "dict" ) 的内存占用比Python3.5中减少20%到25%。
 
-The order-preserving aspect of this new implementation is considered an
-implementation detail and should not be relied upon (this may change in the
-future, but it is desired to have this new dict implementation in the language
-for a few releases before changing the language spec to mandate order-
-preserving semantics for all current and future Python implementations; this
-also helps preserve backwards-compatibility with older versions of the
-language where random iteration order is still in effect, e.g. Python 3.5).
+新的实现中保存顺序的功能被认为是不可过于依赖的(未来也许会改变，不过在将所有当前和未来的Python实现的语言规范转换为保证顺序的语法之前的几个版本中，新的dict有望被实现的; 这也能帮助保证对那些仍旧是随机迭代顺序的旧版本的向后兼容，比如Python 3.5)。
 
-(Contributed by INADA Naoki in [issue
-27350](https://bugs.python.org/issue27350). Idea [originally suggested by
-Raymond Hettinger](https://mail.python.org/pipermail/python-
-dev/2012-December/123028.html).)
+(由INADA Naoki在[issue 27350](https://bugs.python.org/issue27350)提供。 想法 [最初由Raymond Hettinger提出](https://mail.python.org/pipermail/python-dev/2012-December/123028.html).)
 
 ### PEP 523: Adding a frame evaluation API to CPython¶
 
