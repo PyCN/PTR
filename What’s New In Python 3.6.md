@@ -625,56 +625,45 @@ Module To The Standard Library
 
 ### array¶
 
-Exhausted iterators of
-[`array.array`](https://docs.python.org/3.6/library/array.html#array.array
-"array.array" ) will now stay exhausted even if the iterated array is
-extended. This is consistent with the behavior of other mutable sequences.
+耗尽的迭代器[`array.array`](https://docs.python.org/3.6/library/array.html#array.array)现在将会保持被耗尽，即使被迭代的数组被拓展了。这与其他可变序列的行为保持了一致性。
 
-Contributed by Serhiy Storchaka in [issue
-26492](https://bugs.python.org/issue26492).
+由Serhiy Storchaka在[issue
+26492](https://bugs.python.org/issue26492)中贡献
+
 
 ### ast¶
 
-The new `ast.Constant` AST node has been added. It can be used by external AST
-optimizers for the purposes of constant folding.
+添加了新的`ast.Constant`的AST节点。它可以被外部的AST优化器出于永久聚合(constant foldind)。
 
-Contributed by Victor Stinner in [issue
-26146](https://bugs.python.org/issue26146).
+由Victor Stinner在[issue
+26146](https://bugs.python.org/issue26146)中贡献
 
 ### asyncio¶
 
-Starting with Python 3.6 the `asyncio` module is no longer provisional and its
-API is considered stable.
+始于Python 3.6，`asyncio`模块将不再是临时的了，并且它的API被认为是稳定的。
 
-Notable changes in the
-[`asyncio`](https://docs.python.org/3.6/library/asyncio.html#module-asyncio
-"asyncio: Asynchronous I/O, event loop, coroutines and tasks." ) module since
-Python 3.5.0 (all backported to 3.5.x due to the provisional status):
+从Python 3.5开始，在`asyncio`模块中值得注意的变化（由于临时的状态，所有的修改都应用到了3.5.x）:
 
-  * The [`get_event_loop()`][81] function has been changed to always return the currently running loop when called from couroutines and callbacks. (Contributed by Yury Selivanov in [issue 28613][82].)
-  * The [`ensure_future()`][83] function and all functions that use it, such as `loop.run_until_complete()`, now accept all kinds of [awaitable objects][84]. (Contributed by Yury Selivanov.)
-  * New [`run_coroutine_threadsafe()`][85] function to submit coroutines to event loops from other threads. (Contributed by Vincent Michel.)
-  * New [`Transport.is_closing()`][86] method to check if the transport is closing or closed. (Contributed by Yury Selivanov.)
-  * The `loop.create_server()` method can now accept a list of hosts. (Contributed by Yann Sionneau.)
-  * New `loop.create_future()` method to create Future objects. This allows alternative event loop implementations, such as [uvloop][87], to provide a faster [`asyncio.Future`][88] implementation. (Contributed by Yury Selivanov in [issue 27041][89].)
-  * New `loop.get_exception_handler()` method to get the current exception handler. (Contributed by Yury Selivanov in [issue 27040][90].)
-  * New [`StreamReader.readuntil()`][91] method to read data from the stream until a separator bytes sequence appears. (Contributed by Mark Korenberg.)
-  * The performance of [`StreamReader.readexactly()`][92] has been improved. (Contributed by Mark Korenberg in [issue 28370][93].)
-  * The `loop.getaddrinfo()` method is optimized to avoid calling the system `getaddrinfo` function if the address is already resolved. (Contributed by A. Jesse Jiryu Davis.)
-  * The `loop.stop()` method has been changed to stop the loop immediately after the current iteration. Any new callbacks scheduled as a result of the last iteration will be discarded. (Contributed by Guido van Rossum in [issue 25593][94].)
-  * `Future.set_exception` will now raise [`TypeError`][95] when passed an instance of the [`StopIteration`][96] exception. (Contributed by Chris Angelico in [issue 26221][97].)
-  * New [`loop.connect_accepted_socket()`][98] method to be used by servers that accept connections outside of asyncio, but that use asyncio to handle them. (Contributed by Jim Fulton in [issue 27392][99].)
-  * `TCP_NODELAY` flag is now set for all TCP transports by default. (Contributed by Yury Selivanov in [issue 27456][100].)
-  * New [`loop.shutdown_asyncgens()`][101] to properly close pending asynchronous generators before closing the loop. (Contributed by Yury Selivanov in [issue 28003][102].)
-  * [`Future`][103] and [`Task`][104] classes now have an optimized C implementation which makes asyncio code up to 30% faster. (Contributed by Yury Selivanov and INADA Naoki in [issue 26081][105] and [issue 28544][106].)
+  * [`get_event_loop()`](https://docs.python.org/3.6/library/asyncio-eventloops.html#asyncio.get_event_loop "asyncio.get_event_loop" )函数已经被改变为，当从协同程序中调用和被回调调用时，总是返回当前正在运行的循环。（由 Yury Selivanovgong贡献于[issue 28613](https://bugs.python.org/issue28613)。）
+  * [`ensure_future()`](https://docs.python.org/3.6/library/asyncio-task.html#asyncio.ensure_future "asyncio.ensure_future" )函数和所有使用其的函数，比如`loop.run_until_complete()`，现在接收所有种类的[awaitable objects](https://docs.python.org/3.6/glossary.html#term-awaitable)。（由 Yury Selivanov贡献）。
+  * 新的[`run_coroutine_threadsafe()`](https://docs.python.org/3.6/library/asyncio-task.html#asyncio.run_coroutine_threadsafe "asyncio.run_coroutine_threadsafe" )函数去从其他线程中提交协同程序到事件循环中。（由Vincent Michel贡献）
+  * 新的[`Transport.is_closing()`](https://docs.python.org/3.6/library/asyncio-protocol.html#asyncio.BaseTransport.is_closing "asyncio.BaseTransport.is_closing" )方法去检查是否传输是关闭的或被关闭了（由Yury Selivanov贡献）。
+  * `loop.creat_server()`现在可以以列表接收主机了。（由Yann Sionneaugong贡献）
+  * 新的`loop.creat_future()`方法去创建一个Future对象。这允许了替代事件循环的实现，比如[uvloop](https://github.com/MagicStack/uvloop)，去提供了一种更快的[`asyncio.Future`](https://docs.python.org/3.6/library/asyncio-task.html#asyncio.Future "asyncio.Future" )的实现。（由Yury Selivanov在[issue 27041](https://bugs.python.org/issue27041)中贡献）
+  * 新的`loop.get_exception_handler()`方法去得到一个当时的异常的句柄。（由Yury Selivanov在[issue 27040](https://bugs.python.org/issue27040)中贡献）
+  * 新的[`StreamReader.readuntil()`](https://docs.python.org/3.6/library/asyncio-stream.html#asyncio.StreamReader.readuntil "asyncio.StreamReader.readuntil" )方法从流中读取数据读取数据直到出现分隔符字符序列。（由Mark Korenberg贡献）
+  * [`StreamReader.readexactly()`](https://docs.python.org/3.6/library/asyncio-stream.html#asyncio.StreamReader.readexactly "asyncio.StreamReader.readexactly" )的表现被提升了。（由Mark Korenberg在[issue 28370](https://bugs.python.org/issue28370)中贡献）
+  * `loop.getaddrinfo()`方法被优化了，避免了如果地址问题已经解决，去调用系统函数`getaddrinfo`。（由A. Jesse Jiryu Davis贡献）
+  * `loop.stop()`方法已经被更改，以便在当前迭代后立即停止循环。任何新的，作为最后一次迭代的结果的预定的回调将会被丢弃。（由Guido van Rossum在[issue 25593](https://bugs.python.org/issue25593)中贡献）
+  * `Future.set_exception`在通过了一个[`StopIteration`](https://docs.python.org/3.6/library/exceptions.html#StopIteration "StopIteration" )实例的异常后，将会引发[`TypeError`](https://docs.python.org/3.6/library/exceptions.html#TypeError "TypeError" )。（由Chris Angelico在[issue 26221](https://bugs.python.org/issue26221)贡献）
+  * 新的[`loop.connect_accepted_socket()`](https://docs.python.org/3.6/library/asyncio-eventloop.html#asyncio.BaseEventLoop.connect_accepted_socket "asyncio.BaseEventLoop.connect_accepted_socket" )方法被服务器用来接收asyncio外部的连接，但是使用asyncio去处理。（由Jim Fulton在[issue 27392](https://bugs.python.org/issue27392)中贡献）
+  * `TCP_NODELAY`标志位现在被默认设置为TCP传输。（由Yury Selivanov在[issue 27456](https://bugs.python.org/issue27456)中贡献）
+  * 新的[`loop.shutdown_asyncgens()`](https://docs.python.org/3.6/library/asyncio-eventloop.html#asyncio.AbstractEventLoop.shutdown_asyncgens "asyncio.AbstractEventLoop.shutdown_asyncgens" )在关闭循环之前恰当的关闭挂起的异步生成器。（由 Yury Selivanov在[issue 28003](https://bugs.python.org/issue28003)中贡献）
+  * [`Future`](https://docs.python.org/3.6/library/asyncio-task.html#asyncio.Future "asyncio.Future" )和[`Task`](https://docs.python.org/3.6/library/asyncio-task.html#asyncio.Task "asyncio.Task" )类现在有一个已优化的C语言的实现，使得asyncio编码速度提高了30%。（由Yury Selivanov和INADA Naoki在[issue 26081](https://bugs.python.org/issue26081)和[issue 28544](https://bugs.python.org/issue28544)中贡献）
 
 ### binascii¶
 
-The [`b2a_base64()`](https://docs.python.org/3.6/library/binascii.html#binasci
-i.b2a\_base64 "binascii.b2a\_base64" ) function now accepts an optional
-_newline_ keyword argument to control whether the newline character is
-appended to the return value. (Contributed by Victor Stinner in [issue
-25357](https://bugs.python.org/issue25357).)
+[`b2a_base64()`](https://docs.python.org/3.6/library/binascii.html#binascii.b2a_base64 "binascii.b2a_base64" )功能现在接收现在接收一个可选_newline_的关键词参数去控制是否新的一行的字符被加到返回值中。（由Victor Stinnergong贡献于[issue25357](https://bugs.python.org/issue25357)。）
 
 ### cmath¶
 
