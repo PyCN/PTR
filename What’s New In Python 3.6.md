@@ -1255,11 +1255,9 @@ ttps://docs.python.org/3.6/library/io.html#io.BufferedIOBase.write
 28043](https://bugs.python.org/issue28043).)
 
 SSL session 可以使用新的 [`SSLSession`](https://docs.python.org/3.6/library/ssl.html#ssl.SSLSession
-"ssl.SSLSession" ) 类从一个客户端连接复制到另一个客户端连接. TLS session resumption can speed up the initial
-handshake, reduce latency and improve performance (Contributed by Christian
-Heimes in [issue 19500][138] based on a draft
-by Alex Warhawk.)
-SSL会话可以使用新的SSLSession类从一个客户端连接复制到另一个客户端连接。 TLS会话恢复可以加速初始握手，减少延迟并提高性能
+"ssl.SSLSession" ) 类从一个客户端连接复制到另一个客户端连接. TLS会话恢复可以加速初始握手，减少延迟并提高性能 (贡献者： Christian
+Heimes 于 [issue 19500][138] ，基于Alex Warhawk的草案.)
+
 
 新的 [`get_ciphers()`](https://docs.python.org/3.6/library/ssl.html#ssl.SSL
 Context.get\_ciphers "ssl.SSLContext.get\_ciphers" ) 方法可以用来得到一个
