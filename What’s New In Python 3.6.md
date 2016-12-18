@@ -180,7 +180,7 @@ Windows上的改进:
 ```
 
     result = [i async for i in aiter() if i % 2]
-    
+
 ```
 
 此外，所有解析式都支持“await”表达式：
@@ -188,7 +188,7 @@ Windows上的改进:
 ```
 
     result = [await fun() for fun in funcs if await condition()]
-    
+
 ```
 
 参见
@@ -204,17 +204,17 @@ Windows上的改进:
 
     class PluginBase:
         subclasses = []
-    
+
         def __init_subclass__(cls, **kwargs):
             super().__init_subclass__(**kwargs)
             cls.subclasses.append(cls)
-    
+
     class Plugin1(PluginBase):
         pass
-    
+
     class Plugin2(PluginBase):
         pass
-    
+
 ```
 为了允许零参数
 [`super（）`] [42]
@@ -231,7 +231,7 @@ creation))
 [**PEP 487**][43] - 用于建立类的更简单的自定义
 
 	由Martin Teichmann撰写并实现的PEP。
-	
+
 [功能文档](https://docs.python.org/3.6/reference/datamodel.html#class-customization)
 
 ### PEP 487: 描述符协议增强¶
@@ -409,7 +409,7 @@ stemencoding()`](https://docs.python.org/3.6/library/sys.html#sys.getfilesysteme
 
 不使用str方式表示路径的应用程序应当使用[`os.fsencode()`](https://docs.python.org/3.6/library/os.html#os.fsencode "os.fsencode" )和[`os.fsdecode()`](https://docs.python.org/3.6/library/os.html#os.fsdecode "os.fsdecode" ) 以确保他们的bytes被正确编码。要回复到之前的状态, 设置 [`PYTHONLEGACYWINDOWSFSENCODING`](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSFSENCODING) 或者调用 [`sys._enablelegacywindowsfsencoding()`](https://docs.python.org/3.6/library/sys.html#sys._enablelegacywindowsfsencoding "sys._enablelegacywindowsfsencoding" )。
 
-查看 [**PEP 529**](https://www.python.org/dev/peps/pep-0529)以获取更多信息并讨论可能需要变更的代码。 
+查看 [**PEP 529**](https://www.python.org/dev/peps/pep-0529)以获取更多信息并讨论可能需要变更的代码。
 
 ### PEP 528: 更改windows控制台编码为UTF-8¶
 
@@ -1028,8 +1028,7 @@ Linux的`getrandom()`系统调用(获取随机字节)现在作为新的[`os.getr
 
 ### pickle¶
 
-Objects that need `__new__` called with keyword arguments can now be pickled
-using [pickle protocols](https://docs.python.org/3.6/library/pickle.html
+对象，现在可以使用关键参数 `__new__`进行持久存储[pickle协议](https://docs.python.org/3.6/library/pickle.html
 # pickle-protocols) older than protocol version 4. Protocol version 4 already
 supports this case. (Contributed by Serhiy Storchaka in [issue
 24164](https://bugs.python.org/issue24164).)
