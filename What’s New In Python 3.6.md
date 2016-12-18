@@ -180,7 +180,7 @@ Windows上的改进:
 ```
 
     result = [i async for i in aiter() if i % 2]
-    
+
 ```
 
 此外，所有解析式都支持“await”表达式：
@@ -188,7 +188,7 @@ Windows上的改进:
 ```
 
     result = [await fun() for fun in funcs if await condition()]
-    
+
 ```
 
 参见
@@ -204,17 +204,17 @@ Windows上的改进:
 
     class PluginBase:
         subclasses = []
-    
+
         def __init_subclass__(cls, **kwargs):
             super().__init_subclass__(**kwargs)
             cls.subclasses.append(cls)
-    
+
     class Plugin1(PluginBase):
         pass
-    
+
     class Plugin2(PluginBase):
         pass
-    
+
 ```
 为了允许零参数
 [`super（）`] [42]
@@ -231,7 +231,7 @@ creation))
 [**PEP 487**][43] - 用于建立类的更简单的自定义
 
 	由Martin Teichmann撰写并实现的PEP。
-	
+
 [功能文档](https://docs.python.org/3.6/reference/datamodel.html#class-customization)
 
 ### PEP 487: 描述符协议增强¶
@@ -415,7 +415,7 @@ stemencoding()`](https://docs.python.org/3.6/library/sys.html#sys.getfilesysteme
 
 不使用str方式表示路径的应用程序应当使用[`os.fsencode()`](https://docs.python.org/3.6/library/os.html#os.fsencode "os.fsencode" )和[`os.fsdecode()`](https://docs.python.org/3.6/library/os.html#os.fsdecode "os.fsdecode" ) 以确保他们的bytes被正确编码。要回复到之前的状态, 设置 [`PYTHONLEGACYWINDOWSFSENCODING`](https://docs.python.org/3.6/using/cmdline.html#envvar-PYTHONLEGACYWINDOWSFSENCODING) 或者调用 [`sys._enablelegacywindowsfsencoding()`](https://docs.python.org/3.6/library/sys.html#sys._enablelegacywindowsfsencoding "sys._enablelegacywindowsfsencoding" )。
 
-查看 [**PEP 529**](https://www.python.org/dev/peps/pep-0529)以获取更多信息并讨论可能需要变更的代码。 
+查看 [**PEP 529**](https://www.python.org/dev/peps/pep-0529)以获取更多信息并讨论可能需要变更的代码。
 
 ### PEP 528: 更改windows控制台编码为UTF-8¶
 
@@ -1600,19 +1600,19 @@ Zhang in [issue 16764][161] respectively.)
   * [`PyUnicode_FSConverter()`](https://docs.python.org/3.6/c-api/unicode.html#c.PyUnicode_FSConverter)和[`PyUnicode_FSDecoder()`](https://docs.python.org/3.6/c-api/unicode.html#c.PyUnicode_FSDecoder)函数现在会接受[类路径(path-like)对象](https://docs.python.org/3.6/glossary.html#term-path-like-object)。
 
 ## 其他改进
-
   * 当使用[`--version`](https://docs.python.org/3.6/using/cmdline.html#cmdoption--version) (短格式：[`-V`](https://docs.python.org/3.6/using/cmdline.html#cmdoption-V))两次的时候，Python打印[`sys.version`](https://docs.python.org/3.6/library/sys.html#sys.version)以获得详细信息。
 ```     
 $ ./python -VV
 
     Python 3.6.0b4+ (3.6:223967b49e49+, Nov 21 2016, 20:55:04)
     [GCC 4.2.1 Compatible Apple LLVM 8.0.0 (clang-800.0.42.1)]
-
 ```
 
 ## Deprecated¶
+## 弃用¶
 
 ### New Keywords¶
+### 新的关键词¶
 
 `async` and `await` are not recommended to be used as variable, class,
 function or module names. Introduced by [\*\*PEP
@@ -1622,7 +1622,14 @@ become proper keywords in Python 3.7. Starting in Python 3.6, the use of
 s.python.org/3.6/library/exceptions.html#DeprecationWarning
 "DeprecationWarning" ).
 
+不在推荐使用`async` and `await` 作为变量名,类名，函数名以及模块名称.详见Python 3.5[\*\*PEP
+492\*\*](https://www.python.org/dev/peps/pep-0492), 在Python 3.7 中他们将作为关键字使用.
+从 Python 3.6 开始, `async`或`await`的使用将会引发[`DeprecationWarning`](https://doc
+s.python.org/3.6/library/exceptions.html#DeprecationWarning
+"DeprecationWarning" )
+
 ### Deprecated Python behavior¶
+### 弃用的 Python 行为
 
 Raising the [`StopIteration`](https://docs.python.org/3.6/library/exceptions.h
 tml#StopIteration "StopIteration" ) exception inside a generator will now
@@ -1633,6 +1640,15 @@ eError\`](https://docs.python.org/3.6/library/exceptions.html#RuntimeError
 inside generators](https://docs.python.org/3.6/whatsnew/3.5.html#whatsnew-
 pep-479) for details.
 
+Python 3.7 中, 在生成器中引发[`StopIteration`](https://docs.python.org/3.6/library/exceptions.h
+tml#StopIteration "StopIteration" )异常现在将会导致[`DesprecationWarning`]
+(https://docs.python.org/3.6/library/exceptions.html#DeprecationWarning "DeprecationWarning" ),
+并且触发[\`RuntimeError\`](https://docs.python.org/3.6/library/exceptions.html#RuntimeError
+"RuntimeError" ). 查阅 [PEP 479: Change StopIteration handling
+inside generators](https://docs.python.org/3.6/whatsnew/3.5.html#whatsnew-
+pep-479)获得相关细节.
+
+
 The [`__aiter__()`](https://docs.python.org/3.6/reference/datamodel.html#objec
 t.\_\_aiter\_\_ "object.\_\_aiter\_\_" ) method is now expected to return an
 asynchronous iterator directly instead of returning an awaitable as
@@ -1642,6 +1658,12 @@ s.python.org/3.6/library/exceptions.html#DeprecationWarning
 (Contributed by Yury Selivanov in [issue
 27243](https://bugs.python.org/issue27243).)
 
+[`__aiter__()`](https://docs.python.org/3.6/reference/datamodel.html#objec
+t.\_\_aiter\_\_ "object.\_\_aiter\_\_" )方法现在正如期望中的一样的，其将会返回异步迭代器
+而不是之前版本中的可等待迭代器, 在3.6中调用`__aiter__()`将会触发[`DeprecationWarning`](https://doc
+s.python.org/3.6/library/exceptions.html#DeprecationWarning
+"DeprecationWarning" ). Python 3.7 将会移除其的后向兼容性.
+
 A backslash-character pair that is not a valid escape sequence now generates a
 [`DeprecationWarning`](https://docs.python.org/3.6/library/exceptions.html#Dep
 recationWarning "DeprecationWarning" ). Although this will eventually become a
@@ -1649,15 +1671,28 @@ recationWarning "DeprecationWarning" ). Although this will eventually become a
 r "SyntaxError" ), that will not be for several Python releases. (Contributed
 by Emanuel Barry in [issue 27364][231].)
 
+反斜扛对现在不能再作为有效的转义字符串使用，其会导致
+[`DeprecationWarning`](https://docs.python.org/3.6/library/exceptions.html#Dep
+recationWarning "DeprecationWarning" ). 在接下来的几个Python版本，其最终会成为一个语法错误
+[`SyntaxError`](https://docs.python.org/3.6/library/exceptions.html#SyntaxErro
+r "SyntaxError" )
+
 When performing a relative import, falling back on `__name__` and `__path__`
 from the calling module when `__spec__` or `__package__` are not defined now
 raises an [`ImportWarning`](https://docs.python.org/3.6/library/exceptions.htm
 l#ImportWarning "ImportWarning" ). (Contributed by Rose Ames in [issue
 25791](https://bugs.python.org/issue25791).)
 
+当执行相对引用, 且`__spec__` 或 `__package__`未定义时，转而调用`__name__` 和 `__path__`模块
+, 现在将会引发[`ImportWarning`](https://docs.python.org/3.6/library/exceptions.htm
+l#ImportWarning "ImportWarning" )异常.  (Contributed by Rose Ames in [issue
+25791](https://bugs.python.org/issue25791).)
+
 ### Deprecated Python modules, functions and methods¶
+### 废弃的 Python 模块，函数和方法
 
 #### asynchat¶
+#### asychat¶
 
 The [`asynchat`](https://docs.python.org/3.6/library/asynchat.html#module-
 asynchat "asynchat: Support for asynchronous command/response protocols." )
@@ -1665,6 +1700,11 @@ has been deprecated in favor of
 [`asyncio`](https://docs.python.org/3.6/library/asyncio.html#module-asyncio
 "asyncio: Asynchronous I/O, event loop, coroutines and tasks." ). (Contributed
 by Mariatta in [issue 25002][232].)
+
+为了支持[`asyncio`](https://docs.python.org/3.6/library/asyncio.html#module-asyncio
+"asyncio: Asynchronous I/O, event loop, coroutines and tasks." ). (Contributed
+by Mariatta in [issue 25002][232].) [`asynchat`](https://docs.python.org/3.6/library/asynchat.html#module-
+asynchat "asynchat: Support for asynchronous command/response protocols." )已被废弃.
 
 #### asyncore¶
 
