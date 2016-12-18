@@ -977,8 +977,7 @@ Linux的`getrandom()`系统调用(获取随机字节)现在作为新的[`os.getr
 
 ### pickle¶
 
-Objects that need `__new__` called with keyword arguments can now be pickled
-using [pickle protocols](https://docs.python.org/3.6/library/pickle.html
+对象，现在可以使用关键参数 `__new__`进行持久存储[pickle协议](https://docs.python.org/3.6/library/pickle.html
 # pickle-protocols) older than protocol version 4. Protocol version 4 already
 supports this case. (Contributed by Serhiy Storchaka in [issue
 24164](https://bugs.python.org/issue24164).)
