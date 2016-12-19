@@ -1443,13 +1443,12 @@ already imported.
 ### winsound¶
 
 允许传递关键词参数到 [`Beep`](https://docs.python.org/3.6/library/winsound.html#winsound.Beep"winsound.Beep" ), [`MessageBeep`](https://docs.python.org/3.6/library/winsoun
-d.html#winsound.MessageBeep "winsound.MessageBeep" ), and [`PlaySound`](https:
-//docs.python.org/3.6/library/winsound.html#winsound.PlaySound
-"winsound.PlaySound" ) ([issue 27982][156]).
+d.html#winsound.MessageBeep "winsound.MessageBeep" ), 和 [`PlaySound`](https:
+//docs.python.org/3.6/library/winsound.html#winsound.PlaySound"winsound.PlaySound" ) 方法。 ([issue 27982][156]).
 
 ### xmlrpc.client¶
 
-[`xmlrpc.client`](https://docs.python.org/3.6/library/xmlrpc.client.html# module-xmlrpc.client "xmlrpc.client: XML-RPC clientaccess." ) 模块先支持解压由apache XML-RPC实现用于数字和'None'的附加数据类型。(Contributed by Serhiy Storchaka in
+[`xmlrpc.client`](https://docs.python.org/3.6/library/xmlrpc.client.html# module-xmlrpc.client "xmlrpc.client: XML-RPC clientaccess." ) 模块现支持解压由apache XML-RPC实现用于数字和'None'的附加数据类型。(Contributed by Serhiy Storchaka in
 [issue 26885][157].)
 
 ### zipfile¶
