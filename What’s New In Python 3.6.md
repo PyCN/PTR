@@ -1465,7 +1465,7 @@ d.html#winsound.MessageBeep "winsound.MessageBeep" ), 和 [`PlaySound`](https:
 [`compress()`](https://docs.python.org/3.6/library/zlib.html#zlib.compress
 "zlib.compress" ) 以及
 [`decompress()`](https://docs.python.org/3.6/library/zlib.html#zlib.decompress
-"zlib.decompress" ) 函数现接收关键词参数。 (Contributed by
+"zlib.decompress" ) 函数现接受关键词参数。 (Contributed by
 Aviv Palivoda in [issue 26243][160] and Xiang
 Zhang in [issue 16764][161] respectively.)
 
