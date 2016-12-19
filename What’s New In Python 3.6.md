@@ -1435,50 +1435,38 @@ already imported.
 
 ### winreg¶
 
-Added the 64-bit integer type
+新增64位整数类型
 [`REG_QWORD`](https://docs.python.org/3.6/library/winreg.html#winreg.REG\_QWORD
 "winreg.REG\_QWORD" ). (Contributed by Clement Rouault in [issue
 23026](https://bugs.python.org/issue23026).)
 
 ### winsound¶
 
-Allowed keyword arguments to be passed to
-[`Beep`](https://docs.python.org/3.6/library/winsound.html#winsound.Beep
-"winsound.Beep" ), [`MessageBeep`](https://docs.python.org/3.6/library/winsoun
+允许传递关键词参数到 [`Beep`](https://docs.python.org/3.6/library/winsound.html#winsound.Beep"winsound.Beep" ), [`MessageBeep`](https://docs.python.org/3.6/library/winsoun
 d.html#winsound.MessageBeep "winsound.MessageBeep" ), and [`PlaySound`](https:
 //docs.python.org/3.6/library/winsound.html#winsound.PlaySound
 "winsound.PlaySound" ) ([issue 27982][156]).
 
 ### xmlrpc.client¶
 
-The [`xmlrpc.client`](https://docs.python.org/3.6/library/xmlrpc.client.html# module-xmlrpc.client "xmlrpc.client: XML-RPC clientaccess." ) module now
-supports unmarshalling additional data types used by the Apache XML-RPC
-implementation for numerics and `None`. (Contributed by Serhiy Storchaka in
+[`xmlrpc.client`](https://docs.python.org/3.6/library/xmlrpc.client.html# module-xmlrpc.client "xmlrpc.client: XML-RPC clientaccess." ) 模块先支持解压由apache XML-RPC实现用于数字和'None'的附加数据类型。(Contributed by Serhiy Storchaka in
 [issue 26885][157].)
 
 ### zipfile¶
 
-A new [`ZipInfo.from_file()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.from\_file "zipfile.ZipInfo.from\_file") class method allows
-making a
+一个新的类方法 [`ZipInfo.from_file()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.from\_file "zipfile.ZipInfo.from\_file") 允许从文件系统文件中生成一个 
 [`ZipInfo`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo
-"zipfile.ZipInfo" ) instance from a filesystem file. A new [`ZipInfo.is_dir()`
-](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.is\_dir
-"zipfile.ZipInfo.is\_dir" ) method can be used to check if the
-[`ZipInfo`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo
-"zipfile.ZipInfo" ) instance represents a directory. (Contributed by Thomas
-Kluyver in [issue 26039][158].)
+"zipfile.ZipInfo" ) 实例。
+一个新的方法 [`ZipInfo.is_dir()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.is\_dir"zipfile.ZipInfo.is\_dir" ) 能够用来检查[`ZipInfo`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo"zipfile.ZipInfo" ) 实例是否表示一个目录。 (Contributed by Thomas Kluyver in [issue 26039][158].)
 
-The [`ZipFile.open()`](https://docs.python.org/3.6/library/zipfile.html#zipfil
-e.ZipFile.open "zipfile.ZipFile.open" ) method can now be used to write data
-into a ZIP file, as well as for extracting data. (Contributed by Thomas
-Kluyver in [issue 26039][159].)
+[`ZipFile.open()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipFile.open "zipfile.ZipFile.open" ) 方法现在能够将数据写入到一个ZIP文件，也能够从中提取数据。 (Contributed by Thomas Kluyver in [issue 26039][159].)
 
 ### zlib¶
 
-The [`compress()`](https://docs.python.org/3.6/library/zlib.html#zlib.compress
-"zlib.compress" ) and
+[`compress()`](https://docs.python.org/3.6/library/zlib.html#zlib.compress
+"zlib.compress" ) 以及
 [`decompress()`](https://docs.python.org/3.6/library/zlib.html#zlib.decompress
-"zlib.decompress" ) functions now accept keyword arguments. (Contributed by
+"zlib.decompress" ) 函数现接收关键词参数。 (Contributed by
 Aviv Palivoda in [issue 26243][160] and Xiang
 Zhang in [issue 16764][161] respectively.)
 
