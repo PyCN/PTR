@@ -1234,11 +1234,7 @@ by Serhiy Storchaka in [issue 23552][143].)
 
 ### tkinter¶
 
-Added methods `trace_add()`, `trace_remove()` and `trace_info()` in the
-`tkinter.Variable` class. They replace old methods `trace_variable()`,
-`trace()`, `trace_vdelete()` and `trace_vinfo()` that use obsolete Tcl
-commands and might not work in future versions of Tcl. (Contributed by Serhiy
-Storchaka in [issue 22115][144]).
+在`tkinter.Variable`类中添加了方法 `trace_add（）`，`trace_remove（）`和`trace_info（）`。 它们代替了之前版本中的 `trace_variable（）`，`trace（）`，`trace_vdelete（）`和 `trace_vinfo（）`方法，这些方法使用过时的Tcl命令，而在未来版本的Tcl中，这些Tcl命令可能不起作用。（由Serhiy Storchaka在[issue 22115](https://bugs.python.org/issue22115) 提供）。
 
 ### traceback
 
@@ -1338,56 +1334,31 @@ parameter provides an alternative prefix for the virtual environment.
 
 ### warnings¶
 
-A new optional _source_ parameter has been added to the [\`warnings.warn\_explic
-it()\`](https://docs.python.org/3.6/library/warnings.html#warnings.warn\_explici
-t "warnings.warn\_explicit" ) function: the destroyed object which emitted a [\`
-ResourceWarning\`](https://docs.python.org/3.6/library/exceptions.html#Resource
-Warning "ResourceWarning" ). A _source_ attribute has also been added to
-`warnings.WarningMessage` (contributed by Victor Stinner in [issue
-26568](https://bugs.python.org/issue26568) and [issue
-26567](https://bugs.python.org/issue26567)).
+增加一个可选参数到 [`warnings.warn_explicit（）`](https://docs.python.org/3.6/library/warnings.html#warnings.warn_explici%0At)函数中：引发 [`ResourceWarning` ](https://docs.python.org/3.6/library/exceptions.html#Resource%0AWarning)的已销毁对象。 同时，属性也添加到 `warnings.WarningMessage` 中。（由Victor Stinner在[issue 26568](https://bugs.python.org/issue26568)和[issue 26567](https://bugs.python.org/issue26567)中提供）。
 
-When a [`ResourceWarning`](https://docs.python.org/3.6/library/exceptions.html
-# ResourceWarning "ResourceWarning" ) warning is logged, the
-[`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-
-tracemalloc "tracemalloc: Trace memory allocations." ) module is now used to
-try to retrieve the traceback where the destroyed object was allocated.
+当引发[ `ResourceWarning` ](https://docs.python.org/3.6/library/exceptions.html)警告时，[`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-%0Atracemalloc) 模块就尝试检索分配了销毁对象的跟踪。
 
-Example with the script `example.py`:
-
+Example with the script `example.py`
 ```
-
     import warnings
-
-    def func():
-        return open(__file__)
-
+    
+    	def func():
+    	return open(__file__)
+    
     f = func()
     f = None
-
 ```
-
-Output of the command `python3.6 -Wd -X tracemalloc=5 example.py`:
-
+输出命令 `python3.6 -Wd -X tracemalloc=5 example.py` :
 ```
-
     example.py:7: ResourceWarning: unclosed file <_io.TextIOWrapper name='example.py' mode='r' encoding='UTF-8'>
       f = None
     Object allocated at (most recent call first):
       File "example.py", lineno 4
-        return open(__file__)
+    return open(__file__)
       File "example.py", lineno 6
-        f = func()
-
+    f = func()
 ```
-
-The "Object allocated at" traceback is new and is only displayed if
-[`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-
-tracemalloc "tracemalloc: Trace memory allocations." ) is tracing Python
-memory allocations and if the
-[`warnings`](https://docs.python.org/3.6/library/warnings.html#module-warnings
-"warnings: Issue warning messages and control their disposition." ) module was
-already imported.
+“对象分配”跟踪是新的，并且只有当[`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-%0Atracemalloc)正在跟踪Python内存分配，并且[ `warnings`](https://docs.python.org/3.6/library/warnings.html#module-warnings) 模块已经导入时才会显示。
 
 ### winreg¶
 
