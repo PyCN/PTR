@@ -668,8 +668,8 @@ Hettinger 在[issue 25628][111]中贡献.)
 
 递归方法[`collections.deque`](https://docs.python.org/3.6/library/collection
 s.html#collections.deque "collections.deque" ) 实例现在可使用pickle持久化存储.
-(Contributed by Serhiy Storchaka in [issue
-26482](https://bugs.python.org/issue26482).)
+(由Serhiy Storchaka在[issue
+26482](https://bugs.python.org/issue26482)中贡献.)
 
 ### concurrent.futures¶
 
