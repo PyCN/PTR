@@ -623,58 +623,51 @@ Module To The Standard Library
 
 ### cmath¶
 
-The new [`cmath.tau`](https://docs.python.org/3.6/library/cmath.html#cmath.tau
-"cmath.tau" ) (τ) constant has been added. (Contributed by Lisa Roach in
-[issue 12345][107], see [\*\*PEP
-628\*\*](https://www.python.org/dev/peps/pep-0628) for details.)
+新增了方法 [`cmath.tau`](https://docs.python.org/3.6/library/cmath.html#cmath.tau
+"cmath.tau" ) 来表示(τ) 常量. (由Lisa Roach在[issue 12345][107]中贡献, 详情请查看 [\*\*PEP
+628\*\*](https://www.python.org/dev/peps/pep-0628) .)
 
-New constants:
+新增的常量还有:
 [`cmath.inf`](https://docs.python.org/3.6/library/cmath.html#cmath.inf
-"cmath.inf" ) and
+"cmath.inf" ) 和
 [`cmath.nan`](https://docs.python.org/3.6/library/cmath.html#cmath.nan
-"cmath.nan" ) to match
+"cmath.nan" ) 来对应
 [`math.inf`](https://docs.python.org/3.6/library/math.html#math.inf "math.inf"
-) and [`math.nan`](https://docs.python.org/3.6/library/math.html#math.nan
-"math.nan" ), and also
+) 和 [`math.nan`](https://docs.python.org/3.6/library/math.html#math.nan
+"math.nan" ), 另外还有
 [`cmath.infj`](https://docs.python.org/3.6/library/cmath.html#cmath.infj
-"cmath.infj" ) and
+"cmath.infj" ) 和
 [`cmath.nanj`](https://docs.python.org/3.6/library/cmath.html#cmath.nanj
-"cmath.nanj" ) to match the format used by complex repr. (Contributed by Mark
-Dickinson in [issue 23229][108].)
+"cmath.nanj" ) 来匹配复数表达式的格式化. (由Mark
+Dickinson在[issue 23229][108]中贡献.)
 
 ### collections¶
 
-The new [`Collection`](https://docs.python.org/3.6/library/collections.abc.htm
-l#collections.abc.Collection "collections.abc.Collection" ) abstract base
-class has been added to represent sized iterable container classes.
-(Contributed by Ivan Levkivskyi, docs by Neil Girdhar in [issue
-27598](https://bugs.python.org/issue27598).)
+新的[`Collection`](https://docs.python.org/3.6/library/collections.abc.htm
+l#collections.abc.Collection "collections.abc.Collection" ) 抽象基类已经增加到可表示大小的迭代器类里面
+(由Ivan Levkivskyi贡献, 文档由Neil Girdhar在[issue
+27598](https://bugs.python.org/issue27598)中贡献.)
 
-The new [`Reversible`](https://docs.python.org/3.6/library/collections.abc.htm
-l#collections.abc.Reversible "collections.abc.Reversible" ) abstract base
-class represents iterable classes that also provide the [`__reversed__()`](htt
+新的[`Reversible`](https://docs.python.org/3.6/library/collections.abc.htm
+l#collections.abc.Reversible "collections.abc.Reversible" ) 有迭代器类的抽象基类 [`__reversed__()`](htt
 ps://docs.python.org/3.6/reference/datamodel.html#object.\_\_reversed\_\_
-"object.\_\_reversed\_\_" ) method. (Contributed by Ivan Levkivskyi in [issue
-25987](https://bugs.python.org/issue25987).)
+"object.\_\_reversed\_\_" ) 方法. (由Ivan Levkivskyi在[issue
+25987](https://bugs.python.org/issue25987)中贡献.)
 
-The new [`AsyncGenerator`](https://docs.python.org/3.6/library/collections.abc
+新的 [`AsyncGenerator`](https://docs.python.org/3.6/library/collections.abc
 .html#collections.abc.AsyncGenerator "collections.abc.AsyncGenerator" )
-abstract base class represents asynchronous generators. (Contributed by Yury
+，是一种异步生成器类的抽象基类. (Contributed by Yury
 Selivanov in [issue 28720][109].)
 
-The [`namedtuple()`](https://docs.python.org/3.6/library/collections.html#coll
-ections.namedtuple "collections.namedtuple" ) function now accepts an optional
-keyword argument _module_, which, when specified, is used for the `__module__`
-attribute of the returned named tuple class. (Contributed by Raymond Hettinger
-in [issue 17941][110].)
+这个[`namedtuple()`](https://docs.python.org/3.6/library/collections.html#coll
+ections.namedtuple "collections.namedtuple" ) 函数现在接受一个可选的关键字参数 _module_, 它指定用于`__module__`返回的命名元组类的属性. (由Raymond Hettinger
+在[issue 17941][110]中贡献.
 
-The _verbose_ and _rename_ arguments for [`namedtuple()`](https://docs.python.
-org/3.6/library/collections.html#collections.namedtuple
-"collections.namedtuple" ) are now keyword-only. (Contributed by Raymond
-Hettinger in [issue 25628][111].)
+[`namedtuple()`](https://docs.python.org/3.6/library/collections.html#collections.namedtuple"collections.namedtuple" )的_verbose_ 和 _rename_ 参数是强制关键字参数. (由Raymond
+Hettinger 在[issue 25628][111]中贡献.)
 
-Recursive [`collections.deque`](https://docs.python.org/3.6/library/collection
-s.html#collections.deque "collections.deque" ) instances can now be pickled.
+递归方法[`collections.deque`](https://docs.python.org/3.6/library/collection
+s.html#collections.deque "collections.deque" ) 实例现在可使用pickle持久化存储.
 (Contributed by Serhiy Storchaka in [issue
 26482](https://bugs.python.org/issue26482).)
 
