@@ -269,68 +269,26 @@ escriptors)
 ### PEP 519: 添加文件系统路径协议¶
 
 文件系统路径过去被表示为[`str`][46]或[`bytes`][47]对象。这会导致那些编写操作文件系统路径代码的人，假定这些对象只能是这两种类型之一(一个代表着文件描述符的[`int`][48]对象将不被计入即它不是一个文件路径)。
-Unfortunately that assumption prevents alternative object representations of
-file system paths like
-[`pathlib`](https://docs.python.org/3.6/library/pathlib.html#module-pathlib
-"pathlib: Object-oriented filesystem paths" ) from working with pre-existing
-code, including Python's standard library.
-
-To fix this situation, a new interface represented by
-[`os.PathLike`](https://docs.python.org/3.6/library/os.html#os.PathLike
-"os.PathLike" ) has been defined. By implementing the [`__fspath__()`](https:/
-/docs.python.org/3.6/library/os.html#os.PathLike.\_\_fspath\_\_
-"os.PathLike.\_\_fspath\_\_" ) method, an object signals that it represents a
-path. An object can then provide a low-level representation of a file system
-path as a [`str`](https://docs.python.org/3.6/library/stdtypes.html#str "str"
-) or [`bytes`](https://docs.python.org/3.6/library/functions.html#bytes
-"bytes" ) object. This means an object is considered [path-
-like](https://docs.python.org/3.6/glossary.html#term-path-like-object) if it
-implements
-[`os.PathLike`](https://docs.python.org/3.6/library/os.html#os.PathLike
-"os.PathLike" ) or is a
-[`str`][49] or
-[`bytes`][50]
-object which represents a file system path. Code can use
-[`os.fspath()`](https://docs.python.org/3.6/library/os.html#os.fspath
-"os.fspath" ),
-[`os.fsdecode()`](https://docs.python.org/3.6/library/os.html#os.fsdecode
-"os.fsdecode" ), or
-[`os.fsencode()`](https://docs.python.org/3.6/library/os.html#os.fsencode
-"os.fsencode" ) to explicitly get a
-[`str`][51] and/or
-[`bytes`][52]
-representation of a path-like object.
-
-The built-in
-[`open()`][53]
-function has been updated to accept
-[`os.PathLike`](https://docs.python.org/3.6/library/os.html#os.PathLike
-"os.PathLike" ) objects, as have all relevant functions in the
-[`os`][54] and
-[`os.path`](https://docs.python.org/3.6/library/os.path.html#module-os.path
-"os.path: Operations on pathnames." ) modules, and most other functions and
-classes in the standard library. The
-[`os.DirEntry`](https://docs.python.org/3.6/library/os.html#os.DirEntry
-"os.DirEntry" ) class and relevant classes in
-[`pathlib`](https://docs.python.org/3.6/library/pathlib.html#module-pathlib
-"pathlib: Object-oriented filesystem paths" ) have also been updated to
-implement
-[`os.PathLike`](https://docs.python.org/3.6/library/os.html#os.PathLike
-"os.PathLike" ).
-
-The hope is that updating the fundamental functions for operating on file
-system paths will lead to third-party code to implicitly support all [path-
-like objects](https://docs.python.org/3.6/glossary.html#term-path-like-object)
-without any code changes, or at least very minimal ones (e.g. calling
-[`os.fspath()`](https://docs.python.org/3.6/library/os.html#os.fspath
-"os.fspath" ) at the beginning of code before operating on a path-like
-object).
-
-Here are some examples of how the new interface allows for
-[`pathlib.Path`](https://docs.python.org/3.6/library/pathlib.html#pathlib.Path
-"pathlib.Path" ) to be used more easily and transparently with pre-existing
-code:
-
+不幸的是，这种假设局限了文件系统路径表示代方法，如已经存在的[`pathlib`](https://docs.python.org/3.6/library/pathlib.html#module-pathlib
+"pathlib: Object-oriented filesystem paths" )，同时也包括python的一些标准库。
+为了解决这种情况，定义了一个由[`os.PathLike`](https://docs.python.org/3.6/library/os.html#os.PathLike
+"os.PathLike" )表示的新接口。通过实现[`__fspath__()`](https://docs.python.org/3.6/library/os.html#os.PathLike.\_\_fspath\_\_
+"os.PathLike.\_\_fspath\_\_" )方法，一个对象表示一个路径，然后，可以将文件系统路径表示为一个较低等级的[`str`](https://docs.python.org/3.6/library/stdtypes.html#str "str")或者[`bytes`](https://docs.python.org/3.6/library/functions.html#bytes
+"bytes" )对象。这意味着，如果一个对象实现[`os.PathLike`](https://docs.python.org/3.6/library/os.html#os.PathLike
+"os.PathLike" )或者是[`str`][49]或[`bytes`][50]，该对象被认为是[path-
+like](https://docs.python.org/3.6/glossary.html#term-path-like-object),它代表一个文件系统路径。你可以使用[`os.fspath()`](https://docs.python.org/3.6/library/os.html#os.fspath
+"os.fspath" ),[`os.fsdecode()`](https://docs.python.org/3.6/library/os.html#os.fsdecode
+"os.fsdecode" )或[`os.fsencode()`](https://docs.python.org/3.6/library/os.html#os.fsencode
+"os.fsencode" )显式获取[`str`][51]以及/或[`bytes`][52]来表示一个path-like对象。
+内建函数[`open()`][53]已经更新，可以接受[`os.PathLike`](https://docs.python.org/3.6/library/os.html#os.PathLike
+"os.PathLike" )对象，以及在[`os`][54]和[`os.path`](https://docs.python.org/3.6/library/os.path.html#module-os.path
+"os.path: Operations on pathnames." )模块中的所有函数，以及标准库中的大多数其他函数和类。类[`os.DirEntry`](https://docs.python.org/3.6/library/os.html#os.DirEntry
+"os.DirEntry" )以及[`pathlib`](https://docs.python.org/3.6/library/pathlib.html#module-pathlib
+"pathlib: Object-oriented filesystem paths" )中相关的类也已经可以实现[`os.PathLike`](https://docs.python.org/3.6/library/os.html#os.PathLike
+"os.PathLike" )。
+希望对操作文件系统路径基本功能的更新能够让第三方代码在不改变任何代码，或者至少是非常少的代码（例如，在操作path-like对象之前，在代码的开头调用[`os.fspath()`](https://docs.python.org/3.6/library/os.html#os.fspath "os.fspath" )）的情况下，能够隐含地支持所有[path-like objects](https://docs.python.org/3.6/glossary.html#term-path-like-object)对象。
+下面举一些例子说明新接口是如何让预先存在的代码简单透明地使用[`pathlib.Path`](https://docs.python.org/3.6/library/pathlib.html#pathlib.Path
+"pathlib.Path" ):
 ```
 
     >>> import pathlib
@@ -348,15 +306,13 @@ code:
 
 ```
 
-(Implemented by Brett Cannon, Ethan Furman, Dusty Phillips, and Jelle
-Zijlstra.)
+（由Brett Cannon, Ethan Furman, Dusty Phillips, and Jelle Zijlstra实现）
 
-See also
+参见
 
-[**PEP 519**][55] - Adding a file system
-path protocol
+[**PEP 519**][55] - 添加文件系统路径协议
 
-	PEP written by Brett Cannon and Koos Zevenhoven.
+	PEP 由Brett Cannon 和 Koos Zevenhoven撰写.
 
 ### PEP 495: Local Time Disambiguation¶
 
