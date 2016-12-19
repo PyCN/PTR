@@ -1451,16 +1451,14 @@ d.html#winsound.MessageBeep "winsound.MessageBeep" ), and [`PlaySound`](https:
 
 ### xmlrpc.client¶
 
-The [`xmlrpc.client`](https://docs.python.org/3.6/library/xmlrpc.client.html
-# module-xmlrpc.client "xmlrpc.client: XML-RPC client access." ) module now
+The [`xmlrpc.client`](https://docs.python.org/3.6/library/xmlrpc.client.html# module-xmlrpc.client "xmlrpc.client: XML-RPC clientaccess." ) module now
 supports unmarshalling additional data types used by the Apache XML-RPC
 implementation for numerics and `None`. (Contributed by Serhiy Storchaka in
 [issue 26885][157].)
 
 ### zipfile¶
 
-A new [`ZipInfo.from_file()`](https://docs.python.org/3.6/library/zipfile.html
-# zipfile.ZipInfo.from\_file "zipfile.ZipInfo.from\_file" ) class method allows
+A new [`ZipInfo.from_file()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.from\_file "zipfile.ZipInfo.from\_file") class method allows
 making a
 [`ZipInfo`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo
 "zipfile.ZipInfo" ) instance from a filesystem file. A new [`ZipInfo.is_dir()`
