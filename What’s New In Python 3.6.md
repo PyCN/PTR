@@ -1652,7 +1652,7 @@ l#ImportWarning "ImportWarning" )异常.  (Contributed by Rose Ames in [issue
 25791](https://bugs.python.org/issue25791).)
 
 ### Deprecated Python modules, functions and methods¶
-### 废弃的 Python 模块，函数和方法
+### 弃用的 Python 模块，函数和方法
 
 #### asynchat¶
 
@@ -1660,7 +1660,7 @@ l#ImportWarning "ImportWarning" )异常.  (Contributed by Rose Ames in [issue
 为了支持[`asyncio`](https://docs.python.org/3.6/library/asyncio.html#module-asyncio
 "asyncio: Asynchronous I/O, event loop, coroutines and tasks." )，
  [`asynchat`](https://docs.python.org/3.6/library/asynchat.html#module-asynchat
- "asynchat: Support for asynchronous command/response protocols." )已被废弃。(Contributed
+ "asynchat: Support for asynchronous command/response protocols." )已被弃用。(Contributed
  by Mariatta in [issue 25002][232].)
 
 #### asyncore¶
@@ -1669,7 +1669,7 @@ l#ImportWarning "ImportWarning" )异常.  (Contributed by Rose Ames in [issue
 为了支持[`asyncio`](https://docs.python.org/3.6/library/asyncio.html#module-asyncio
 "asyncio: Asynchronous I/O, event loop, coroutines and tasks." )模块. [`asyncore`](https://docs.python.org/3.6/library/asyncore.html#module-
 asyncore "asyncore: A base class for developing asynchronous socket handling
-services." )模块已被废弃. (Contributed
+services." )模块已被弃用. (Contributed
 by Mariatta in [issue 25002][233].),
 
 #### dbm¶
@@ -1679,7 +1679,7 @@ by Mariatta in [issue 25002][233].),
 "dbm: Interfaces to various Unix "database" formats." )模块的的实现方式不同，
 [`dbm.dumb`](https://docs.python.org/3.6/library/dbm.html#module-dbm.dumb
 "dbm.dumb: Portable implementation of the simple DBM interface." )模块可以通过`'rw'`模式创建数据库
-并允许通过`'r'`模式来修改数据库，不过这种行为现在将被废弃，在Python 3.8 将会被移除。(Contributed by Serhiy Storchaka in [issue
+并允许通过`'r'`模式来修改数据库，不过这种行为现在将被弃用，在Python 3.8 将会被移除。(Contributed by Serhiy Storchaka in [issue
 21708](https://bugs.python.org/issue21708).)
 
 #### distutils¶
@@ -1709,8 +1709,8 @@ ery.SourcelessFileLoader.load\_module()\`](https://docs.python.org/3.6/library/i
 mportlib.html#importlib.machinery.SourcelessFileLoader.load\_module
 "importlib.machinery.SourcelessFileLoader.load\_module" )，所以他们是
 [`importlib`](https://docs.python.org/3.6/library/importlib.html#module-
-importlib "importlib: The implementation of the import machinery." ) 中[\`importlib.abc.Loader.load\_module()\`](https://docs.python.org/3.6/library/importlib.html#importlib.abc.Loader.load\_module "importlib.abc.Loader.load\_module" ) 仅存的未被废弃的实现方式，
-不过在 Python 3.6 中，其也已经被废弃。
+importlib "importlib: The implementation of the import machinery." ) 中[\`importlib.abc.Loader.load\_module()\`](https://docs.python.org/3.6/library/importlib.html#importlib.abc.Loader.load\_module "importlib.abc.Loader.load\_module" ) 仅存的未被弃用的实现方式，
+不过在 Python 3.6 中，其也已经被弃用。
 
 
 [`importlib.machinery.WindowsRegistryFinder`](https://docs.python.org/3.6/
@@ -1753,21 +1753,21 @@ sockets\)." ), [`imaplib`](https://docs.python.org/3.6/library/imaplib.html#modu
 
 
 [`ssl`][238]的部分协议及函数，现已被弃用。后续的 OpenSSL 版本中，部分现有特征将不再可用。
-为了引入新的API，其他的特征也已经被废弃。 (Contributed by Christian Heimes in
+为了引入新的API，其他的特征也已经被弃用。 (Contributed by Christian Heimes in
 [issue 28022][239] 和 [issue26470](https://bugs.python.org/issue26470).)
 
 
 #### tkinter¶
 
 
-[`tkinter.tix`](https://docs.python.org/3.6/library/tkinter.tix.html#module-tkinter.tix "tkinter.tix: Tk Extension Widgets for Tkinter")模块已被废弃。
+[`tkinter.tix`](https://docs.python.org/3.6/library/tkinter.tix.html#module-tkinter.tix "tkinter.tix: Tk Extension Widgets for Tkinter")模块已被弃用。
 原[`tkinter`](https://docs.python.org/3.6/library/tkinter.html#module-tkinter
 "tkinter: Interface to Tcl/Tk for graphical user interfaces" )的使用者，可以使用
 [`tkinter.ttk`](https://docs.python.org/3.6/library/tkinter.ttk.html#module-tkinter.ttk "tkinter.ttk: Tk themed widget set")来代替。
 
 #### venv¶
 
-为了引入`python3 -m venv`命令，`pyvenv` 已被废弃。 这可以防止混淆何种 Python 解释器将被`pyvenv`连接
+为了引入`python3 -m venv`命令，`pyvenv` 已被弃用。 这可以防止混淆何种 Python 解释器将被`pyvenv`连接
 以及何种 Python 解释器将被用在虚拟环境中。(Contributed by Brett Cannon in [issue
 25154](https://bugs.python.org/issue25154).)
 
