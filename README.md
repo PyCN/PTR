@@ -1,8 +1,9 @@
 # PyCN技术评论
 ##PyCN Technology Review，简称PTR
+###Py字幕组 出品
+####Gitter
 
 [![Join the chat at https://gitter.im/PyCN/PTR](https://badges.gitter.im/PyCN/PTR.svg)](https://gitter.im/PyCN/PTR?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-Py字幕组翻译工作的仓库
 
 ####加入Py字幕组的步骤
 
