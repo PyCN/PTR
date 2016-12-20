@@ -1608,19 +1608,11 @@ $ ./python -VV
     [GCC 4.2.1 Compatible Apple LLVM 8.0.0 (clang-800.0.42.1)]
 ```
 
-## Deprecated¶
-## 弃用¶
 
-### New Keywords¶
+## 弃用的模块，包以及函数¶
+
 ### 新的关键词¶
 
-`async` and `await` are not recommended to be used as variable, class,
-function or module names. Introduced by [\*\*PEP
-492\*\*](https://www.python.org/dev/peps/pep-0492) in Python 3.5, they will
-become proper keywords in Python 3.7. Starting in Python 3.6, the use of
-`async` or `await` as names will generate a [`DeprecationWarning`](https://doc
-s.python.org/3.6/library/exceptions.html#DeprecationWarning
-"DeprecationWarning" ).
 
 在后续的Python 3.7 中，`async` 和 `await` 将作为关键字使用， 因此不再建议使用它们作为变量名,类名，函数名以及模块名称。
 详见Python 3.5[\*\*PEP492\*\*](https://www.python.org/dev/peps/pep-0492).
@@ -1628,61 +1620,33 @@ s.python.org/3.6/library/exceptions.html#DeprecationWarning
 s.python.org/3.6/library/exceptions.html#DeprecationWarning
 "DeprecationWarning" )
 
-### Deprecated Python behavior¶
-### 已弃用的 Python 行为
+### 已弃用的 Python 行为¶
 
-Raising the [`StopIteration`](https://docs.python.org/3.6/library/exceptions.h
-tml#StopIteration "StopIteration" ) exception inside a generator will now
-generate a [`DeprecationWarning`](https://docs.python.org/3.6/library/exceptio
-ns.html#DeprecationWarning "DeprecationWarning" ), and will trigger a [\`Runtim
-eError\`](https://docs.python.org/3.6/library/exceptions.html#RuntimeError
-"RuntimeError" ) in Python 3.7. See [PEP 479: Change StopIteration handling
-inside generators](https://docs.python.org/3.6/whatsnew/3.5.html#whatsnew-
-pep-479) for details.
 
-Python 3.7 中, 在生成器中引发[`StopIteration`](https://docs.python.org/3.6/library/exceptions.h
-tml#StopIteration "StopIteration" )异常现在将会导致[`DesprecationWarning`]
-(https://docs.python.org/3.6/library/exceptions.html#DeprecationWarning "DeprecationWarning" ),
+Python 3.7 中, 在生成器中引发[`StopIteration`](https://docs.python.org/3.6/library/exceptions.html#StopIteration "StopIteration")异常，现在将会导致[`DesprecationWarning`](https://docs.python.org/3.6/library/exceptions.html#DeprecationWarning "DeprecationWarning" ),
 并且触发[\`RuntimeError\`](https://docs.python.org/3.6/library/exceptions.html#RuntimeError
-"RuntimeError" ). 查阅 [PEP 479: Change StopIteration handling
-inside generators](https://docs.python.org/3.6/whatsnew/3.5.html#whatsnew-
+"RuntimeError" ). 查阅[PEP 479: Change StopIteration handlinginside generators](https://docs.python.org/3.6/whatsnew/3.5.html#whatsnew-
 pep-479)获得相关细节.
 
 
-The [`__aiter__()`](https://docs.python.org/3.6/reference/datamodel.html#objec
-t.\_\_aiter\_\_ "object.\_\_aiter\_\_" ) method is now expected to return an
-asynchronous iterator directly instead of returning an awaitable as
-previously. Doing the former will trigger a [`DeprecationWarning`](https://doc
-s.python.org/3.6/library/exceptions.html#DeprecationWarning
-"DeprecationWarning" ). Backward compatibility will be removed in Python 3.7.
-(Contributed by Yury Selivanov in [issue27243](https://bugs.python.org/issue27243).)
 
 [`__aiter__()`](https://docs.python.org/3.6/reference/datamodel.html#objec
 t.\_\_aiter\_\_ "object.\_\_aiter\_\_" )方法现在被期望返回异步迭代器，
 而不是之前版本中的可等待迭代器，在 Python 3.6 中调用`__aiter__()`将会触发[`DeprecationWarning`](https://doc
 s.python.org/3.6/library/exceptions.html#DeprecationWarning
-"DeprecationWarning" )。 Python 3.7 将会移除其的后向兼容性。
+"DeprecationWarning" )。 Python 3.7 将会移除其的后向兼容性。(Contributed by Yury Selivanov in [issue27243](https://bugs.python.org/issue27243).)
 
-A backslash-character pair that is not a valid escape sequence now generates a
-[`DeprecationWarning`](https://docs.python.org/3.6/library/exceptions.html#Dep
-recationWarning "DeprecationWarning" ). Although this will eventually become a
-[`SyntaxError`](https://docs.python.org/3.6/library/exceptions.html#SyntaxErro
-r "SyntaxError" ), that will not be for several Python releases. (Contributed
-by Emanuel Barry in [issue 27364][231].)
 
 反斜杠对现在不能再作为有效的转义字符串使用，其会导致
 [`DeprecationWarning`](https://docs.python.org/3.6/library/exceptions.html#Dep
 recationWarning "DeprecationWarning" ). 在接下来的几个Python版本，其最终会成为一个语法错误
 [`SyntaxError`](https://docs.python.org/3.6/library/exceptions.html#SyntaxErro
-r "SyntaxError" )
+r "SyntaxError" )。(Contributed
+by Emanuel Barry in [issue 27364][231].)
 
-When performing a relative import, falling back on `__name__` and `__path__`
-from the calling module when `__spec__` or `__package__` are not defined now
-raises an [`ImportWarning`](https://docs.python.org/3.6/library/exceptions.htm
-l#ImportWarning "ImportWarning" ). (Contributed by Rose Ames in [issue
-25791](https://bugs.python.org/issue25791).)
 
-当执行相对引用, 且`__spec__` 或 `__package__`未定义时，转而调用`__name__` 和 `__path__`模块的行为
+
+在执行相对引用, 且`__spec__` 或 `__package__`未定义时，转而调用`__name__` 和 `__path__`模块的行为
 , 现在将会引发[`ImportWarning`](https://docs.python.org/3.6/library/exceptions.htm
 l#ImportWarning "ImportWarning" )异常.  (Contributed by Rose Ames in [issue
 25791](https://bugs.python.org/issue25791).)
@@ -1692,12 +1656,6 @@ l#ImportWarning "ImportWarning" )异常.  (Contributed by Rose Ames in [issue
 
 #### asynchat¶
 
-The [`asynchat`](https://docs.python.org/3.6/library/asynchat.html#module-
-asynchat "asynchat: Support for asynchronous command/response protocols." )
-has been deprecated in favor of
-[`asyncio`](https://docs.python.org/3.6/library/asyncio.html#module-asyncio
-"asyncio: Asynchronous I/O, event loop, coroutines and tasks." ). (Contributed
-by Mariatta in [issue 25002][232].)
 
 为了支持[`asyncio`](https://docs.python.org/3.6/library/asyncio.html#module-asyncio
 "asyncio: Asynchronous I/O, event loop, coroutines and tasks." )，
@@ -1707,12 +1665,6 @@ by Mariatta in [issue 25002][232].)
 
 #### asyncore¶
 
-The [`asyncore`](https://docs.python.org/3.6/library/asyncore.html#module-
-asyncore "asyncore: A base class for developing asynchronous socket handling
-services." ) has been deprecated in favor of
-[`asyncio`](https://docs.python.org/3.6/library/asyncio.html#module-asyncio
-"asyncio: Asynchronous I/O, event loop, coroutines and tasks." ). (Contributed
-by Mariatta in [issue 25002][233].)
 
 为了支持[`asyncio`](https://docs.python.org/3.6/library/asyncio.html#module-asyncio
 "asyncio: Asynchronous I/O, event loop, coroutines and tasks." )模块. [`asyncore`](https://docs.python.org/3.6/library/asyncore.html#module-
@@ -1722,27 +1674,15 @@ by Mariatta in [issue 25002][233].),
 
 #### dbm¶
 
-Unlike other [`dbm`](https://docs.python.org/3.6/library/dbm.html#module-dbm
-"dbm: Interfaces to various Unix "database" formats." ) implementations, the
-[`dbm.dumb`](https://docs.python.org/3.6/library/dbm.html#module-dbm.dumb
-"dbm.dumb: Portable implementation of the simple DBM interface." ) module
-creates databases with the `'rw'` mode and allows modifying the database
-opened with the `'r'` mode. This behavior is now deprecated and will be
-removed in 3.8. (Contributed by Serhiy Storchaka in [issue
-21708](https://bugs.python.org/issue21708).)
 
 与其他[`dbm`](https://docs.python.org/3.6/library/dbm.html#module-dbm
 "dbm: Interfaces to various Unix "database" formats." )模块的的实现方式不同，
 [`dbm.dumb`](https://docs.python.org/3.6/library/dbm.html#module-dbm.dumb
 "dbm.dumb: Portable implementation of the simple DBM interface." )模块可以通过`'rw'`模式创建数据库
-并允许通过`'r'`模式来修改数据库，不过这种行为现在将被废弃，在Python 3.8 将会被移除。
+并允许通过`'r'`模式来修改数据库，不过这种行为现在将被废弃，在Python 3.8 将会被移除。(Contributed by Serhiy Storchaka in [issue
+21708](https://bugs.python.org/issue21708).)
 
 #### distutils¶
-
-The undocumented `extra_path` argument to the `Distribution` constructor is
-now considered deprecated and will raise a warning if set. Support for this
-parameter will be removed in a future Python release. See [issue
-27919](https://bugs.python.org/issue27919) for details.
 
 `Distribution`构造器中`extra_path`参数现在被认为是过时的，如果在 Python 3.6 中对其进行
 设置的话将会引发一个警告。
@@ -1751,10 +1691,6 @@ parameter will be removed in a future Python release. See [issue
 
 #### grp¶
 
-The support of non-integer arguments in
-[`getgrgid()`](https://docs.python.org/3.6/library/grp.html#grp.getgrgid
-"grp.getgrgid" ) has been deprecated. (Contributed by Serhiy Storchaka in
-[issue 26129][234].)
 
 [`getgrgid()`](https://docs.python.org/3.6/library/grp.html#grp.getgrgid
 "grp.getgrgid" )中对非整数参数的支持，现在已被移除。(Contributed by Serhiy Storchaka in
@@ -1762,22 +1698,6 @@ The support of non-integer arguments in
 
 
 #### importlib¶
-
-The [`importlib.machinery.SourceFileLoader.load_module()`](https://docs.python
-.org/3.6/library/importlib.html#importlib.machinery.SourceFileLoader.load\_modu
-le "importlib.machinery.SourceFileLoader.load\_module" ) and [\`importlib.machin
-ery.SourcelessFileLoader.load\_module()\`](https://docs.python.org/3.6/library/i
-mportlib.html#importlib.machinery.SourcelessFileLoader.load\_module
-"importlib.machinery.SourcelessFileLoader.load\_module" ) methods are now
-deprecated. They were the only remaining implementations of [\`importlib.abc.Lo
-ader.load\_module()\`](https://docs.python.org/3.6/library/importlib.html#import
-lib.abc.Loader.load\_module "importlib.abc.Loader.load\_module" ) in
-[`importlib`](https://docs.python.org/3.6/library/importlib.html#module-
-importlib "importlib: The implementation of the import machinery." ) that had
-not been deprecated in previous versions of Python in favour of [\`importlib.ab
-c.Loader.exec\_module()\`](https://docs.python.org/3.6/library/importlib.html#im
-portlib.abc.Loader.exec\_module "importlib.abc.Loader.exec\_module" ).
-
 
 为了用来在之前的版本中支持
 [\`importlib.abc.Loader.exec\_module()\`](https://docs.python.org/3.6/library/importlib.html#im
@@ -1787,129 +1707,69 @@ portlib.abc.Loader.exec\_module "importlib.abc.Loader.exec\_module" )，
 le "importlib.machinery.SourceFileLoader.load\_module" ) 和 [\`importlib.machin
 ery.SourcelessFileLoader.load\_module()\`](https://docs.python.org/3.6/library/i
 mportlib.html#importlib.machinery.SourcelessFileLoader.load\_module
-"importlib.machinery.SourcelessFileLoader.load\_module" )是
+"importlib.machinery.SourcelessFileLoader.load\_module" )，所以他们是
 [`importlib`](https://docs.python.org/3.6/library/importlib.html#module-
-importlib "importlib: The implementation of the import machinery." ) 中[\`importlib.abc.Lo
-ader.load\_module()\`](https://docs.python.org/3.6/library/importlib.html#import
-lib.abc.Loader.load\_module "importlib.abc.Loader.load\_module" ) 仅存的未被废弃的实现方式，
-不过在在Python 3.6 中，其也已经被废弃。
+importlib "importlib: The implementation of the import machinery." ) 中[\`importlib.abc.Loader.load\_module()\`](https://docs.python.org/3.6/library/importlib.html#importlib.abc.Loader.load\_module "importlib.abc.Loader.load\_module" ) 仅存的未被废弃的实现方式，
+不过在 Python 3.6 中，其也已经被废弃。
 
-
-
-The [`importlib.machinery.WindowsRegistryFinder`](https://docs.python.org/3.6/
-library/importlib.html#importlib.machinery.WindowsRegistryFinder
-"importlib.machinery.WindowsRegistryFinder" ) class is now deprecated. As of
-3.6.0, it is still added to
-[`sys.meta_path`](https://docs.python.org/3.6/library/sys.html#sys.meta\_path
-"sys.meta\_path" ) by default (on Windows), but this may change in future
-releases.
 
 [`importlib.machinery.WindowsRegistryFinder`](https://docs.python.org/3.6/
 library/importlib.html#importlib.machinery.WindowsRegistryFinder
 "importlib.machinery.WindowsRegistryFinder" )类已被弃用。 在 Python 3.6.0 中，它被移动到
 [`sys.meta_path`](https://docs.python.org/3.6/library/sys.html#sys.meta\_path
-"sys.meta\_path" )中， 不过在将来可能会发生变化。
+"sys.meta\_path" )中， 不过在将来这可能会发生变化。
 
 #### os¶
 
-Undocumented support of general [bytes-like
-objects](https://docs.python.org/3.6/glossary.html#term-bytes-like-object) as
-paths in [`os`][235] functions,
-[`compile()`](https://docs.python.org/3.6/library/functions.html#compile
-"compile" ) and similar functions is now deprecated. (Contributed by Serhiy
-Storchaka in [issue 25791][236] and [issue
-26754](https://bugs.python.org/issue26754).)
 
 在[`os`][235]中对作为路径的通用[bytes-like
 objects](https://docs.python.org/3.6/glossary.html#term-bytes-like-object)，[`compile()`](https://docs.python.org/3.6/library/functions.html#compile
-"compile" )以及类函数的非正式支持，现在已经弃用。
+"compile" )以及对类函数的非正式支持，现在已经弃用。
+
 
 #### re¶
 
-Support for inline flags `(?letters)` in the middle of the regular expression
-has been deprecated and will be removed in a future Python version. Flags at
-the start of a regular expression are still allowed. (Contributed by Serhiy
-Storchaka in [issue 22493][237].)
 
-对正则式。。。。的支持已被弃用，并将在后续 Python 版本中移除。正则式开头的标志仍然被保留。
+对正则式中间的内联标志 `(?letters)`的支持已被弃用，并将在后续 Python 版本中移除。对正则式开头的标志的支持仍然被保留。
 (Contributed by Serhiy Storchaka in [issue 22493][237].)
 
 #### ssl¶
 
-OpenSSL 0.9.8, 1.0.0 and 1.0.1 are deprecated and no longer supported. In the
-future the [`ssl`](https://docs.python.org/3.6/library/ssl.html#module-ssl
-"ssl: TLS/SSL wrapper for socket objects" ) module will require at least
-OpenSSL 1.0.2 or 1.1.0.
 
 OpenSSL 0.9.8, 1.0.0 和 1.0.1 已被弃用，不再支持。以后[`ssl`](https://docs.python.org/3.6/library/ssl.html#module-ssl
 "ssl: TLS/SSL wrapper for socket objects" )模块至少需要 OpenSSL 1.0.2 或者 OpenSSL 1.1.0
 
-SSL-related arguments like `certfile`, `keyfile` and `check_hostname` in
-[`ftplib`](https://docs.python.org/3.6/library/ftplib.html#module-ftplib
-"ftplib: FTP protocol client \(requires sockets\)." ),
-[`http.client`](https://docs.python.org/3.6/library/http.client.html#module-
-http.client "http.client: HTTP and HTTPS protocol client \(requires
-sockets\)." ), [`imaplib`](https://docs.python.org/3.6/library/imaplib.html
-# module-imaplib "imaplib: IMAP4 protocol client \(requires sockets\)." ),
-[`poplib`](https://docs.python.org/3.6/library/poplib.html#module-poplib
-"poplib: POP3 protocol client \(requires sockets\)." ), and
-[`smtplib`](https://docs.python.org/3.6/library/smtplib.html#module-smtplib
-"smtplib: SMTP protocol client \(requires sockets\)." ) have been deprecated
-in favor of `context`. (Contributed by Christian Heimes in [issue
-28022](https://bugs.python.org/issue28022).)
-
-为了支持`context`. (Contributed by Christian Heimes in [issue
-28022](https://bugs.python.org/issue28022).)，
+为了支持`context`，
 SSL的相关参数如：`certfile`, `keyfile` and `check_hostname`[`ftplib`](https://docs.python.org/3.6/library/ftplib.html#module-ftplib
 "ftplib: FTP protocol client \(requires sockets\)." ),
 [`http.client`](https://docs.python.org/3.6/library/http.client.html#module-
 http.client "http.client: HTTP and HTTPS protocol client \(requires
-sockets\)." ), [`imaplib`](https://docs.python.org/3.6/library/imaplib.html
-# module-imaplib "imaplib: IMAP4 protocol client \(requires sockets\)." ),
+sockets\)." ), [`imaplib`](https://docs.python.org/3.6/library/imaplib.html#module-imaplib "imaplib: IMAP4 protocol client \(requires sockets\)." ),
 [`poplib`](https://docs.python.org/3.6/library/poplib.html#module-poplib
 "poplib: POP3 protocol client \(requires sockets\)." ), 和
 [`smtplib`](https://docs.python.org/3.6/library/smtplib.html#module-smtplib
-"smtplib: SMTP protocol client \(requires sockets\)." ) 已被弃用。
+"smtplib: SMTP protocol client \(requires sockets\)." ) 已被弃用。(Contributed by Christian Heimes in [issue
+28022](https://bugs.python.org/issue28022).)
 
-A couple of protocols and functions of the
-[`ssl`][238] module are now deprecated. Some features will no
-longer be available in future versions of OpenSSL. Other features are
-deprecated in favor of a different API. (Contributed by Christian Heimes in
-[issue 28022][239] and [issue
-26470](https://bugs.python.org/issue26470).)
 
-[`ssl`][238]的部分协议及函数，现已被弃用。后续的 OpenSSL 版本中，现有的部分特征将不再可用。
-为了引入新的API其他的特征也已经被废弃。 (Contributed by Christian Heimes in
+[`ssl`][238]的部分协议及函数，现已被弃用。后续的 OpenSSL 版本中，部分现有特征将不再可用。
+为了引入新的API，其他的特征也已经被废弃。 (Contributed by Christian Heimes in
 [issue 28022][239] 和 [issue26470](https://bugs.python.org/issue26470).)
 
 
 #### tkinter¶
 
-The [`tkinter.tix`](https://docs.python.org/3.6/library/tkinter.tix.html
-# module-tkinter.tix "tkinter.tix: Tk Extension Widgets for Tkinter" ) module
-is now deprecated.
-[`tkinter`](https://docs.python.org/3.6/library/tkinter.html#module-tkinter
-"tkinter: Interface to Tcl/Tk for graphical user interfaces" ) users should
-use [`tkinter.ttk`](https://docs.python.org/3.6/library/tkinter.ttk.html
-# module-tkinter.ttk "tkinter.ttk: Tk themed widget set" ) instead.
 
-[`tkinter.tix`](https://docs.python.org/3.6/library/tkinter.tix.html
-# module-tkinter.tix "tkinter.tix: Tk Extension Widgets for Tkinter" )模块已被废弃。
+[`tkinter.tix`](https://docs.python.org/3.6/library/tkinter.tix.html#module-tkinter.tix "tkinter.tix: Tk Extension Widgets for Tkinter")模块已被废弃。
 原[`tkinter`](https://docs.python.org/3.6/library/tkinter.html#module-tkinter
 "tkinter: Interface to Tcl/Tk for graphical user interfaces" )的使用者，可以使用
-[`tkinter.ttk`](https://docs.python.org/3.6/library/tkinter.ttk.html
-# module-tkinter.ttk "tkinter.ttk: Tk themed widget set" )来代替。
+[`tkinter.ttk`](https://docs.python.org/3.6/library/tkinter.ttk.html#module-tkinter.ttk "tkinter.ttk: Tk themed widget set")来代替。
 
 #### venv¶
 
-The `pyvenv` script has been deprecated in favour of `python3 -m venv`. This
-prevents confusion as to what Python interpreter `pyvenv` is connected to and
-thus what Python interpreter will be used by the virtual environment.
-(Contributed by Brett Cannon in [issue
+为了引入`python3 -m venv`命令，`pyvenv` 已被废弃。 这可以防止混淆何种 Python 解释器将被`pyvenv`连接
+以及何种 Python 解释器将被用在虚拟环境中。(Contributed by Brett Cannon in [issue
 25154](https://bugs.python.org/issue25154).)
-
-为了引入`python3 -m venv`命令，`pyvenv` 已被废弃。 这可以防止混淆哪个 Python 解释器将被`pyvenv`连接
-以及哪个 Python 解释器将被用在虚拟环境中。
 
 ### Deprecated functions and types of the C API¶
 
