@@ -1,6 +1,7 @@
 # PyCN技术评论
-##PyCN Technology Review，简称PTR
 ###Py字幕组 出品
+
+《PyCN技术评论》，英文名称PyCN Technology Review，简称PTR
 ####Gitter
 
 [![Join the chat at https://gitter.im/PyCN/PTR](https://badges.gitter.im/PyCN/PTR.svg)](https://gitter.im/PyCN/PTR?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
