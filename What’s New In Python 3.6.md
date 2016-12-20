@@ -1338,12 +1338,12 @@ parameter provides an alternative prefix for the virtual environment.
 
 当引发[ `ResourceWarning` ](https://docs.python.org/3.6/library/exceptions.html)警告时，[`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-%0Atracemalloc) 模块就尝试检索分配了销毁对象的跟踪。
 
-Example with the script `example.py`
+一个名为 `example.py`的例子
 ```
     import warnings
     
-    	def func():
-    	return open(__file__)
+    def func():
+        return open(__file__)
     
     f = func()
     f = None
@@ -1354,9 +1354,9 @@ Example with the script `example.py`
       f = None
     Object allocated at (most recent call first):
       File "example.py", lineno 4
-    return open(__file__)
+          return open(__file__)
       File "example.py", lineno 6
-    f = func()
+          f = func()
 ```
 “对象分配”跟踪是新的，并且只有当[`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-%0Atracemalloc)正在跟踪Python内存分配，并且[ `warnings`](https://docs.python.org/3.6/library/warnings.html#module-warnings) 模块已经导入时才会显示。
 
