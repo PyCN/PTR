@@ -830,31 +830,30 @@ automatically:
 
 ```
 
-### faulthandler¶
+### faulthandler¶故障处理
 
-On Windows, the
+在Windows平台, 
 [`faulthandler`](https://docs.python.org/3.6/library/faulthandler.html#module-
-faulthandler "faulthandler: Dump the Python traceback." ) module now installs
-a handler for Windows exceptions: see [`faulthandler.enable()`](https://docs.p
+faulthandler "faulthandler: Dump the Python traceback." )模块安装了一个指示Windows异常的句柄 : 详情可见于 [`faulthandler.enable()`](https://docs.p
 ython.org/3.6/library/faulthandler.html#faulthandler.enable
-"faulthandler.enable" ). (Contributed by Victor Stinner in [issue
-23848](https://bugs.python.org/issue23848).)
+"faulthandler.enable" ). (由 Victor Stinner 在 [issue
+23848](https://bugs.python.org/issue23848)中贡献.)
 
 ### fileinput¶
 
 [`hook_encoded()`](https://docs.python.org/3.6/library/fileinput.html#fileinpu
-t.hook\_encoded "fileinput.hook\_encoded" ) now supports the _errors_ argument.
-(Contributed by Joseph Hackman in [issue
-25788](https://bugs.python.org/issue25788).)
+t.hook\_encoded "fileinput.hook\_encoded" ) 模块现在可支持errors参数.
+(由 Joseph Hackman 在 [issue
+25788](https://bugs.python.org/issue25788)贡献.)
 
 ### hashlib¶
 
 [`hashlib`](https://docs.python.org/3.6/library/hashlib-blake2.html#module-
-hashlib "hashlib: BLAKE2 hash function for Python" ) supports OpenSSL 1.1.0.
-The minimum recommend version is 1.0.2. (Contributed by Christian Heimes in
-[issue 26470][116].)
+hashlib "hashlib: BLAKE2 hash function for Python" ) 支持 OpenSSL 1.1.0.
+推荐使用的最低版本为1.0.2. (由Christian Heimes 在
+[issue 26470][116]贡献.)
 
-BLAKE2 hash functions were added to the module.
+BLAKE2 hash 函数也被收录进这一模块.
 [`blake2b()`](https://docs.python.org/3.6/library/hashlib-
 blake2.html#hashlib.blake2b "hashlib.blake2b" ) and
 [`blake2s()`](https://docs.python.org/3.6/library/hashlib-
