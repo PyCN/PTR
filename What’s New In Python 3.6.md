@@ -1326,10 +1326,10 @@ parameter provides an alternative prefix for the virtual environment.
 一个名为 `example.py`的例子
 ```
     import warnings
-    
+
     def func():
         return open(__file__)
-    
+
     f = func()
     f = None
 ```
@@ -1365,7 +1365,7 @@ d.html#winsound.MessageBeep "winsound.MessageBeep" ), 和 [`PlaySound`](https:
 
 ### zipfile¶
 
-一个新的类方法 [`ZipInfo.from_file()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.from\_file "zipfile.ZipInfo.from\_file") 允许从文件系统文件中生成一个 
+一个新的类方法 [`ZipInfo.from_file()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.from\_file "zipfile.ZipInfo.from\_file") 允许从文件系统文件中生成一个
 [`ZipInfo`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo
 "zipfile.ZipInfo" ) 实例。
 一个新的方法 [`ZipInfo.is_dir()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.is\_dir"zipfile.ZipInfo.is\_dir" ) 能够用来检查[`ZipInfo`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo"zipfile.ZipInfo" ) 实例是否表示一个目录。 (Contributed by Thomas Kluyver in [issue 26039][158].)
