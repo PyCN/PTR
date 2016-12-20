@@ -1,7 +1,8 @@
 # PyCN技术评论
 ###Py字幕组 出品
 
-《PyCN技术评论》，英文名称PyCN Technology Review，简称PTR
+《PyCN技术评论》，由Python中文社区发起，Py字幕组承担翻译工作，以翻译Python相关的技术文档、文章为主，英文名称PyCN Technology Review，简称PTR.
+
 ####Gitter
 
 [![Join the chat at https://gitter.im/PyCN/PTR](https://badges.gitter.im/PyCN/PTR.svg)](https://gitter.im/PyCN/PTR?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
