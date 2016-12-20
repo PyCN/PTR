@@ -1290,15 +1290,13 @@ traceback模块和解释器内置的异常展示现在都省略回溯中重复�
 
 ### unicodedata¶
 
-The [`unicodedata`](https://docs.python.org/3.6/library/unicodedata.html
-# module-unicodedata "unicodedata: Access the Unicode Database." ) module now
+The [`unicodedata`](https://docs.python.org/3.6/library/unicodedata.html#module-unicodedata "unicodedata: Access the Unicode Database.") module now
 uses data from [Unicode 9.0.0][148].
 (Contributed by Benjamin Peterson.)
 
 ### unittest.mock¶
 
-The [`Mock`](https://docs.python.org/3.6/library/unittest.mock.html#unittest.m
-ock.Mock "unittest.mock.Mock" ) class has the following improvements:
+The [`Mock`](https://docs.python.org/3.6/library/unittest.mock.html#unittest.mock.Mock "unittest.mock.Mock" ) class has the following improvements:
 
   * Two new methods, [`Mock.assert_called()`][149] and [`Mock.assert_called_once()`][150] to check if the mock object was called. (Contributed by Amit Saha in [issue 26323][151].)
   * The [`Mock.reset_mock()`][152] method now has two optional keyword only arguments: _return\_value_ and _side\_effect_. (Contributed by Kushal Das in [issue 21271][153].)
@@ -1313,8 +1311,7 @@ no `Content-Length` header, rather than throwing an error,
 
 ### urllib.robotparser¶
 
-[`RobotFileParser`](https://docs.python.org/3.6/library/urllib.robotparser.htm
-l#urllib.robotparser.RobotFileParser "urllib.robotparser.RobotFileParser" )
+[`RobotFileParser`](https://docs.python.org/3.6/library/urllib.robotparser.html#urllib.robotparser.RobotFileParser"urllib.robotparser.RobotFileParser" )
 now supports the `Crawl-delay` and `Request-rate` extensions. (Contributed by
 Nikolay Bogoychev in [issue 16099][154].)
 
@@ -1322,8 +1319,7 @@ Nikolay Bogoychev in [issue 16099][154].)
 
 [`venv`][155] accepts a new parameter `--prompt`. This
 parameter provides an alternative prefix for the virtual environment.
-(Proposed by Łukasz Balcerzak and ported to 3.6 by Stéphane Wirtel in [issue
-22829](https://bugs.python.org/issue22829).)
+(Proposed by Łukasz Balcerzak and ported to 3.6 by Stéphane Wirtel in [issue22829](https://bugs.python.org/issue22829).)
 
 ### warnings¶
 
