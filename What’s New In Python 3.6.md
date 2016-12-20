@@ -1752,22 +1752,21 @@ Setuptools 26.0.0.
 
   * when custom metaclasses are combined with zero-argument [`super()`][354] or direct references from methods to the implicit `__class__` closure variable, the implicit `__classcell__` namespace entry must now be passed up to `type.__new__` for initialisation. Failing to do so will result in a [`DeprecationWarning`][355] in 3.6 and a [`RuntimeWarning`][356] in the future.
 
-### Changes in the C API¶
+### 在C API上的改动¶
 
-  * The [`PyMem_Malloc()`][357] allocator family now uses the [pymalloc allocator][358] rather than the system `malloc()`. Applications calling [`PyMem_Malloc()`][359] without holding the GIL can now crash. Set the [`PYTHONMALLOC`][360] environment variable to `debug` to validate the usage of memory allocators in your application. See [issue 26249][361].
-  * [`Py_Exit()`][362] (and the main interpreter) now override the exit status with 120 if flushing buffered data failed. See [issue 5319][363].
+  * 旧的[`PyMem_Malloc()`][357]分配算符族将使用新的[pymalloc分配算符][358]，替换掉了系统原有的’malloc()’。应用程序在没有捕获GIL时调用[`PyMem_Malloc()`][359]会导致崩溃。可通过设置[pythonmalloc][360]环境变量去’debug’来实现应用程内存的分配。详情请看[问题26429][361]。
+  * [`Py_Exit()`][362]（和新的主注释器），如果刷新缓存失败，将覆盖当前状态。详情请看[问题5319][363]
 
-### CPython bytecode changes¶
+### CPython 字节码的更改¶
 
-There have been several major changes to the
-[bytecode][364] in Python
+在Python 3.6中将会出现几个关于[字节码][364]要更新。
 3.6.
 
-  * The Python interpreter now uses a 16-bit wordcode instead of bytecode. (Contributed by Demur Rumed with input and reviews from Serhiy Storchaka and Victor Stinner in [issue 26647][365] and [issue 28050][366].)
-  * The new [`FORMAT_VALUE`][367] and [`BUILD_STRING`][368] opcodes as part of the formatted string literal implementation. (Contributed by Eric Smith in [issue 25483][369] and Serhiy Storchaka in [issue 27078][370].)
-  * The new [`BUILD_CONST_KEY_MAP`][371] opcode to optimize the creation of dictionaries with constant keys. (Contributed by Serhiy Storchaka in [issue 27140][372].)
-  * The function call opcodes have been heavily reworked for better performance and simpler implementation. The [`MAKE_FUNCTION`][373], [`CALL_FUNCTION`][374], [`CALL_FUNCTION_KW`][375] and `BUILD_MAP_UNPACK_WITH_CALL` opcodes have been modified, the new `CALL_FUNCTION_EX` and `BUILD_TUPLE_UNPACK_WITH_CALL` have been added, and `CALL_FUNCTION_VAR`, `CALL_FUNCTION_VAR_KW` and `MAKE_CLOSURE` opcodes have been removed. (Contributed by Demur Rumed in [issue 27095][376], and Serhiy Storchaka in [issue 27213][377], [issue 28257][378].)
-  * The new [`SETUP_ANNOTATIONS`][379] and [`STORE_ANNOTATION`][380] opcodes have been added to support the new [variable annotation][381] syntax. (Contributed by Ivan Levkivskyi in [issue 27985][382].)
+  * 新的Python注释器将使用16位词码去替代老的字符码。（感谢Demur Rumed在Serhiy Storchaka和Victor Stinner[问题26647][365]和[问题28050][366]中做出贡献后的审查）
+  * 将启用新的[`FORMAT_VALUE`][367]和[`BUILD_STRING`][368] 操作码作为一部分格式化字符串。（感谢Eric Smith在[问题25483][369]和Serhiy Storchaka在[问题27078][370]的贡献）
+  * 将启用新的[`BUILD_CONST_KEY_MAP`][371]操作码并伴随常量关键字优化创建字典的过程。（感谢Serhiy Storchaka 提出的[问题27140][372].）
+  * 为了更好的表现和更快捷的启动, 已经对调用操作码的功能进行了深度重做。[`MAKE_FUNCTION`][373], [`CALL_FUNCTION`][374],[` CALL_FUNCTION_KW`][375] 以及 `BUILD_MAP_UNPACK_WITH_CALL` 这些操作码已经做了修改，并添加了新的`CALL_FUNCTION_EX` 和 `BUILD_TUPLE_UNPACK_WITH_CALL`。而`CALL_FUNCTION_VAR`, `CALL_FUNCTION_VAR_KW` 和`MAKE_CLOSURE`则在新的Python中被移除。（感谢Demur Rumed在[问题27905][376]中的贡献以及Serhiy Storchaka在[问题27213][377]、[问题28257][378]中的贡献）
+  * 添加了[`SETUP_ANNOTATIONS`][379] 和 [`STORE_ANNOTATION`][380]操作码，用于支持新的[变量注释语法][381]。（感谢Ivan Levkivskyi在[问题27985][382]中的贡献）
 
 ----
 (C) [Copyright][383] 2001-2016, Python
