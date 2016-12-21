@@ -976,32 +976,28 @@ Linux的`getrandom()`系统调用(获取随机字节)现在作为新的[`os.getr
 
 ### pickle¶
 
-Objects that need `__new__` called with keyword arguments can now be pickled
-using [pickle protocols](https://docs.python.org/3.6/library/pickle.html
-# pickle-protocols) older than protocol version 4. Protocol version 4 already
-supports this case. (Contributed by Serhiy Storchaka in [issue
-24164](https://bugs.python.org/issue24164).)
+对象，现在可以使用关键参数 `__new__`进行持久存储[pickle协议](https://docs.python.org/3.6/library/pickle.html
+# pickle-protocols)超过已有的协议版本4.
+支持这种情况. (由Serhiy Storchaka在[issue
+24164](https://bugs.python.org/issue24164)的贡献。)
 
 ### pickletools¶
 
-[`pickletools.dis()`](https://docs.python.org/3.6/library/pickletools.html#pic
-kletools.dis "pickletools.dis" ) now outputs the implicit memo index for the
-`MEMOIZE` opcode. (Contributed by Serhiy Storchaka in [issue
-25382](https://bugs.python.org/issue25382).)
+现在[`pickletools.dis()`](https://docs.python.org/3.6/library/pickletools.html#pic
+kletools.dis "pickletools.dis" ) 输出的隐含备注是`MEMOIZE`操作码的索引。 (由Serhiy Storchaka在[issue
+25382](https://bugs.python.org/issue25382)的贡献。)
 
 ### pydoc¶
 
-The [`pydoc`](https://docs.python.org/3.6/library/pydoc.html#module-pydoc
-"pydoc: Documentation generator and online help system." ) module has learned
-to respect the `MANPAGER` environment variable. (Contributed by Matthias Klose
-in [issue 8637][130].)
+[`pydoc`](https://docs.python.org/3.6/library/pydoc.html#module-pydoc
+"pydoc: Documentation generator and online help system." )模块已经学会遵守`MANPAGER`环境变量。 (由Matthias Klose
+在[issue 8637][130]的贡献。)
 
 [`help()`][131]
-and [`pydoc`](https://docs.python.org/3.6/library/pydoc.html#module-pydoc
-"pydoc: Documentation generator and online help system." ) can now list named
-tuple fields in the order they were defined rather than alphabetically.
-(Contributed by Raymond Hettinger in [issue
-24879](https://bugs.python.org/issue24879).)
+和 [`pydoc`](https://docs.python.org/3.6/library/pydoc.html#module-pydoc
+"pydoc: Documentation generator and online help system." ) 现在能用指定的元组字段定义的顺序来显示列表，而不是按字母顺序。
+(由Raymond Hettinger在[issue
+24879](https://bugs.python.org/issue24879)的贡献。)
 
 ### random¶
 
@@ -1329,10 +1325,10 @@ parameter provides an alternative prefix for the virtual environment.
 一个名为 `example.py`的例子
 ```
     import warnings
-    
+
     def func():
         return open(__file__)
-    
+
     f = func()
     f = None
 ```
@@ -1368,7 +1364,7 @@ d.html#winsound.MessageBeep "winsound.MessageBeep" ), 和 [`PlaySound`](https:
 
 ### zipfile¶
 
-一个新的类方法 [`ZipInfo.from_file()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.from\_file "zipfile.ZipInfo.from\_file") 允许从文件系统文件中生成一个 
+一个新的类方法 [`ZipInfo.from_file()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.from\_file "zipfile.ZipInfo.from\_file") 允许从文件系统文件中生成一个
 [`ZipInfo`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo
 "zipfile.ZipInfo" ) 实例。
 一个新的方法 [`ZipInfo.is_dir()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.is\_dir"zipfile.ZipInfo.is\_dir" ) 能够用来检查[`ZipInfo`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo"zipfile.ZipInfo" ) 实例是否表示一个目录。 (Contributed by Thomas Kluyver in [issue 26039][158].)
