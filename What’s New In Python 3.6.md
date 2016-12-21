@@ -1,20 +1,19 @@
-原文：[What’s New In Python 3.6][1]
+原文：[Python 3.6新特性简介][1]
 
-# What's New In Python 3.6¶
+# Python 3.6新特性简介¶
 
-Release:| 3.6.0
+版本:| 3.6.0
 ---|---
-Date:| December 15, 2016
-Editors:| Elvis Pranskevichus
+日期:| December 15, 2016
+编辑:| Elvis Pranskevichus
 &lt;[elvis@magic.io][2]&gt;, Yury Selivanov
 &lt;[yury@magic.io][3]&gt;
 
-This article explains the new features in Python 3.6, compared to 3.5.
+这篇文章介绍了与3.5相比， Python 3.6中多出的新特性。
 
-See also
+另请参阅
 
-[**PEP 494**][4] \- Python 3.6 Release
-Schedule
+[**PEP 494**][4] \- Python 3.6 发布时间表
 
 ## 摘要 - 发布亮点¶
 
