@@ -536,45 +536,38 @@ may be added in the future.
 21590](https://bugs.python.org/issue21590), based on patches by Jesús Cea
 Avión, David Malcolm, and Nikhil Benesch.)
 
-## Other Language Changes¶
+## 其他语言方面的变化¶
 
-Some smaller changes made to the core Python language are:
+我们还对 Python 语言的核心做了一些小的改变：
 
-  * A `global` or `nonlocal` statement must now textually appear before the first use of the affected name in the same scope. Previously this was a `SyntaxWarning`.
-  * It is now possible to set a [special method][72] to `None` to indicate that the corresponding operation is not available. For example, if a class sets [`__iter__()`][73] to `None`, the class is not iterable. (Contributed by Andrew Barnert and Ivan Levkivskyi in [issue 25958][74].)
-  * Long sequences of repeated traceback lines are now abbreviated as `"[Previous line repeated {count} more times]"` (see traceback for an example). (Contributed by Emanuel Barry in [issue 26823][75].)
-  * Import now raises the new exception [`ModuleNotFoundError`][76] (subclass of [`ImportError`][77]) when it cannot find a module. Code that currently checks for ImportError (in try-except) will still work. (Contributed by Eric Snow in [issue 15767][78].)
-  * Class methods relying on zero-argument `super()` will now work correctly when called from metaclass methods during class creation. (Contributed by Martin Teichmann in [issue 23722][79].)
+  * 现在在同一作用域内的 `global` 或 `nonlocal` 语句必须在受其影响的命名使用前显式出现。在先前版本中会发出 `语法警告`。
+  * 现在能以将 [魔术方法][72] 设置为 `None` 的方式来表示相应的操作不可用。 例如，如果将一个类的 [`__iter__()`][73] 设置为None，则该类不可迭代。(由 Andrew Barnert 和 Ivan Levkivskyi 在 [issue 25958][74] 中贡献。)
+  * 在 traceback 中大量重复出现的 traceback lines 将会被略写成 `"[前一行已经重复出现 {count} 次了]"` (以 traceback 为例。). (由 Emanuel Barry 在 [issue 26823][75] 中贡献。)
+  * 现在模块导入在找不到模块时引发新的异常 [`ModuleNotFoundError`][76]（[`ImportError`][77] 的子类）。 当前检测 ImportError 的代码（try-except中）仍然可以工作。(由 Eric Snow 在 [issue 15767][78] 中贡献。)
+  * 在类创建时，被元类调用的依赖无参数的 `super()` 的类方法时会正确工作。(由 Martin Teichmann 在 [issue 23722][79]中贡献。)
 
-## New Modules¶
+## 新增模块¶
 
 ### secrets¶
 
-The main purpose of the new
-[`secrets`](https://docs.python.org/3.6/library/secrets.html#module-secrets
-"secrets: Generate secure random numbers for managing secrets." ) module is to
-provide an obvious way to reliably generate cryptographically strong pseudo-
-random values suitable for managing secrets, such as account authentication,
-tokens, and similar.
+新增模块 [`secrets`](https://docs.python.org/3.6/library/secrets.html#module-secrets
+"secrets: Generate secure random numbers for managing secrets." ) 的主要目的是：提供一个
+显式可靠的方式来产生适合于管理诸如账户认证，令牌之类的保密信息的加密的强伪随机值。
 
-Warning
+警告
 
-Note that the pseudo-random generators in the
-[`random`](https://docs.python.org/3.6/library/random.html#module-random
+注意在 [`random`](https://docs.python.org/3.6/library/random.html#module-random
 "random: Generate pseudo-random numbers with various common distributions." )
-module should _NOT_ be used for security purposes. Use
-[`secrets`](https://docs.python.org/3.6/library/secrets.html#module-secrets
-"secrets: Generate secure random numbers for managing secrets." ) on Python
-3.6+ and
+模块中的随机数生成器 **不该** 用于安全目的。Python 3.6 及以上版本请使用 [`secrets`](https://docs.python.org/3.6/library/secrets.html#module-secrets
+"secrets: Generate secure random numbers for managing secrets." ) 而 Python 3.5 及更早的版本请使用
 [`os.urandom()`](https://docs.python.org/3.6/library/os.html#os.urandom
-"os.urandom" ) on Python 3.5 and earlier.
+"os.urandom" )。
 
-See also
+又见
 
-[**PEP 506**][80] - Adding A Secrets
-Module To The Standard Library
+[**PEP 506**][80] - 向标准库添加 Secrets 模块
 
-	PEP written and implemented by Steven D'Aprano.
+	PEP 由 Steven D'Aprano 编写及实现。
 
 ## Improved Modules¶
 
