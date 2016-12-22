@@ -1019,28 +1019,22 @@ kletools.dis "pickletools.dis" ) 输出的隐含备注是`MEMOIZE`操作码的�
 
 ### rlcompleter¶
 
-Private and special attribute names now are omitted unless the prefix starts
-with underscores. A space or a colon is added after some completed keywords.
-(Contributed by Serhiy Storchaka in [issue
-25011](https://bugs.python.org/issue25011) and [issue
-25209](https://bugs.python.org/issue25209).)
+现在，除非前缀开始使用下划线，否则私有和特殊属性名称就被忽略。在一些完成的关键字后面添加一个空格或冒号。
+(由Serhiy Storchaka 在[issue
+25011](https://bugs.python.org/issue25011) 和 [issue
+25209](https://bugs.python.org/issue25209)的贡献。)
 
 ### shlex¶
 
-The [`shlex`](https://docs.python.org/3.6/library/shlex.html#shlex.shlex
-"shlex.shlex" ) has much [improved shell
-compatibility](https://docs.python.org/3.6/library/shlex.html#improved-shell-
-compatibility) through the new _punctuation\_chars_ argument to control which
-characters are treated as punctuation. (Contributed by Vinay Sajip in [issue
-1521950](https://bugs.python.org/issue1521950).)
+[`shlex`](https://docs.python.org/3.6/library/shlex.html#shlex.shlex
+"shlex.shlex" ) 已经大大 [改进shell的兼容性](https://docs.python.org/3.6/library/shlex.html#improved-shell-compatibility) ,通过新的 _punctuation\_chars_ 参数来控制，哪些字符被作为标点符号。 (由Vinay Sajip 在[issue
+1521950](https://bugs.python.org/issue1521950)的贡献。)
 
 ### site¶
 
-When specifying paths to add to
-[`sys.path`](https://docs.python.org/3.6/library/sys.html#sys.path "sys.path"
-) in a .pth file, you may now specify file paths on top of directories (e.g.
-zip files). (Contributed by Wolfgang Langner in [issue
-26587](https://bugs.python.org/issue26587)).
+在一个.pth文件里，当指定路径添加到[`sys.path`](https://docs.python.org/3.6/library/sys.html#sys.path "sys.path"
+) 中, 可能你现在要在目录之上指定文件路径 (例如：zip文件)。 (由Wolfgang Langner 在[issue
+26587](https://bugs.python.org/issue26587)的贡献)。
 
 ### sqlite3¶
 
