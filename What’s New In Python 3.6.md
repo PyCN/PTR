@@ -896,7 +896,7 @@ n.org/3.6/library/exceptions.html#ModuleNotFoundError "ModuleNotFoundError" )
 ml#ImportError "ImportError" )的一个子类) . 检测`ImportError`的代码（try-except）依然会工作。 (由 Eric Snow 在 [issue 15767][121]中贡献.)
 
 [`importlib.util.LazyLoader`](https://docs.python.org/3.6/library/importlib.ht
-ml#importlib.util.LazyLoader "importlib.util.LazyLoader" )在打包好的装载器上被称作 [\`create\_
+ml#importlib.util.LazyLoader "importlib.util.LazyLoader" )在打包好的装载器上更名为 [\`create\_
 module()\`](https://docs.python.org/3.6/library/importlib.html#importlib.abc.Lo
 ader.create\_module "importlib.abc.Loader.create\_module" ) , 去除了 [`importlib.machinery.BuiltinImporter`](
 https://docs.python.org/3.6/library/importlib.html#importlib.machinery.Builtin
