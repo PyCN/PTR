@@ -817,47 +817,43 @@ automatically:
 
 ### faulthandler¶
 
-On Windows, the
+在Windows平台, 
 [`faulthandler`](https://docs.python.org/3.6/library/faulthandler.html#module-
-faulthandler "faulthandler: Dump the Python traceback." ) module now installs
-a handler for Windows exceptions: see [`faulthandler.enable()`](https://docs.p
+faulthandler "faulthandler: Dump the Python traceback." )模块安装了一个指示Windows异常的句柄 : 详情可见于 [`faulthandler.enable()`](https://docs.p
 ython.org/3.6/library/faulthandler.html#faulthandler.enable
-"faulthandler.enable" ). (Contributed by Victor Stinner in [issue
-23848](https://bugs.python.org/issue23848).)
+"faulthandler.enable" ). (由 Victor Stinner 在 [issue
+23848](https://bugs.python.org/issue23848)中贡献.)
 
 ### fileinput¶
 
 [`hook_encoded()`](https://docs.python.org/3.6/library/fileinput.html#fileinpu
-t.hook\_encoded "fileinput.hook\_encoded" ) now supports the _errors_ argument.
-(Contributed by Joseph Hackman in [issue
-25788](https://bugs.python.org/issue25788).)
+t.hook\_encoded "fileinput.hook\_encoded" ) 模块现在可支持errors参数.
+(由 Joseph Hackman 在 [issue
+25788](https://bugs.python.org/issue25788)贡献.)
 
 ### hashlib¶
 
 [`hashlib`](https://docs.python.org/3.6/library/hashlib-blake2.html#module-
-hashlib "hashlib: BLAKE2 hash function for Python" ) supports OpenSSL 1.1.0.
-The minimum recommend version is 1.0.2. (Contributed by Christian Heimes in
-[issue 26470][116].)
+hashlib "hashlib: BLAKE2 hash function for Python" ) 支持 OpenSSL 1.1.0。
+推荐使用的最低版本为1.0.2. (由Christian Heimes 在
+[issue 26470][116]贡献.)
 
-BLAKE2 hash functions were added to the module.
+BLAKE2 hash 函数也被收录进这一模块.
 [`blake2b()`](https://docs.python.org/3.6/library/hashlib-
-blake2.html#hashlib.blake2b "hashlib.blake2b" ) and
+blake2.html#hashlib.blake2b "hashlib.blake2b" ) 与
 [`blake2s()`](https://docs.python.org/3.6/library/hashlib-
-blake2.html#hashlib.blake2s "hashlib.blake2s" ) are always available and
-support the full feature set of BLAKE2. (Contributed by Christian Heimes in
-[issue 26798][117] based on code by Dmitry
-Chestnykh and Samuel Neves. Documentation written by Dmitry Chestnykh.)
+blake2.html#hashlib.blake2s "hashlib.blake2s" ) 将长期支持BLAKE2的所有特性. (由Christian Heimes in
+依据Dmitry
+Chestnykh 和 Samuel Neves的代码在[issue 26798][117] 贡献. 文档由Dmitry Chestnykh撰写.)
 
-The SHA-3 hash functions `sha3_224()`, `sha3_256()`, `sha3_384()`,
-`sha3_512()`, and SHAKE hash functions `shake_128()` and `shake_256()` were
-added. (Contributed by Christian Heimes in [issue
-16113](https://bugs.python.org/issue16113). Keccak Code Package by Guido
-Bertoni, Joan Daemen, Michaël Peeters, Gilles Van Assche, and Ronny Van Keer.)
+新增SHA-3哈希函数   `sha3_224()`, `sha3_256()`, `sha3_384()`,
+`sha3_512()`,  与SHAKE 哈希函数 `shake_128()` 、`shake_256()` . (由Christian Heimes 在 [issue
+16113](https://bugs.python.org/issue16113)贡献. Keccak 代码包由Guido
+Bertoni, Joan Daemen, Michaël Peeters, Gilles Van Assche, and Ronny Van Keer撰写.)
 
-The password-based key derivation function
+基于密码的密钥导出函数
 [`scrypt()`](https://docs.python.org/3.6/library/hashlib.html#hashlib.scrypt
-"hashlib.scrypt" ) is now available with OpenSSL 1.1.0 and newer. (Contributed
-by Christian Heimes in [issue 27928][118].)
+"hashlib.scrypt" ) 可使用 OpenSSL 1.1.0 或更新版本. (由Christian Heimes 在 [issue 27928][118]中贡献.)
 
 ### http.client¶
 
@@ -865,61 +861,44 @@ by Christian Heimes in [issue 27928][118].)
 tml#http.client.HTTPConnection.request "http.client.HTTPConnection.request" )
 and [`endheaders()`](https://docs.python.org/3.6/library/http.client.html#http
 .client.HTTPConnection.endheaders "http.client.HTTPConnection.endheaders" )
-both now support chunked encoding request bodies. (Contributed by Demian
-Brecht and Rolf Krahl in [issue 12319][119].)
+将全部支持分块编码请求体. (由Demian
+Brecht and Rolf Krahl 在 [issue 12319][119]中贡献.)
 
 ### idlelib and IDLE¶
 
-The idlelib package is being modernized and refactored to make IDLE look and
-work better and to make the code easier to understand, test, and improve. Part
-of making IDLE look better, especially on Linux and Mac, is using ttk widgets,
-mostly in the dialogs. As a result, IDLE no longer runs with tcl/tk 8.4. It
-now requires tcl/tk 8.5 or 8.6. We recommend running the latest release of
-either.
+对idle包做了现代化的改进与重构，使得IDLE更美观、更好用的同时令编程更易于理解、测试与改进。在IDLE的美化方面，特备针对Linux和Mac用户，我们在大多数对话框上应用了ttk插件。总之，IDLE将不再支持tcl/tk 8.4。现在要求有 tcl/tk 8.5 或 8.6。我们建议在使用时运行最新的版本.
 
-'Modernizing' includes renaming and consolidation of idlelib modules. The
-renaming of files with partial uppercase names is similar to the renaming of,
-for instance, Tkinter and TkFont to tkinter and tkinter.font in 3.0. As a
-result, imports of idlelib files that worked in 3.5 will usually not work in
-3.6. At least a module name change will be needed (see idlelib/README.txt),
-sometimes more. (Name changes contributed by Al Swiegart and Terry Reedy in
-[issue 24225][120]. Most idlelib patches since
-have been and will be part of the process.)
+“现代化”包括对idlelib模块的重命名和整合.重命名文件部分大写的名字是与之前版本类似的命名，例如，Tkinter和TkFont对应3.0版本中的Tkinter和tkinter.font 。因此，对idlelib在3.5环境下导入的文件通常不会工作在3.6。至少一个模块的名称需要改变（见idlelib / readme.txt），有时甚至会更多。(名称变更由Al Swiegart 与 Terry Reedy 在
+[issue 24225][120]中贡献. 大多数idle补丁均会加入这一改进。)
 
-In compensation, the eventual result with be that some idlelib classes will be
-easier to use, with better APIs and docstrings explaining them. Additional
-useful information will be added to idlelib when available.
+做点补充，最终的结果是，一些idlelib类会更容易使用，将具有更好的API文档与字符串的解释。其他有用的信息会在可用时被及时添加到idlelib。
 
 ### importlib¶
 
-Import now raises the new exception [`ModuleNotFoundError`](https://docs.pytho
+当无法找到被导入模块时会跳出一个新的异常提示 [`ModuleNotFoundError`](https://docs.pytho
 n.org/3.6/library/exceptions.html#ModuleNotFoundError "ModuleNotFoundError" )
-(subclass of [`ImportError`](https://docs.python.org/3.6/library/exceptions.ht
-ml#ImportError "ImportError" )) when it cannot find a module. Code that
-current checks for `ImportError` (in try-except) will still work. (Contributed
-by Eric Snow in [issue 15767][121].)
+([`ImportError`](https://docs.python.org/3.6/library/exceptions.ht
+ml#ImportError "ImportError" )的一个子类) . 检测`ImportError`的代码（try-except）依然会工作。 (由 Eric Snow 在 [issue 15767][121]中贡献.)
 
 [`importlib.util.LazyLoader`](https://docs.python.org/3.6/library/importlib.ht
-ml#importlib.util.LazyLoader "importlib.util.LazyLoader" ) now calls [\`create\_
+ml#importlib.util.LazyLoader "importlib.util.LazyLoader" )在打包好的装载器上更名为 [\`create\_
 module()\`](https://docs.python.org/3.6/library/importlib.html#importlib.abc.Lo
-ader.create\_module "importlib.abc.Loader.create\_module" ) on the wrapped
-loader, removing the restriction that [`importlib.machinery.BuiltinImporter`](
+ader.create\_module "importlib.abc.Loader.create\_module" ) , 去除了 [`importlib.machinery.BuiltinImporter`](
 https://docs.python.org/3.6/library/importlib.html#importlib.machinery.Builtin
-Importer "importlib.machinery.BuiltinImporter" ) and [\`importlib.machinery.Ext
+Importer "importlib.machinery.BuiltinImporter" )与 [\`importlib.machinery.Ext
 ensionFileLoader\`](https://docs.python.org/3.6/library/importlib.html#importli
 b.machinery.ExtensionFileLoader "importlib.machinery.ExtensionFileLoader" )
-couldn't be used with [`importlib.util.LazyLoader`](https://docs.python.org/3.
+不能同 [`importlib.util.LazyLoader`](https://docs.python.org/3.
 6/library/importlib.html#importlib.util.LazyLoader "importlib.util.LazyLoader"
-).
+)一起使用的限制.
 
 [`importlib.util.cache_from_source()`](https://docs.python.org/3.6/library/imp
 ortlib.html#importlib.util.cache\_from\_source
 "importlib.util.cache\_from\_source" ), [`importlib.util.source_from_cache()`](h
 ttps://docs.python.org/3.6/library/importlib.html#importlib.util.source\_from\_c
-ache "importlib.util.source\_from\_cache" ), and [\`importlib.util.spec\_from\_file
+ache "importlib.util.source\_from\_cache" ), 和 [\`importlib.util.spec\_from\_file
 \_location()\`](https://docs.python.org/3.6/library/importlib.html#importlib.uti
-l.spec\_from\_file\_location "importlib.util.spec\_from\_file\_location" ) now
-accept a [path-like object](https://docs.python.org/3.6/glossary.html#term-
+l.spec\_from\_file\_location "importlib.util.spec\_from\_file\_location" ) 现在可接受[path-like object](https://docs.python.org/3.6/glossary.html#term-
 path-like-object).
 
 ### inspect
