@@ -830,7 +830,7 @@ automatically:
 
 ```
 
-### faulthandler¶故障处理
+### faulthandler¶
 
 在Windows平台, 
 [`faulthandler`](https://docs.python.org/3.6/library/faulthandler.html#module-
@@ -849,7 +849,7 @@ t.hook\_encoded "fileinput.hook\_encoded" ) 模块现在可支持errors参数.
 ### hashlib¶
 
 [`hashlib`](https://docs.python.org/3.6/library/hashlib-blake2.html#module-
-hashlib "hashlib: BLAKE2 hash function for Python" ) 支持 OpenSSL 1.1.0.
+hashlib "hashlib: BLAKE2 hash function for Python" ) 支持 OpenSSL 1.1.0。
 推荐使用的最低版本为1.0.2. (由Christian Heimes 在
 [issue 26470][116]贡献.)
 
@@ -881,19 +881,19 @@ Brecht and Rolf Krahl 在 [issue 12319][119]中贡献.)
 
 ### idlelib and IDLE¶
 
-对idle包做了现代化的改进与重构，使得IDLE更美观、更好用的同时令编程更容易理解、测试与改善。在IDLE的美化方面，特备针对Linux和Mac用户，我们在大多数对话框上应用了ttk插件。总之，IDLE将不再支持tcl/tk 8.4。现在要求有 tcl/tk 8.5 或 8.6。我们建议在使用时应运行最新的版本.
+对idle包做了现代化的改进与重构，使得IDLE更美观、更好用的同时令编程更易于理解、测试与改进。在IDLE的美化方面，特备针对Linux和Mac用户，我们在大多数对话框上应用了ttk插件。总之，IDLE将不再支持tcl/tk 8.4。现在要求有 tcl/tk 8.5 或 8.6。我们建议在使用时运行最新的版本.
 
-“现代化”包括对idlelib模块的重命名和整合.重命名文件部分大写的名字是类似的命名，例如，Tkinter和TkFont对应3.0版本中的Tkinter和tkinter.font 。因此，对idlelib在3.5环境下导入的文件通常不会工作在3.6。至少一个模块的名称需要改变（见idlelib / readme.txt），有时甚至会更多。(名称变更由Al Swiegart 与 Terry Reedy 在
-[issue 24225][120]中贡献. 大多数idle补丁会是这一进程的一部分.)
+“现代化”包括对idlelib模块的重命名和整合.重命名文件部分大写的名字是与之前版本类似的命名，例如，Tkinter和TkFont对应3.0版本中的Tkinter和tkinter.font 。因此，对idlelib在3.5环境下导入的文件通常不会工作在3.6。至少一个模块的名称需要改变（见idlelib / readme.txt），有时甚至会更多。(名称变更由Al Swiegart 与 Terry Reedy 在
+[issue 24225][120]中贡献. 大多数idle补丁均会加入这一改进。)
 
-做点补充，最终的结果是，一些idlelib类会更容易使用，将具有更好的API文档与字符串的解释。其他有用的信息会在可用时被添加到idlelib。
+做点补充，最终的结果是，一些idlelib类会更容易使用，将具有更好的API文档与字符串的解释。其他有用的信息会在可用时被及时添加到idlelib。
 
 ### importlib¶
 
 当无法找到被导入模块时会跳出一个新的异常提示 [`ModuleNotFoundError`](https://docs.pytho
 n.org/3.6/library/exceptions.html#ModuleNotFoundError "ModuleNotFoundError" )
-(subclass of [`ImportError`](https://docs.python.org/3.6/library/exceptions.ht
-ml#ImportError "ImportError" )) . 检测`ImportError`的代码（try-except）依然会工作。 (由 Eric Snow 在 [issue 15767][121]中贡献.)
+([`ImportError`](https://docs.python.org/3.6/library/exceptions.ht
+ml#ImportError "ImportError" )的一个子类) . 检测`ImportError`的代码（try-except）依然会工作。 (由 Eric Snow 在 [issue 15767][121]中贡献.)
 
 [`importlib.util.LazyLoader`](https://docs.python.org/3.6/library/importlib.ht
 ml#importlib.util.LazyLoader "importlib.util.LazyLoader" )在打包好的装载器上被称作 [\`create\_
