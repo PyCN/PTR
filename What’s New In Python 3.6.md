@@ -1588,86 +1588,87 @@ ffi\` flag when building their system Python.
   * The undocumented `IN`, `CDROM`, `DLFCN`, `TYPES`, `CDIO`, and `STROPTS` modules have been removed. They had been available in the platform specific `Lib/plat-*/` directories, but were chronically out of date, inconsistently available across platforms, and unmaintained. The script that created these modules is still available in the source distribution at [Tools/scripts/h2py.py][250].
   * The deprecated `asynchat.fifo` class has been removed.
 
-## Porting to Python 3.6¶
+## 移植到Python 3.6¶
 
-This section lists previously described changes and other bugfixes that may
-require changes to your code.
+本节列出了与之前版本相比，一些特性的更改和bug的修复，这些可能会影响到你代码的编写。
 
-### Changes in 'python' Command Behavior¶
+###'python'命令行操作变更 ¶
 
-  * The output of a special Python build with defined `COUNT_ALLOCS`, `SHOW_ALLOC_COUNT` or `SHOW_TRACK_COUNT` macros is now off by default. It can be re-enabled using the `-X showalloccount` option. It now outputs to `stderr` instead of `stdout`. (Contributed by Serhiy Storchaka in [issue 23034][251].)
+  * 默认情况下，用`COUNT_ALLOCS`，`SHOW_ALLOC_COUNT`或`SHOW_TRACK_COUNT`等宏定义的特殊python输出是关闭的。 它可以使用`-X showalloccount`选项重新启用. 它现在输出到`stderr`而不是`stdout`。 (由Serhiy Storchaka贡献在 [issue 23034][251].)
 
-### Changes in the Python API¶
+### Python API中的变更¶
 
-  * [`open()`][252] will no longer allow combining the `'U'` mode flag with `'+'`. (Contributed by Jeff Balogh and John O'Connor in [issue 2091][253].)
+  * [`open()`][252] `'U'` 模式不再允许使用`'+'`拼接. (由Jeff Balogh and John O'Connor贡献在 [issue 2091][253].)
 
-  * [`sqlite3`][254] no longer implicitly commits an open transaction before DDL statements.
+  * [`sqlite3`][254] 不允许在DDL语句之前隐式地提交打开的事务。
 
-  * On Linux, [`os.urandom()`][255] now blocks until the system urandom entropy pool is initialized to increase the security.
+  * 在Linux系统上, [`os.urandom()`][255] 现在为了增强安全性，系统会一直阻塞直到系统urandom熵池被初始化。
 
-  * When [`importlib.abc.Loader.exec_module()`][256] is defined, [`importlib.abc.Loader.create_module()`][257] must also be defined.
+  * 当[`importlib.abc.Loader.exec_module()`][256] 被定义时, [`importlib.abc.Loader.create_module()`][257] 也必须被定义.
 
-  * [`PyErr_SetImportError()`][258] now sets [`TypeError`][259] when its **msg** argument is not set. Previously only `NULL` was returned.
+  * [`PyErr_SetImportError()`][258] 现在被设置为[`TypeError`] [259]当它的** msg **参数没有设置。 以前只返回“NULL”。
 
-  * The format of the `co_lnotab` attribute of code objects changed to support a negative line number delta. By default, Python does not emit bytecode with a negative line number delta. Functions using `frame.f_lineno`, `PyFrame_GetLineNumber()` or `PyCode_Addr2Line()` are not affected. Functions directly decoding `co_lnotab` should be updated to use a signed 8-bit integer type for the line number delta, but this is only required to support applications using a negative line number delta. See `Objects/lnotab_notes.txt` for the `co_lnotab` format and how to decode it, and see the [**PEP 511**][260] for the rationale.
+  * `co_lnotab`属性的代码对象格式上支持负行数偏移，默认情况下，Python不会发负行数偏移的字节码。使用`frame.f_lineno`，`PyFrame_GetLineNumber（）`或`PyCode_Addr2Line（）`函数的不受影响。直接解码`co_lnotab'的函数应该使用带符号的8位整数类型更新对应行号，但这需要应用程序支持使用负行偏移量。有关`co_lnotab'格式和如何解码的信息，请参见`Objects / lnotab_notes.txt`，并参见[** PEP 511 **] [260]的原理。
 
-  * The functions in the [`compileall`][261] module now return booleans instead of `1` or `0` to represent success or failure, respectively. Thanks to booleans being a subclass of integers, this should only be an issue if you were doing identity checks for `1` or `0`. See [issue 25768][262].
+  * [`compileall`] [261]模块中的函数现在返回布尔类型的值，而不是用`1`或`0`来表示成功或失败. 由于布尔值是整数的子类，如果你对'1'或'0'进行身份检查，这只应该是一个问题。 查看[issue 25768][262].
 
-  * Reading the `port` attribute of [`urllib.parse.urlsplit()`][263] and [`urlparse()`][264] results now raises [`ValueError`][265] for out-of-range values, rather than returning [`None`][266]. See [issue 20059][267].
+  * 读取[`urllib.parse.urlsplit（）`] [263]和[`urlparse（）`]的`port`属性现在引发超出范围值的[`ValueError`] [265] ，而不是返回[`None`][266]. 查看 [issue 20059][267].
 
-  * The [`imp`][268] module now raises a [`DeprecationWarning`][269] instead of [`PendingDeprecationWarning`][270].
+  * [`imp`][268] 模块现在代替原来的[`PendingDeprecationWarning`][270]抛出[`DeprecationWarning`][269]告警 .
 
-  * The following modules have had missing APIs added to their `__all__` attributes to match the documented APIs: [`calendar`][271], [`cgi`][272], [`csv`][273], [`ElementTree`][274], [`enum`][275], [`fileinput`][276], [`ftplib`][277], [`logging`][278], [`mailbox`][279], [`mimetypes`][280], [`optparse`][281], [`plistlib`][282], [`smtpd`][283], [`subprocess`][284], [`tarfile`][285], [`threading`][286] and [`wave`][287]. This means they will export new symbols when `import *` is used. (Contributed by Joel Taddei and Jacek Kołodziej in [issue 23883][288].)
+  * 以下模块已将缺少的API添加到其 `__all__` 属性中，匹配文档说明API: [`calendar`][271], [`cgi`][272], [`csv`][273], [`ElementTree`][274], [`enum`][275], [`fileinput`][276], [`ftplib`][277], [`logging`][278], [`mailbox`][279], [`mimetypes`][280], [`optparse`][281], [`plistlib`][282], [`smtpd`][283], [`subprocess`][284], [`tarfile`][285], [`threading`][286] and [`wave`][287].  这意味着在使用`import *`引入时，有一定的变化 . (由Joel Taddei and Jacek Kołodziej 贡献在[issue 23883][288].)
 
-  * When performing a relative import, if `__package__` does not compare equal to `__spec__.parent` then [`ImportWarning`][289] is raised. (Contributed by Brett Cannon in [issue 25791][290].)
+  * 当执行相对导入时，如果`__package__`不等于`__spec __。parent`，那么 [`ImportWarning`][289] 警告将被抛出. (由 Brett Cannon 贡献在[issue 25791][290].)
 
-  * When a relative import is performed and no parent package is known, then [`ImportError`][291] will be raised. Previously, [`SystemError`][292] could be raised. (Contributed by Brett Cannon in [issue 18018][293].)
+  * 当执行相对导入并且没有已知父包时，则将抛出[`ImportError`] [291]异常。 以前，是抛出[`SystemError`] [292]异常。 (由Brett Cannon 贡献在 [issue 18018][293].)
 
-  * Servers based on the [`socketserver`][294] module, including those defined in [`http.server`][295], [`xmlrpc.server`][296] and [`wsgiref.simple_server`][297], now only catch exceptions derived from [`Exception`][298]. Therefore if a request handler raises an exception like [`SystemExit`][299] or [`KeyboardInterrupt`][300], [`handle_error()`][301] is no longer called, and the exception will stop a single-threaded server. (Contributed by Martin Panter in [issue 23430][302].)
+  * 基于[`socketserver`] [294]模块的服务器，包括[`http.server`] [295]，[`xmlrpc.server`] [296]和[`wsgiref.simple_server`] ，现在只捕获从[`Exception`] [298]派生的异常。 因此，如果一个请求处理程序引发了[[SystemExit]] [299]或[KeyboardInterrupt]] [300]异常，则[`handle_error（）`] [301] 异常不再被调用，同时异常会终止单线程的服务器。 (由Martin Panter 贡献在[issue 23430][302].)
 
-  * [`spwd.getspnam()`][303] now raises a [`PermissionError`][304] instead of [`KeyError`][305] if the user doesn't have privileges.
+  * 如果用户没有相关权限，[`spwd.getspnam()`][303]现在抛出 [`PermissionError`][304] 异常，代替原来的[`KeyError`][305].
 
-  * The [`socket.socket.close()`][306] method now raises an exception if an error (e.g. `EBADF`) was reported by the underlying system call. (Contributed by Martin Panter in [issue 26685][307].)
+  * (如 `EBADF`) 这样的底层调用错误，[`socket.socket.close()`][306]方法现在会抛出异常。 (由Martin Panter贡献于[issue 26685][307].)
 
-  * The _decode\_data_ argument for the [`smtpd.SMTPChannel`][308] and [`smtpd.SMTPServer`][309] constructors is now `False` by default. This means that the argument passed to [`process_message()`][310] is now a bytes object by default, and `process_message()` will be passed keyword arguments. Code that has already been updated in accordance with the deprecation warning generated by 3.5 will not be affected.
+  * 默认情况下，[`smtpd.SMTPChannel`] [308]和[`smtpd.SMTPServer`] [309]构造函数的_decode \ _data_参数现在为“False”。这意味着传递给[`process_message（）`] [310]的参数默认是一个字节对象，`process_message（）`将传递关键字参数。根据python3.5弃用警告生成的更新代码不会受到影响。
 
-  * All optional arguments of the [`dump()`][311], [`dumps()`][312], [`load()`][313] and [`loads()`][314] functions and [`JSONEncoder`][315] and [`JSONDecoder`][316] class constructors in the [`json`][317] module are now [keyword-only][318]. (Contributed by Serhiy Storchaka in [issue 18726][319].)
+  * [`dump（）`] [311]，[`dumps（）`] [312]，[`load（）`] [313]和[`loads（）`] [314] 函数的可选参数和[`JSONEncoder`] [315]和[`JSONDecoder`] [316]的构造函数在[`json`] [317]模块中现在是[keyword-only][318]。 （由Serhiy Storchaka提供在[issue 18726] [319]。）
 
-  * Subclasses of [`type`][320] which don't override `type.__new__` may no longer use the one-argument form to get the type of an object.
+  * 不能覆写 `type.__new__` 的[`type`][320]的子类不再使用单参数的形式去获取一个对象的类型。
 
-  * As part of [**PEP 487**][321], the handling of keyword arguments passed to [`type`][322] (other than the metaclass hint, `metaclass`) is now consistently delegated to [`object.__init_subclass__()`][323]. This means that `type.__new__()` and `type.__init__()` both now accept arbitrary keyword arguments, but [`object.__init_subclass__()`][324] (which is called from `type.__new__()`) will reject them by default. Custom metaclasses accepting additional keyword arguments will need to adjust their calls to `type.__new__()` (whether direct or via [`super`][325]) accordingly.
+  * 作为[** PEP 487 **] [321]的一部分，传递给[`type`] [322]（元类提示，`metaclass`除外）的关键字参数的处理现在一直委托给[`object。 __init_subclass __（）`] [323]。这意味着`type .__ new __（）`和`type .__ init __（）`现在都接受任意关键字参数，但是``object .__ init_subclass __（）`] [324] ）将默认拒绝它们。 接受其他关键字参数的自定义元类将需要相应地调整它们对`type .__ new __（）`（无论是直接还是通过[`super`] [325]）的调用。
 
-  * In `distutils.command.sdist.sdist`, the `default_format` attribute has been removed and is no longer honored. Instead, the gzipped tarfile format is the default on all platforms and no platform-specific selection is made. In environments where distributions are built on Windows and zip distributions are required, configure the project with a `setup.cfg` file containing the following:
-```     [sdist]
+  * 在`distutils.command.sdist.sdist`中，`default_format`属性已被删除，不再有效。 相反，gzipped tarfile格式是所有平台上的默认格式，不需要选择特定的平台。 在分发版是在Windows上构建并且需要zip分发的环境中，配置项目需要包含`setup.cfg`文件：
+
+``` 
+    
+	[sdist]
 
     formats=zip
 
 ```
 
-This behavior has also been backported to earlier Python versions by
-Setuptools 26.0.0.
+这个行为从早期的Python版本Setuptools 26.0.0中移植过来的。
 
-  * In the [`urllib.request`][326] module and the [`http.client.HTTPConnection.request()`][327] method, if no Content-Length header field has been specified and the request body is a file object, it is now sent with HTTP 1.1 chunked encoding. If a file object has to be sent to a HTTP 1.0 server, the Content-Length value now has to be specified by the caller. (Contributed by Demian Brecht and Rolf Krahl with tweaks from Martin Panter in [issue 12319][328].)
+  * 在[`urllib.request`] [326]模块和[`http.client.HTTPConnection.request（）`] [327]方法中，如果没有指定Content-Length头字段并且请求主体是文件对象，它现在用HTTP 1.1分块编码进行发送。如果文件对象必须发送到HTTP 1.0服务器，则Content-Length值现在必须由调用者指定。（由Demian Brecht和Rolf Krahl提供，来自Martin Panter在[issue 12319] [328]中的调整）
 
-  * The [`DictReader`][329] now returns rows of type [`OrderedDict`][330]. (Contributed by Steve Holden in [issue 27842][331].)
+  * [`DictReader`] [329]现在返回类型[`OrderedDict`] [330]的行数。（由Steve Holden贡献在[issue 27842] [331]。）
 
-  * The [`crypt.METHOD_CRYPT`][332] will no longer be added to `crypt.methods` if unsupported by the platform. (Contributed by Victor Stinner in [issue 25287][333].)
+  * 如果平台不支持，[`crypt.METHOD_CRYPT] [332]将不再添加到`crypt.methods`（由Victor Stinner贡献在[issue 25287] [333]。）
 
-  * The _verbose_ and _rename_ arguments for [`namedtuple()`][334] are now keyword-only. (Contributed by Raymond Hettinger in [issue 25628][335].)
+  * [`namedtuple（）`] [334]的_verbose_和_rename_参数现在是仅限关键字。 （由Raymond Hettinger贡献在[issue 25628] [335]。）
 
-  * On Linux, [`ctypes.util.find_library()`][336] now looks in `LD_LIBRARY_PATH` for shared libraries. (Contributed by Vinay Sajip in [issue 9998][337].)
+  * 在Linux上，[`ctypes.util.find_library（）`] [336]现在在`LD_LIBRARY_PATH`中查找共享库。（由 Vinay Sajip贡献于 [issue 9998] [337]）。
 
-  * The [`imaplib.IMAP4`][338] class now handles flags containing the `']'` character in messages sent from the server to improve real-world compatibility. (Contributed by Lita Cho in [issue 21815][339].)
+  * [`imaplib.IMAP4`] [338]类现在处理从服务器发送的消息中包含`']'`字符标志的信息载体，以提高真实世界的兼容性。 （由Lita Cho贡献字[issue 21815] [339]。）
 
-  * The `mmap.write()` function now returns the number of bytes written like other write methods. (Contributed by Jakub Stasiak in [issue 26335][340].)
+  * `mmap.write（）`函数现在像其他写入方法一样返回写入的字节数。 （由Jakub Stasiak贡献在[issue 26335] [340]。）
 
-  * The [`pkgutil.iter_modules()`][341] and [`pkgutil.walk_packages()`][342] functions now return [`ModuleInfo`][343] named tuples. (Contributed by Ramchandra Apte in [issue 17211][344].)
+  * [`pkgutil.iter_modules（）`] [341]和[`pkgutil.walk_packages（）`]函数现在返回[`ModuleInfo`] [343]命名的元组。（由Ramchandra Apte贡献在[issue 17211] [344]。）
 
-  * [`re.sub()`][345] now raises an error for invalid numerical group references in replacement templates even if the pattern is not found in the string. The error message for invalid group references now includes the group index and the position of the reference. (Contributed by SilentGhost, Serhiy Storchaka in [issue 25953][346].)
+  * 即使在字符串中找不到该模式，[`re.sub（）`] [345]现在在替换模板中也会抛出无效数字组引用的异常。 无效组引用的错误消息现在包括组索引和引用的位置。 （由SilentGhost，Serhiy Storchaka贡献与[issue 25953] [346]。）
 
-  * [`zipfile.ZipFile`][347] will now raise [`NotImplementedError`][348] for unrecognized compression values. Previously a plain [`RuntimeError`][349] was raised. Additionally, calling [`ZipFile`][350] methods on a closed ZipFile or calling the [`write()`][351] method on a ZipFile created with mode `'r'` will raise a [`ValueError`][352]. Previously, a [`RuntimeError`][353] was raised in those scenarios.
+  * [`zipfile.ZipFile`] [347]现在将为无法识别的压缩值抛出[`NotImplementedError`] [348]异常。 以前会抛出一系列[`RuntimeError`] [349]异常。 另外，在一个闭合的ZipFile上调用[`ZipFile`] [350]方法或者在使用`'r'`模式创建的ZipFile上调用[`write（）`] [351]方法时，会引发[`ValueError`] 352]异常。 以前，在这些场景中会引发了一个[`RuntimeError`] [353]异常。
 
-  * when custom metaclasses are combined with zero-argument [`super()`][354] or direct references from methods to the implicit `__class__` closure variable, the implicit `__classcell__` namespace entry must now be passed up to `type.__new__` for initialisation. Failing to do so will result in a [`DeprecationWarning`][355] in 3.6 and a [`RuntimeWarning`][356] in the future.
+  * 当定制元类连同无参数[`super（）`] [354]调用或从方法到隐式`__class__`闭包变量的直接引用，隐式`__classcell__`命名空间记录现在必须传递到`type .__ new__ `用于初始化。 如果不这样做，将导致3.6中的[`DeprecationWarning`] [355]告警和[[RuntimeWarning]] [356]告警。
 
 ### 在C API上的改动¶
 
