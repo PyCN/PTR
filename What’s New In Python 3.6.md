@@ -1,20 +1,19 @@
-原文：[What’s New In Python 3.6][1]
+原文：[Python 3.6新特性简介][1]
 
-# What's New In Python 3.6¶
+# Python 3.6新特性简介¶
 
-Release:| 3.6.0
+版本:| 3.6.0
 ---|---
-Date:| December 15, 2016
-Editors:| Elvis Pranskevichus
+日期:| December 15, 2016
+编辑:| Elvis Pranskevichus
 &lt;[elvis@magic.io][2]&gt;, Yury Selivanov
 &lt;[yury@magic.io][3]&gt;
 
-This article explains the new features in Python 3.6, compared to 3.5.
+这篇文章介绍了与3.5相比， Python 3.6中多出的新特性。
 
-See also
+另请参阅
 
-[**PEP 494**][4] \- Python 3.6 Release
-Schedule
+[**PEP 494**][4] \- Python 3.6 发布时间表
 
 ## 摘要 - 发布亮点¶
 
@@ -537,45 +536,38 @@ may be added in the future.
 21590](https://bugs.python.org/issue21590), based on patches by Jesús Cea
 Avión, David Malcolm, and Nikhil Benesch.)
 
-## Other Language Changes¶
+## 其他语言方面的变化¶
 
-Some smaller changes made to the core Python language are:
+我们还对 Python 语言的核心做了一些小的改变：
 
-  * A `global` or `nonlocal` statement must now textually appear before the first use of the affected name in the same scope. Previously this was a `SyntaxWarning`.
-  * It is now possible to set a [special method][72] to `None` to indicate that the corresponding operation is not available. For example, if a class sets [`__iter__()`][73] to `None`, the class is not iterable. (Contributed by Andrew Barnert and Ivan Levkivskyi in [issue 25958][74].)
-  * Long sequences of repeated traceback lines are now abbreviated as `"[Previous line repeated {count} more times]"` (see traceback for an example). (Contributed by Emanuel Barry in [issue 26823][75].)
-  * Import now raises the new exception [`ModuleNotFoundError`][76] (subclass of [`ImportError`][77]) when it cannot find a module. Code that currently checks for ImportError (in try-except) will still work. (Contributed by Eric Snow in [issue 15767][78].)
-  * Class methods relying on zero-argument `super()` will now work correctly when called from metaclass methods during class creation. (Contributed by Martin Teichmann in [issue 23722][79].)
+  * 现在在同一作用域内的 `global` 或 `nonlocal` 语句必须在受其影响的命名使用前显式出现。在先前版本中会发出 `语法警告`。
+  * 现在能以将 [魔术方法][72] 设置为 `None` 的方式来表示相应的操作不可用。 例如，如果将一个类的 [`__iter__()`][73] 设置为None，则该类不可迭代。(由 Andrew Barnert 和 Ivan Levkivskyi 在 [issue 25958][74] 中贡献。)
+  * 在 traceback 中大量重复出现的 traceback lines 将会被略写成 `"[前一行已经重复出现 {count} 次了]"` (以 traceback 为例。). (由 Emanuel Barry 在 [issue 26823][75] 中贡献。)
+  * 现在模块导入在找不到模块时引发新的异常 [`ModuleNotFoundError`][76]（[`ImportError`][77] 的子类）。 当前检测 ImportError 的代码（try-except中）仍然可以工作。(由 Eric Snow 在 [issue 15767][78] 中贡献。)
+  * 在类创建时，被元类调用的依赖无参数的 `super()` 的类方法时会正确工作。(由 Martin Teichmann 在 [issue 23722][79]中贡献。)
 
-## New Modules¶
+## 新增模块¶
 
 ### secrets¶
 
-The main purpose of the new
-[`secrets`](https://docs.python.org/3.6/library/secrets.html#module-secrets
-"secrets: Generate secure random numbers for managing secrets." ) module is to
-provide an obvious way to reliably generate cryptographically strong pseudo-
-random values suitable for managing secrets, such as account authentication,
-tokens, and similar.
+新增模块 [`secrets`](https://docs.python.org/3.6/library/secrets.html#module-secrets
+"secrets: Generate secure random numbers for managing secrets." ) 的主要目的是：提供一个
+显式可靠的方式来产生适合于管理诸如账户认证，令牌之类的保密信息的加密的强伪随机值。
 
-Warning
+警告
 
-Note that the pseudo-random generators in the
-[`random`](https://docs.python.org/3.6/library/random.html#module-random
+注意在 [`random`](https://docs.python.org/3.6/library/random.html#module-random
 "random: Generate pseudo-random numbers with various common distributions." )
-module should _NOT_ be used for security purposes. Use
-[`secrets`](https://docs.python.org/3.6/library/secrets.html#module-secrets
-"secrets: Generate secure random numbers for managing secrets." ) on Python
-3.6+ and
+模块中的随机数生成器 **不该** 用于安全目的。Python 3.6 及以上版本请使用 [`secrets`](https://docs.python.org/3.6/library/secrets.html#module-secrets
+"secrets: Generate secure random numbers for managing secrets." ) 而 Python 3.5 及更早的版本请使用
 [`os.urandom()`](https://docs.python.org/3.6/library/os.html#os.urandom
-"os.urandom" ) on Python 3.5 and earlier.
+"os.urandom" )。
 
-See also
+又见
 
-[**PEP 506**][80] - Adding A Secrets
-Module To The Standard Library
+[**PEP 506**][80] - 向标准库添加 Secrets 模块
 
-	PEP written and implemented by Steven D'Aprano.
+	PEP 由 Steven D'Aprano 编写及实现。
 
 ## Improved Modules¶
 
@@ -825,47 +817,43 @@ automatically:
 
 ### faulthandler¶
 
-On Windows, the
+在Windows平台, 
 [`faulthandler`](https://docs.python.org/3.6/library/faulthandler.html#module-
-faulthandler "faulthandler: Dump the Python traceback." ) module now installs
-a handler for Windows exceptions: see [`faulthandler.enable()`](https://docs.p
+faulthandler "faulthandler: Dump the Python traceback." )模块安装了一个指示Windows异常的句柄 : 详情可见于 [`faulthandler.enable()`](https://docs.p
 ython.org/3.6/library/faulthandler.html#faulthandler.enable
-"faulthandler.enable" ). (Contributed by Victor Stinner in [issue
-23848](https://bugs.python.org/issue23848).)
+"faulthandler.enable" ). (由 Victor Stinner 在 [issue
+23848](https://bugs.python.org/issue23848)中贡献.)
 
 ### fileinput¶
 
 [`hook_encoded()`](https://docs.python.org/3.6/library/fileinput.html#fileinpu
-t.hook\_encoded "fileinput.hook\_encoded" ) now supports the _errors_ argument.
-(Contributed by Joseph Hackman in [issue
-25788](https://bugs.python.org/issue25788).)
+t.hook\_encoded "fileinput.hook\_encoded" ) 模块现在可支持errors参数.
+(由 Joseph Hackman 在 [issue
+25788](https://bugs.python.org/issue25788)贡献.)
 
 ### hashlib¶
 
 [`hashlib`](https://docs.python.org/3.6/library/hashlib-blake2.html#module-
-hashlib "hashlib: BLAKE2 hash function for Python" ) supports OpenSSL 1.1.0.
-The minimum recommend version is 1.0.2. (Contributed by Christian Heimes in
-[issue 26470][116].)
+hashlib "hashlib: BLAKE2 hash function for Python" ) 支持 OpenSSL 1.1.0。
+推荐使用的最低版本为1.0.2. (由Christian Heimes 在
+[issue 26470][116]贡献.)
 
-BLAKE2 hash functions were added to the module.
+BLAKE2 hash 函数也被收录进这一模块.
 [`blake2b()`](https://docs.python.org/3.6/library/hashlib-
-blake2.html#hashlib.blake2b "hashlib.blake2b" ) and
+blake2.html#hashlib.blake2b "hashlib.blake2b" ) 与
 [`blake2s()`](https://docs.python.org/3.6/library/hashlib-
-blake2.html#hashlib.blake2s "hashlib.blake2s" ) are always available and
-support the full feature set of BLAKE2. (Contributed by Christian Heimes in
-[issue 26798][117] based on code by Dmitry
-Chestnykh and Samuel Neves. Documentation written by Dmitry Chestnykh.)
+blake2.html#hashlib.blake2s "hashlib.blake2s" ) 将长期支持BLAKE2的所有特性. (由Christian Heimes in
+依据Dmitry
+Chestnykh 和 Samuel Neves的代码在[issue 26798][117] 贡献. 文档由Dmitry Chestnykh撰写.)
 
-The SHA-3 hash functions `sha3_224()`, `sha3_256()`, `sha3_384()`,
-`sha3_512()`, and SHAKE hash functions `shake_128()` and `shake_256()` were
-added. (Contributed by Christian Heimes in [issue
-16113](https://bugs.python.org/issue16113). Keccak Code Package by Guido
-Bertoni, Joan Daemen, Michaël Peeters, Gilles Van Assche, and Ronny Van Keer.)
+新增SHA-3哈希函数   `sha3_224()`, `sha3_256()`, `sha3_384()`,
+`sha3_512()`,  与SHAKE 哈希函数 `shake_128()` 、`shake_256()` . (由Christian Heimes 在 [issue
+16113](https://bugs.python.org/issue16113)贡献. Keccak 代码包由Guido
+Bertoni, Joan Daemen, Michaël Peeters, Gilles Van Assche, and Ronny Van Keer撰写.)
 
-The password-based key derivation function
+基于密码的密钥导出函数
 [`scrypt()`](https://docs.python.org/3.6/library/hashlib.html#hashlib.scrypt
-"hashlib.scrypt" ) is now available with OpenSSL 1.1.0 and newer. (Contributed
-by Christian Heimes in [issue 27928][118].)
+"hashlib.scrypt" ) 可使用 OpenSSL 1.1.0 或更新版本. (由Christian Heimes 在 [issue 27928][118]中贡献.)
 
 ### http.client¶
 
@@ -873,61 +861,44 @@ by Christian Heimes in [issue 27928][118].)
 tml#http.client.HTTPConnection.request "http.client.HTTPConnection.request" )
 and [`endheaders()`](https://docs.python.org/3.6/library/http.client.html#http
 .client.HTTPConnection.endheaders "http.client.HTTPConnection.endheaders" )
-both now support chunked encoding request bodies. (Contributed by Demian
-Brecht and Rolf Krahl in [issue 12319][119].)
+将全部支持分块编码请求体. (由Demian
+Brecht and Rolf Krahl 在 [issue 12319][119]中贡献.)
 
 ### idlelib and IDLE¶
 
-The idlelib package is being modernized and refactored to make IDLE look and
-work better and to make the code easier to understand, test, and improve. Part
-of making IDLE look better, especially on Linux and Mac, is using ttk widgets,
-mostly in the dialogs. As a result, IDLE no longer runs with tcl/tk 8.4. It
-now requires tcl/tk 8.5 or 8.6. We recommend running the latest release of
-either.
+对idle包做了现代化的改进与重构，使得IDLE更美观、更好用的同时令编程更易于理解、测试与改进。在IDLE的美化方面，特备针对Linux和Mac用户，我们在大多数对话框上应用了ttk插件。总之，IDLE将不再支持tcl/tk 8.4。现在要求有 tcl/tk 8.5 或 8.6。我们建议在使用时运行最新的版本.
 
-'Modernizing' includes renaming and consolidation of idlelib modules. The
-renaming of files with partial uppercase names is similar to the renaming of,
-for instance, Tkinter and TkFont to tkinter and tkinter.font in 3.0. As a
-result, imports of idlelib files that worked in 3.5 will usually not work in
-3.6. At least a module name change will be needed (see idlelib/README.txt),
-sometimes more. (Name changes contributed by Al Swiegart and Terry Reedy in
-[issue 24225][120]. Most idlelib patches since
-have been and will be part of the process.)
+“现代化”包括对idlelib模块的重命名和整合.重命名文件部分大写的名字是与之前版本类似的命名，例如，Tkinter和TkFont对应3.0版本中的Tkinter和tkinter.font 。因此，对idlelib在3.5环境下导入的文件通常不会工作在3.6。至少一个模块的名称需要改变（见idlelib / readme.txt），有时甚至会更多。(名称变更由Al Swiegart 与 Terry Reedy 在
+[issue 24225][120]中贡献. 大多数idle补丁均会加入这一改进。)
 
-In compensation, the eventual result with be that some idlelib classes will be
-easier to use, with better APIs and docstrings explaining them. Additional
-useful information will be added to idlelib when available.
+做点补充，最终的结果是，一些idlelib类会更容易使用，将具有更好的API文档与字符串的解释。其他有用的信息会在可用时被及时添加到idlelib。
 
 ### importlib¶
 
-Import now raises the new exception [`ModuleNotFoundError`](https://docs.pytho
+当无法找到被导入模块时会跳出一个新的异常提示 [`ModuleNotFoundError`](https://docs.pytho
 n.org/3.6/library/exceptions.html#ModuleNotFoundError "ModuleNotFoundError" )
-(subclass of [`ImportError`](https://docs.python.org/3.6/library/exceptions.ht
-ml#ImportError "ImportError" )) when it cannot find a module. Code that
-current checks for `ImportError` (in try-except) will still work. (Contributed
-by Eric Snow in [issue 15767][121].)
+([`ImportError`](https://docs.python.org/3.6/library/exceptions.ht
+ml#ImportError "ImportError" )的一个子类) . 检测`ImportError`的代码（try-except）依然会工作。 (由 Eric Snow 在 [issue 15767][121]中贡献.)
 
 [`importlib.util.LazyLoader`](https://docs.python.org/3.6/library/importlib.ht
-ml#importlib.util.LazyLoader "importlib.util.LazyLoader" ) now calls [\`create\_
+ml#importlib.util.LazyLoader "importlib.util.LazyLoader" )在打包好的装载器上更名为 [\`create\_
 module()\`](https://docs.python.org/3.6/library/importlib.html#importlib.abc.Lo
-ader.create\_module "importlib.abc.Loader.create\_module" ) on the wrapped
-loader, removing the restriction that [`importlib.machinery.BuiltinImporter`](
+ader.create\_module "importlib.abc.Loader.create\_module" ) , 去除了 [`importlib.machinery.BuiltinImporter`](
 https://docs.python.org/3.6/library/importlib.html#importlib.machinery.Builtin
-Importer "importlib.machinery.BuiltinImporter" ) and [\`importlib.machinery.Ext
+Importer "importlib.machinery.BuiltinImporter" )与 [\`importlib.machinery.Ext
 ensionFileLoader\`](https://docs.python.org/3.6/library/importlib.html#importli
 b.machinery.ExtensionFileLoader "importlib.machinery.ExtensionFileLoader" )
-couldn't be used with [`importlib.util.LazyLoader`](https://docs.python.org/3.
+不能同 [`importlib.util.LazyLoader`](https://docs.python.org/3.
 6/library/importlib.html#importlib.util.LazyLoader "importlib.util.LazyLoader"
-).
+)一起使用的限制.
 
 [`importlib.util.cache_from_source()`](https://docs.python.org/3.6/library/imp
 ortlib.html#importlib.util.cache\_from\_source
 "importlib.util.cache\_from\_source" ), [`importlib.util.source_from_cache()`](h
 ttps://docs.python.org/3.6/library/importlib.html#importlib.util.source\_from\_c
-ache "importlib.util.source\_from\_cache" ), and [\`importlib.util.spec\_from\_file
+ache "importlib.util.source\_from\_cache" ), 和 [\`importlib.util.spec\_from\_file
 \_location()\`](https://docs.python.org/3.6/library/importlib.html#importlib.uti
-l.spec\_from\_file\_location "importlib.util.spec\_from\_file\_location" ) now
-accept a [path-like object](https://docs.python.org/3.6/glossary.html#term-
+l.spec\_from\_file\_location "importlib.util.spec\_from\_file\_location" ) 现在可接受[path-like object](https://docs.python.org/3.6/glossary.html#term-
 path-like-object).
 
 ### inspect
@@ -977,32 +948,28 @@ Linux的`getrandom()`系统调用(获取随机字节)现在作为新的[`os.getr
 
 ### pickle¶
 
-Objects that need `__new__` called with keyword arguments can now be pickled
-using [pickle protocols](https://docs.python.org/3.6/library/pickle.html
-# pickle-protocols) older than protocol version 4. Protocol version 4 already
-supports this case. (Contributed by Serhiy Storchaka in [issue
-24164](https://bugs.python.org/issue24164).)
+对象，现在可以使用关键参数 `__new__`进行持久存储[pickle协议](https://docs.python.org/3.6/library/pickle.html
+# pickle-protocols)超过已有的协议版本4.
+支持这种情况. (由Serhiy Storchaka在[issue
+24164](https://bugs.python.org/issue24164)的贡献。)
 
 ### pickletools¶
 
-[`pickletools.dis()`](https://docs.python.org/3.6/library/pickletools.html#pic
-kletools.dis "pickletools.dis" ) now outputs the implicit memo index for the
-`MEMOIZE` opcode. (Contributed by Serhiy Storchaka in [issue
-25382](https://bugs.python.org/issue25382).)
+现在[`pickletools.dis()`](https://docs.python.org/3.6/library/pickletools.html#pic
+kletools.dis "pickletools.dis" ) 输出的隐含备注是`MEMOIZE`操作码的索引。 (由Serhiy Storchaka在[issue
+25382](https://bugs.python.org/issue25382)的贡献。)
 
 ### pydoc¶
 
-The [`pydoc`](https://docs.python.org/3.6/library/pydoc.html#module-pydoc
-"pydoc: Documentation generator and online help system." ) module has learned
-to respect the `MANPAGER` environment variable. (Contributed by Matthias Klose
-in [issue 8637][130].)
+[`pydoc`](https://docs.python.org/3.6/library/pydoc.html#module-pydoc
+"pydoc: Documentation generator and online help system." )模块已经学会遵守`MANPAGER`环境变量。 (由Matthias Klose
+在[issue 8637][130]的贡献。)
 
 [`help()`][131]
-and [`pydoc`](https://docs.python.org/3.6/library/pydoc.html#module-pydoc
-"pydoc: Documentation generator and online help system." ) can now list named
-tuple fields in the order they were defined rather than alphabetically.
-(Contributed by Raymond Hettinger in [issue
-24879](https://bugs.python.org/issue24879).)
+和 [`pydoc`](https://docs.python.org/3.6/library/pydoc.html#module-pydoc
+"pydoc: Documentation generator and online help system." ) 现在能用指定的元组字段定义的顺序来显示列表，而不是按字母顺序。
+(由Raymond Hettinger在[issue
+24879](https://bugs.python.org/issue24879)的贡献。)
 
 ### random¶
 
@@ -1330,10 +1297,10 @@ parameter provides an alternative prefix for the virtual environment.
 一个名为 `example.py`的例子
 ```
     import warnings
-    
+
     def func():
         return open(__file__)
-    
+
     f = func()
     f = None
 ```
@@ -1369,7 +1336,7 @@ d.html#winsound.MessageBeep "winsound.MessageBeep" ), 和 [`PlaySound`](https:
 
 ### zipfile¶
 
-一个新的类方法 [`ZipInfo.from_file()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.from\_file "zipfile.ZipInfo.from\_file") 允许从文件系统文件中生成一个 
+一个新的类方法 [`ZipInfo.from_file()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.from\_file "zipfile.ZipInfo.from\_file") 允许从文件系统文件中生成一个
 [`ZipInfo`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo
 "zipfile.ZipInfo" ) 实例。
 一个新的方法 [`ZipInfo.is_dir()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.is\_dir"zipfile.ZipInfo.is\_dir" ) 能够用来检查[`ZipInfo`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo"zipfile.ZipInfo" ) 实例是否表示一个目录。 (Contributed by Thomas Kluyver in [issue 26039][158].)
