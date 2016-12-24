@@ -313,20 +313,13 @@ like](https://docs.python.org/3.6/glossary.html#term-path-like-object),它代表
 
 	PEP 由Brett Cannon 和 Koos Zevenhoven撰写.
 
-### PEP 495: Local Time Disambiguation¶
+### PEP 495: 本地时间消歧¶
 
-In most world locations, there have been and will be times when local clocks
-are moved back. In those times, intervals are introduced in which local clocks
-show the same time twice in the same day. In these situations, the information
-displayed on a local clock (or stored in a Python datetime instance) is
-insufficient to identify a particular moment in time.
-
-[**PEP 495**][56] adds the new _fold_
-attribute to instances of [`datetime.datetime`](https://docs.python.org/3.6/li
-brary/datetime.html#datetime.datetime "datetime.datetime" ) and [\`datetime.tim
+世界上大多数地方，都曾经出现也将出现多次的时间回调。在这种时候，引入时间间隔用以表示本地时钟在同一天中出现两次相同的时间的情况，在这些情况下，本地时钟显示的时间（或存在在python datetime中的实例）不足及时表示特定的时刻。
+为了区分本地时间相同的两个时刻，[**PEP 495**][56] 在类 [`datetime.datetime`](https://docs.python.org/3.6/li
+brary/datetime.html#datetime.datetime "datetime.datetime" ) 和 [\`datetime.tim
 e\`](https://docs.python.org/3.6/library/datetime.html#datetime.time
-"datetime.time" ) classes to differentiate between two moments in time for
-which local times are the same:
+"datetime.time" ) 的实例中增加了新的fold属性:
 
 ```
 
@@ -343,17 +336,13 @@ which local times are the same:
 
 ```
 
-The values of the [`fold`](https://docs.python.org/3.6/library/datetime.html#d
-atetime.datetime.fold "datetime.datetime.fold" ) attribute have the value `0`
-for all instances except those that represent the second (chronologically)
-moment in time in an ambiguous case.
-
+属性 [`fold`](https://docs.python.org/3.6/library/datetime.html#d
+atetime.datetime.fold "datetime.datetime.fold" ) 的值除了表示不明确情况下的第二（时间顺序）时刻之外，其他所有实例的值都为 `0`。
 See also
 
-[**PEP 495**][57] - Local Time
-Disambiguation
+[**PEP 495**][57] - 本地时间消歧
 
-	PEP written by Alexander Belopolsky and Tim Peters, implementation by Alexander Belopolsky.
+	PEP 由 Alexander Belopolsky 和 Tim Peters撰写, 由Alexander Belopolsky实现.
 
 ### PEP 529: 更改windows下文件系统编码格式为UTF-8¶
 
