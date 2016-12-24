@@ -398,67 +398,42 @@ windows下的默认控制台现在支持所有的Unicode字符并可以正确读
 
 (由INADA Naoki在[issue 27350](https://bugs.python.org/issue27350)提供。 想法 [最初由Raymond Hettinger提出](https://mail.python.org/pipermail/python-dev/2012-December/123028.html).)
 
-### PEP 523: Adding a frame evaluation API to CPython¶
+### PEP 523：添加一个frame解析API到CPython
 
-While Python provides extensive support to customize how code executes, one
-place it has not done so is in the evaluation of frame objects. If you wanted
-some way to intercept frame evaluation in Python there really wasn't any way
-without directly manipulating function pointers for defined functions.
+虽然Python提供了自定义代码执行方式的广泛支持，但是还有一个它没这样做的地方是frame对象的解析。如果你想要通过某些方式在Python中拦截frame解析，那么除了直接对定义的函数操作函数指针之外，真的没有什么其他方式。
 
-[**PEP 523**][65] changes this by
-providing an API to make frame evaluation pluggable at the C level. This will
-allow for tools such as debuggers and JITs to intercept frame evaluation
-before the execution of Python code begins. This enables the use of
-alternative evaluation implementations for Python code, tracking frame
-evaluation, etc.
+[**PEP 523**][65]改变了这个处境，它提供了一个API，让frame解析在C层次上可插拔。这将允许诸如调试器或者JIT这样的工具在Python代码开始执行之前拦截frame解析。这使得python代码的可替换解析实现、跟踪frame解析等地使用成为可能。
 
-This API is not part of the limited C API and is marked as private to signal
-that usage of this API is expected to be limited and only applicable to very
-select, low-level use-cases. Semantics of the API will change with Python as
-necessary.
+这个API并不是受限的C API的一部分，并且被标为私有，表示期望限制这个API的使用，并且只能应用在非常选定的低层次用例上。这个API的语义将在必要的时候随着Python改动。
 
-See also
+又见
 
-[**PEP 523**][66] - Adding a frame
-evaluation API to CPython
+[**PEP 523**][66] - 添加一个frame解析API到CPython
 
-	PEP written by Brett Cannon and Dino Viehland.
+	PEP由Brett Cannon和Dino Viehland编写
 
-### PYTHONMALLOC environment variable¶
+### PYTHONMALLOC环境变量
 
-The new [`PYTHONMALLOC`](https://docs.python.org/3.6/using/cmdline.html
-# envvar-PYTHONMALLOC) environment variable allows setting the Python memory
-allocators and installing debug hooks.
+新的[`PYTHONMALLOC`](https://docs.python.org/3.6/using/cmdline.html# envvar-PYTHONMALLOC)环境变量允许设置Python内存分配器和安装调试钩子。
 
-It is now possible to install debug hooks on Python memory allocators on
-Python compiled in release mode using `PYTHONMALLOC=debug`. Effects of debug
-hooks:
+现在有可能在发布模式下使用`PYTHONMALLOC=debug`编译的Python中，在Python内存分配器上安装调试钩子。调试钩子的效果：
 
-  * Newly allocated memory is filled with the byte `0xCB`
-  * Freed memory is filled with the byte `0xDB`
-  * Detect violations of the Python memory allocator API. For example, `PyObject_Free()` called on a memory block allocated by [`PyMem_Malloc()`][67].
-  * Detect writes before the start of a buffer (buffer underflows)
-  * Detect writes after the end of a buffer (buffer overflows)
-  * Check that the [GIL][68] is held when allocator functions of [`PYMEM_DOMAIN_OBJ`][69] (ex: `PyObject_Malloc()`) and [`PYMEM_DOMAIN_MEM`][70] (ex: [`PyMem_Malloc()`][71]) domains are called.
+  * 新分配内存由字节`0xCB`填充
+  * 被释放内存由字节`0xDB`填充
+  * 检测Python内存分配器API的违规。例如，在由[`PyMem_Malloc()`][67]分配的内存块上调用`PyObject_Free()`。
+  * 检测缓存开始位置之前的写入 (缓存下溢)
+  * 检测缓存结束位置之后的写入 (缓存上溢)
+  * 当调用了[`PYMEM_DOMAIN_OBJ`][69] (例如，`PyObject_Malloc()`)和[`PYMEM_DOMAIN_MEM`][70] (例如，[`PyMem_Malloc()`][71])域的分配器函数时，检测持有[GIL][68]。
 
-Checking if the GIL is held is also a new feature of Python 3.6.
+检测是否持有GIL也是Python 3.6的一个新特性。
 
-See the [`PyMem_SetupDebugHooks()`](https://docs.python.org/3.6/c-api/memory.h
-tml#c.PyMem\_SetupDebugHooks "PyMem\_SetupDebugHooks" ) function for debug hooks
-on Python memory allocators.
+见[`PyMem_SetupDebugHooks()`](https://docs.python.org/3.6/c-api/memory.html#c.PyMem\_SetupDebugHooks "PyMem\_SetupDebugHooks" )函数，了解更多关于Python内存分配器上的调试钩子信息。
 
-It is now also possible to force the usage of the `malloc()` allocator of the
-C library for all Python memory allocations using `PYTHONMALLOC=malloc`. This
-is helpful when using external memory debuggers like Valgrind on a Python
-compiled in release mode.
+现在也有可能使用`PYTHONMALLOC=malloc`，从而强制所有Python内存分配使用C库的`malloc()`分配器。这在以发布模式编译的Python上，使用诸如Valgrind这样的外部内存调试器是有帮助的。
 
-On error, the debug hooks on Python memory allocators now use the
-[`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-
-tracemalloc "tracemalloc: Trace memory allocations." ) module to get the
-traceback where a memory block was allocated.
+对于错误，Python内存分配器上的调试钩子现在使用[`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-tracemalloc "tracemalloc: Trace memory allocations." )模块来获取分配内存块的地址的回溯信息。
 
-Example of fatal error on buffer overflow using `python3.6 -X tracemalloc=5`
-(store 5 frames in traces):
+使用`python3.6 -X tracemalloc=5` (存储5个帧到回溯中)时，在缓存上溢时的致命错误的例子：
 
 ```
 
@@ -498,32 +473,23 @@ Example of fatal error on buffer overflow using `python3.6 -X tracemalloc=5`
 
 ```
 
-(Contributed by Victor Stinner in [issue
-26516](https://bugs.python.org/issue26516) and [issue
-26564](https://bugs.python.org/issue26564).)
+(由Victor Stinner于[issue 26516](https://bugs.python.org/issue26516)和[issue 26564](https://bugs.python.org/issue26564)贡献。)
 
-### DTrace and SystemTap probing support¶
+### DTrace和SystemTap探测支持
 
-Python can now be built `--with-dtrace` which enables static markers for the
-following events in the interpreter:
+Python现在可以使用`--with-dtrace`来构建，它为解释器中的以下事件启用了静态标志器：
 
-  * function call/return
-  * garbage collection started/finished
-  * line of code executed.
+  * 函数调用／返回
+  * 垃圾回收开始/结束
+  * 执行代码行。
 
-This can be used to instrument running interpreters in production, without the
-need to recompile specific debug builds or providing application-specific
-profiling/debugging code.
+这可以被用来检测生产中运行的解释器，而无需重新编译指定调试构建，或者提供应用特有的配置/调试代码。
 
-More details in [Instrumenting CPython with DTrace and SystemTap](https://docs
-.python.org/3.6/howto/instrumentation.html#instrumentation).
+详情请见[用DTrace和SystemTap检测CPython](https://docs.python.org/3.6/howto/instrumentation.html#instrumentation)。
 
-The current implementation is tested on Linux and macOS. Additional markers
-may be added in the future.
+在Linux和macOS上测试了当前实现。未来可能会添加额外的标志器。
 
-(Contributed by Łukasz Langa in [issue
-21590](https://bugs.python.org/issue21590), based on patches by Jesús Cea
-Avión, David Malcolm, and Nikhil Benesch.)
+(由Łukasz Langa在[issue 21590](https://bugs.python.org/issue21590)中贡献，基于Cea Avión, David Malcolm, 和Nikhil Benesch提供的补丁)
 
 ## 其他语言方面的变化¶
 
@@ -1723,9 +1689,7 @@ Created using [Sphinx][384] 1.3.3.
 [51]:	https://docs.python.org/3.6/library/stdtypes.html#str "str"
 [52]:	https://docs.python.org/3.6/library/functions.html#bytes "bytes"
 [53]:	https://docs.python.org/3.6/library/functions.html#open "open"
-[54]:	https://docs.python.org/3.6/library/os.html#module-os "os:
-
-Miscellaneous operating system interfaces."
+[54]:	https://docs.python.org/3.6/library/os.html#module-os "os: Miscellaneous operating system interfaces."
 [55]:	https://www.python.org/dev/peps/pep-0519
 [56]:	https://www.python.org/dev/peps/pep-0495
 [57]:	https://www.python.org/dev/peps/pep-0495
@@ -1785,9 +1749,7 @@ Miscellaneous operating system interfaces."
 [111]:	https://bugs.python.org/issue25628
 [112]:	https://bugs.python.org/issue27664
 [113]:	https://bugs.python.org/issue24277
-[114]:	https://docs.python.org/3.6/library/enum.html#module-enum "enum:
-
-Implementation of an enumeration class."
+[114]:	https://docs.python.org/3.6/library/enum.html#module-enum "enum:Implementation of an enumeration class."
 [115]:	https://docs.python.org/3.6/library/enum.html#enum.Flag "enum.Flag"
 [116]:	https://bugs.python.org/issue26470
 [117]:	https://bugs.python.org/issue26798
@@ -1797,16 +1759,10 @@ Implementation of an enumeration class."
 [121]:	https://bugs.python.org/issue15767
 [122]:	https://bugs.python.org/issue17909
 [123]:	https://bugs.python.org/issue24884
-[124]:	https://docs.python.org/3.6/library/math.html#module-math "math:
-
-Mathematical functions \(sin\(\) etc.\)."
-[125]:	https://docs.python.org/3.6/library/cmath.html#module-cmath "cmath:
-
-Mathematical functions for complex numbers."
+[124]:	https://docs.python.org/3.6/library/math.html#module-math "math:Mathematical functions \(sin\(\) etc.\)."
+[125]:	https://docs.python.org/3.6/library/cmath.html#module-cmath "cmath:Mathematical functions for complex numbers."
 [126]:	https://bugs.python.org/issue12345
-[127]:	https://docs.python.org/3.6/library/os.html#module-os "os:
-
-Miscellaneous operating system interfaces."
+[127]:	https://docs.python.org/3.6/library/os.html#module-os "os:Miscellaneous operating system interfaces."
 [128]:	https://docs.python.org/3.6/library/functions.html#bytes "bytes"
 [129]:	https://docs.python.org/3.6/library/pdb.html#pdb.Pdb "pdb.Pdb"
 [130]:	https://bugs.python.org/issue8637
@@ -1834,9 +1790,7 @@ Miscellaneous operating system interfaces."
 [152]:	https://docs.python.org/3.6/library/unittest.mock.html#unittest.mock.Mock.reset_mock "unittest.mock.Mock.reset_mock"
 [153]:	https://bugs.python.org/issue21271
 [154]:	https://bugs.python.org/issue16099
-[155]:	https://docs.python.org/3.6/library/venv.html#module-venv "venv:
-
-Creation of virtual environments."
+[155]:	https://docs.python.org/3.6/library/venv.html#module-venv "venv:Creation of virtual environments."
 [156]:	https://bugs.python.org/issue27982
 [157]:	https://bugs.python.org/issue26885
 [158]:	https://bugs.python.org/issue26039
@@ -1916,14 +1870,10 @@ Creation of virtual environments."
 [232]:	https://bugs.python.org/issue25002
 [233]:	https://bugs.python.org/issue25002
 [234]:	https://bugs.python.org/issue26129
-[235]:	https://docs.python.org/3.6/library/os.html#module-os "os:
-
-Miscellaneous operating system interfaces."
+[235]:	https://docs.python.org/3.6/library/os.html#module-os "os:Miscellaneous operating system interfaces."
 [236]:	https://bugs.python.org/issue25791
 [237]:	https://bugs.python.org/issue22493
-[238]:	https://docs.python.org/3.6/library/ssl.html#module-ssl "ssl: TLS/SSL
-
-wrapper for socket objects"
+[238]:	https://docs.python.org/3.6/library/ssl.html#module-ssl "ssl: TLS/SSLwrapper for socket objects"
 [239]:	https://bugs.python.org/issue28022
 [240]:	https://docs.python.org/3.6/library/re.html#re.sub "re.sub"
 [241]:	https://docs.python.org/3.6/library/re.html#re.LOCALE "re.LOCALE"
