@@ -1,6 +1,6 @@
 原文：[Python 3.6新特性简介][1]
 
-# Python 3.6新特性简介¶
+# Python 3.6新特性简介
 
 版本:| 3.6.0
 ---|---
@@ -15,7 +15,7 @@
 
 [**PEP 494**][4] \- Python 3.6 发布时间表
 
-## 摘要 - 发布亮点¶
+## 摘要 - 发布亮点
 
 新的语法特性：
 
@@ -150,7 +150,7 @@ Windows上的改进:
 
 	PEP由Georg Brandl和Serhiy Storchaka编写。
 
-### PEP 525: 异步生成器¶
+### PEP 525: 异步生成器
 
 [**PEP 492**][38] 引入支持原生协程和`async` /`await`的语法到Python 3.5。 在Python 3.5实现里的一个值得注意的
 局限性就在于它不可能使用`await`和`yield'在同一个函数体中。 而在Python 3.6中，这个限制
@@ -172,7 +172,7 @@ Windows上的改进:
 
 	由Yury Selivanov撰写并实现的PEP。
 
-### PEP 530: 异步解析式¶
+### PEP 530: 异步解析式
 
 [**PEP 530**][40] 添加了对`async for`在list、set、dict解析式以及generator表达式中的使用支持：
 
@@ -195,7 +195,7 @@ Windows上的改进:
 
 	由Yury Selivanov撰写并实现的PEP。
 
-### PEP 487: 用于建立类的更简单的自定义¶
+### PEP 487: 用于建立类的更简单的自定义
 
 现在可以在不使用元类的情况下自定义子类。每当创建一个新的子类时，新的`__init_subclass__`类方法将在基类上被调用，：
 
@@ -233,7 +233,7 @@ creation))
 
 [功能文档](https://docs.python.org/3.6/reference/datamodel.html#class-customization)
 
-### PEP 487: 描述符协议增强¶
+### PEP 487: 描述符协议增强
 
 [**PEP 487**][44] 扩展描述符协议必须包括新的可选的[`__set_name __（）`](https://docs.python.org/3.6/reference/datamodel.html#object.\_\_set\_name\_\_ "object.\_\_set\_name\_\_" )方法。 每当定义一个新类时，新方法将会调用定义中所有的描述符，并给它们提供定义类的引用，以及类命名空间中给予描述符的名字。 换句话说，描述符的实例现在可以获知所有者类的属性名：
 ```
@@ -265,7 +265,7 @@ creation))
 [功能文档](https://docs.python.org/3.6/reference/datamodel.html#d
 escriptors)
 
-### PEP 519: 添加文件系统路径协议¶
+### PEP 519: 添加文件系统路径协议
 
 文件系统路径过去被表示为[`str`][46]或[`bytes`][47]对象。这会导致那些编写操作文件系统路径代码的人，假定这些对象只能是这两种类型之一(一个代表着文件描述符的[`int`][48]对象将不被计入即它不是一个文件路径)。
 不幸的是，这种假设局限了文件系统路径表示代方法，如已经存在的[`pathlib`](https://docs.python.org/3.6/library/pathlib.html#module-pathlib
@@ -313,7 +313,7 @@ like](https://docs.python.org/3.6/glossary.html#term-path-like-object),它代表
 
 	PEP 由Brett Cannon 和 Koos Zevenhoven撰写.
 
-### PEP 495: 本地时间消歧¶
+### PEP 495: 本地时间消歧
 
 世界上大多数地方，都曾经出现也将出现多次的时间回调。在这种时候，引入时间间隔用以表示本地时钟在同一天中出现两次相同的时间的情况，在这些情况下，本地时钟显示的时间（或存在在python datetime中的实例）不足及时表示特定的时刻。
 为了区分本地时间相同的两个时刻，[**PEP 495**][56] 在类 [`datetime.datetime`](https://docs.python.org/3.6/li
@@ -344,7 +344,7 @@ See also
 
 	PEP 由 Alexander Belopolsky 和 Tim Peters撰写, 由Alexander Belopolsky实现.
 
-### PEP 529: 更改windows下文件系统编码格式为UTF-8¶
+### PEP 529: 更改windows下文件系统编码格式为UTF-8
 
 使用str (Unicode) 表示文件系统路径比bytes能获得更好的效果。尽管如此，在某些情况下bytes也足以胜任并且也是正确的。
 
@@ -355,7 +355,7 @@ stemencoding()`](https://docs.python.org/3.6/library/sys.html#sys.getfilesysteme
 
 查看 [**PEP 529**](https://www.python.org/dev/peps/pep-0529)以获取更多信息并讨论可能需要变更的代码。
 
-### PEP 528: 更改windows控制台编码为UTF-8¶
+### PEP 528: 更改windows控制台编码为UTF-8
 
 windows下的默认控制台现在支持所有的Unicode字符并可以正确读取Python代码中的str对象。 `sys.stdin`, `sys.stdout`
 以及 `sys.stderr` 现在的默认使用utf-8编码。
@@ -368,7 +368,7 @@ windows下的默认控制台现在支持所有的Unicode字符并可以正确读
 
     PEP 由Steve Dower编写和实现。
 
-### PEP 520: 保存类属性定义顺序¶
+### PEP 520: 保存类属性定义顺序
 
 类的定义体中的属性有一个自然顺序：即源码中属性名出现的顺序。 这个顺序现在保存在新的类[`__dict__`](https://docs.python.org/3.6/library/stdtypes.html#object.__dict__ "object.__dict__" ) 的属性中.
 
@@ -380,7 +380,7 @@ windows下的默认控制台现在支持所有的Unicode字符并可以正确读
 
     该PEP由Eric Snow编写和实现。
 
-### PEP 468: 保存关键字参数顺序¶
+### PEP 468: 保存关键字参数顺序
 
 函数声明中的`**kwargs` 的顺序现在被保证是插入顺序的映射。
 
@@ -390,7 +390,7 @@ windows下的默认控制台现在支持所有的Unicode字符并可以正确读
 
     该PEP由Eric Snow编写和实现。
 
-### 新的 [字典dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型的实现¶
+### 新的 [字典dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型的实现
 
 [字典dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型现在使用 [PyPy首创](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html)的 "紧凑" 表达方式。 新[`字典dict()`](https://docs.python.org/3.6/library/stdtypes.html#dict "dict" ) 的内存占用比Python3.5中减少20%到25%。
 
@@ -491,7 +491,7 @@ Python现在可以使用`--with-dtrace`来构建，它为解释器中的以下�
 
 (由Łukasz Langa在[issue 21590](https://bugs.python.org/issue21590)中贡献，基于Cea Avión, David Malcolm, 和Nikhil Benesch提供的补丁)
 
-## 其他语言方面的变化¶
+## 其他语言方面的变化
 
 我们还对 Python 语言的核心做了一些小的改变：
 
@@ -501,9 +501,9 @@ Python现在可以使用`--with-dtrace`来构建，它为解释器中的以下�
   * 现在模块导入在找不到模块时引发新的异常 [`ModuleNotFoundError`][76]（[`ImportError`][77] 的子类）。 当前检测 ImportError 的代码（try-except中）仍然可以工作。(由 Eric Snow 在 [issue 15767][78] 中贡献。)
   * 在类创建时，被元类调用的依赖无参数的 `super()` 的类方法时会正确工作。(由 Martin Teichmann 在 [issue 23722][79]中贡献。)
 
-## 新增模块¶
+## 新增模块
 
-### secrets¶
+### secrets
 
 新增模块 [`secrets`](https://docs.python.org/3.6/library/secrets.html#module-secrets
 "secrets: Generate secure random numbers for managing secrets." ) 的主要目的是：提供一个
@@ -524,9 +524,9 @@ Python现在可以使用`--with-dtrace`来构建，它为解释器中的以下�
 
 	PEP 由 Steven D'Aprano 编写及实现。
 
-## Improved Modules¶
+## Improved Modules
 
-### array¶
+### array
 
 耗尽的迭代器[`array.array`](https://docs.python.org/3.6/library/array.html#array.array)现在将会保持被耗尽，即使被迭代的数组被拓展了。这与其他可变序列的行为保持了一致性。
 
@@ -534,14 +534,14 @@ Python现在可以使用`--with-dtrace`来构建，它为解释器中的以下�
 26492](https://bugs.python.org/issue26492)中贡献
 
 
-### ast¶
+### ast
 
 添加了新的`ast.Constant`的AST节点。它可以被外部的AST优化器出于永久聚合(constant foldind)。
 
 由Victor Stinner在[issue
 26146](https://bugs.python.org/issue26146)中贡献
 
-### asyncio¶
+### asyncio
 
 始于Python 3.6，`asyncio`模块将不再是临时的了，并且它的API被认为是稳定的。
 
@@ -564,11 +564,11 @@ Python现在可以使用`--with-dtrace`来构建，它为解释器中的以下�
   * 新的[`loop.shutdown_asyncgens()`](https://docs.python.org/3.6/library/asyncio-eventloop.html#asyncio.AbstractEventLoop.shutdown_asyncgens "asyncio.AbstractEventLoop.shutdown_asyncgens" )在关闭循环之前恰当的关闭挂起的异步生成器。（由 Yury Selivanov在[issue 28003](https://bugs.python.org/issue28003)中贡献）
   * [`Future`](https://docs.python.org/3.6/library/asyncio-task.html#asyncio.Future "asyncio.Future" )和[`Task`](https://docs.python.org/3.6/library/asyncio-task.html#asyncio.Task "asyncio.Task" )类现在有一个已优化的C语言的实现，使得asyncio编码速度提高了30%。（由Yury Selivanov和INADA Naoki在[issue 26081](https://bugs.python.org/issue26081)和[issue 28544](https://bugs.python.org/issue28544)中贡献）
 
-### binascii¶
+### binascii
 
 [`b2a_base64()`](https://docs.python.org/3.6/library/binascii.html#binascii.b2a_base64 "binascii.b2a_base64" )功能现在接收现在接收一个可选_newline_的关键词参数去控制是否新的一行的字符被加到返回值中。（由Victor Stinnergong贡献于[issue25357](https://bugs.python.org/issue25357)。）
 
-### cmath¶
+### cmath
 
 新增了方法 [`cmath.tau`](https://docs.python.org/3.6/library/cmath.html#cmath.tau
 "cmath.tau" ) 来表示(τ) 常量. (由Lisa Roach在[issue 12345][107]中贡献, 详情请查看 [\*\*PEP
@@ -588,7 +588,7 @@ Python现在可以使用`--with-dtrace`来构建，它为解释器中的以下�
 "cmath.nanj" ) 来匹配复数表达式的格式化. (由Mark
 Dickinson在[issue 23229][108]中贡献.)
 
-### collections¶
+### collections
 
 新的[`Collection`](https://docs.python.org/3.6/library/collections.abc.htm
 l#collections.abc.Collection "collections.abc.Collection" ) 抽象基类已经增加到可表示大小的迭代器类里面
@@ -618,7 +618,7 @@ s.html#collections.deque "collections.deque" ) 实例现在可使用pickle持久
 (由Serhiy Storchaka在[issue
 26482](https://bugs.python.org/issue26482)中贡献.)
 
-### concurrent.futures¶
+### concurrent.futures
 
 The [`ThreadPoolExecutor`](https://docs.python.org/3.6/library/concurrent.futu
 res.html#concurrent.futures.ThreadPoolExecutor
@@ -627,7 +627,7 @@ optional _thread\_name\_prefix_ argument to make it possible to customize the
 names of the threads created by the pool. (Contributed by Gregory P. Smith in
 [issue 27664][112].)
 
-### contextlib¶
+### contextlib
 
 The [`contextlib.AbstractContextManager`](https://docs.python.org/3.6/library/
 contextlib.html#contextlib.AbstractContextManager
@@ -641,7 +641,7 @@ Manager\`](https://docs.python.org/3.6/library/typing.html#typing.ContextManage
 r "typing.ContextManager" ). (Contributed by Brett Cannon in [issue
 25609](https://bugs.python.org/issue25609).)
 
-### datetime¶
+### datetime
 
 The [`datetime`](https://docs.python.org/3.6/library/datetime.html#datetime.da
 tetime "datetime.datetime" ) and
@@ -673,7 +673,7 @@ atetime.datetime.combine "datetime.datetime.combine" ) now accepts an optional
 _tzinfo_ argument. (Contributed by Alexander Belopolsky in [issue
 27661](https://bugs.python.org/issue27661).)
 
-### decimal¶
+### decimal
 
 New [`Decimal.as_integer_ratio()`](https://docs.python.org/3.6/library/decimal
 .html#decimal.Decimal.as\_integer\_ratio "decimal.Decimal.as\_integer\_ratio" )
@@ -692,7 +692,7 @@ positive denominator:
 (Contributed by Stefan Krah amd Mark Dickinson in [issue
 25928](https://bugs.python.org/issue25928).)
 
-### distutils¶
+### distutils
 
 The `default_format` attribute has been removed from
 `distutils.command.sdist.sdist` and the `formats` attribute defaults to
@@ -700,7 +700,7 @@ The `default_format` attribute has been removed from
 `default_format` may need to be adapted. See [issue
 27819](https://bugs.python.org/issue27819) for more details.
 
-### email¶
+### email
 
 The new email API, enabled via the _policy_ keyword to various constructors,
 is no longer provisional. The
@@ -734,14 +734,14 @@ n.org/3.6/library/email.compat32-message.html#email.message.Message
 "email.message.EmailMessage" ). (Contributed by R. David Murray in [issue
 20476](https://bugs.python.org/issue20476).)
 
-### encodings¶
+### encodings
 
 On Windows, added the `'oem'` encoding to use `CP_OEMCP`, and the `'ansi'`
 alias for the existing `'mbcs'` encoding, which uses the `CP_ACP` code page.
 (Contributed by Steve Dower in [issue
 27959](https://bugs.python.org/issue27959).)
 
-### enum¶
+### enum
 
 Two new enumeration base classes have been added to the
 [`enum`][114] module:
@@ -770,7 +770,7 @@ automatically:
 
 ```
 
-### faulthandler¶
+### faulthandler
 
 在Windows平台, 
 [`faulthandler`](https://docs.python.org/3.6/library/faulthandler.html#module-
@@ -779,14 +779,14 @@ ython.org/3.6/library/faulthandler.html#faulthandler.enable
 "faulthandler.enable" ). (由 Victor Stinner 在 [issue
 23848](https://bugs.python.org/issue23848)中贡献.)
 
-### fileinput¶
+### fileinput
 
 [`hook_encoded()`](https://docs.python.org/3.6/library/fileinput.html#fileinpu
 t.hook\_encoded "fileinput.hook\_encoded" ) 模块现在可支持errors参数.
 (由 Joseph Hackman 在 [issue
 25788](https://bugs.python.org/issue25788)贡献.)
 
-### hashlib¶
+### hashlib
 
 [`hashlib`](https://docs.python.org/3.6/library/hashlib-blake2.html#module-
 hashlib "hashlib: BLAKE2 hash function for Python" ) 支持 OpenSSL 1.1.0。
@@ -810,7 +810,7 @@ Bertoni, Joan Daemen, Michaël Peeters, Gilles Van Assche, and Ronny Van Keer撰
 [`scrypt()`](https://docs.python.org/3.6/library/hashlib.html#hashlib.scrypt
 "hashlib.scrypt" ) 可使用 OpenSSL 1.1.0 或更新版本. (由Christian Heimes 在 [issue 27928][118]中贡献.)
 
-### http.client¶
+### http.client
 
 [`HTTPConnection.request()`](https://docs.python.org/3.6/library/http.client.h
 tml#http.client.HTTPConnection.request "http.client.HTTPConnection.request" )
@@ -819,7 +819,7 @@ and [`endheaders()`](https://docs.python.org/3.6/library/http.client.html#http
 将全部支持分块编码请求体. (由Demian
 Brecht and Rolf Krahl 在 [issue 12319][119]中贡献.)
 
-### idlelib and IDLE¶
+### idlelib and IDLE
 
 对idle包做了现代化的改进与重构，使得IDLE更美观、更好用的同时令编程更易于理解、测试与改进。在IDLE的美化方面，特备针对Linux和Mac用户，我们在大多数对话框上应用了ttk插件。总之，IDLE将不再支持tcl/tk 8.4。现在要求有 tcl/tk 8.5 或 8.6。我们建议在使用时运行最新的版本.
 
@@ -828,7 +828,7 @@ Brecht and Rolf Krahl 在 [issue 12319][119]中贡献.)
 
 做点补充，最终的结果是，一些idlelib类会更容易使用，将具有更好的API文档与字符串的解释。其他有用的信息会在可用时被及时添加到idlelib。
 
-### importlib¶
+### importlib
 
 当无法找到被导入模块时会跳出一个新的异常提示 [`ModuleNotFoundError`](https://docs.pytho
 n.org/3.6/library/exceptions.html#ModuleNotFoundError "ModuleNotFoundError" )
@@ -901,20 +901,20 @@ Linux的`getrandom()`系统调用(获取随机字节)现在作为新的[`os.getr
 
 [`Pdb`](https://docs.python.org/3.6/library/pdb.html#pdb.Pdb)类构造器有一个新的可选_readrc_参数，用来控制是否应该读取`.pdbrc`文件。
 
-### pickle¶
+### pickle
 
 对象，现在可以使用关键参数 `__new__`进行持久存储[pickle协议](https://docs.python.org/3.6/library/pickle.html
 # pickle-protocols)超过已有的协议版本4.
 支持这种情况. (由Serhiy Storchaka在[issue
 24164](https://bugs.python.org/issue24164)的贡献。)
 
-### pickletools¶
+### pickletools
 
 现在[`pickletools.dis()`](https://docs.python.org/3.6/library/pickletools.html#pic
 kletools.dis "pickletools.dis" ) 输出的隐含备注是`MEMOIZE`操作码的索引。 (由Serhiy Storchaka在[issue
 25382](https://bugs.python.org/issue25382)的贡献。)
 
-### pydoc¶
+### pydoc
 
 [`pydoc`](https://docs.python.org/3.6/library/pydoc.html#module-pydoc
 "pydoc: Documentation generator and online help system." )模块已经学会遵守`MANPAGER`环境变量。 (由Matthias Klose
@@ -926,12 +926,12 @@ kletools.dis "pickletools.dis" ) 输出的隐含备注是`MEMOIZE`操作码的�
 (由Raymond Hettinger在[issue
 24879](https://bugs.python.org/issue24879)的贡献。)
 
-### random¶
+### random
 
 这个新[`choices()`](https://docs.python.org/3.6/library/random.html#random.choices
 "random.choices" ) 函数返回一个指定元素大小的列表，通过可选权重给出它的规模。(由Raymond Hettinger在[issue 18844][132]的贡献。)
 
-### re¶
+### re
 
 在正则表达式中，增加对 spans 修饰符的支持。 示例:
 `'(?i:p)ython'` 匹配 `'python'` 和 `'Python'`, 但不匹配 `'PYTHON'`；
@@ -945,39 +945,39 @@ kletools.dis "pickletools.dis" ) 输出的隐含备注是`MEMOIZE`操作码的�
 /reference/datamodel.html#object.\_\_index\_\_ "object.\_\_index\_\_" ) 一样的组索引。 (由Jeroen Demeyer and Xiang Zhang 在 [issue
 27177](https://bugs.python.org/issue27177)的贡献。)
 
-### readline¶
+### readline
 
 增加了 [`set_auto_history()`](https://docs.python.org/3.6/library/readline.html)
 # readline.set\_auto\_history "readline.set\_auto\_history" ) 启用或停用
 自动把输入加到历史列表中。 (由Tyler Crompton 在[issue 26870][134]的贡献。)
 
-### rlcompleter¶
+### rlcompleter
 
 现在，除非前缀开始使用下划线，否则私有和特殊属性名称就被忽略。在一些完成的关键字后面添加一个空格或冒号。
 (由Serhiy Storchaka 在[issue
 25011](https://bugs.python.org/issue25011) 和 [issue
 25209](https://bugs.python.org/issue25209)的贡献。)
 
-### shlex¶
+### shlex
 
 [`shlex`](https://docs.python.org/3.6/library/shlex.html#shlex.shlex
 "shlex.shlex" ) 已经大大 [改进shell的兼容性](https://docs.python.org/3.6/library/shlex.html#improved-shell-compatibility) ,通过新的 _punctuation\_chars_ 参数来控制，哪些字符被作为标点符号。 (由Vinay Sajip 在[issue
 1521950](https://bugs.python.org/issue1521950)的贡献。)
 
-### site¶
+### site
 
 在一个.pth文件里，当指定路径添加到[`sys.path`](https://docs.python.org/3.6/library/sys.html#sys.path "sys.path"
 ) 中, 可能你现在要在目录之上指定文件路径 (例如：zip文件)。 (由Wolfgang Langner 在[issue
 26587](https://bugs.python.org/issue26587)的贡献)。
 
-### sqlite3¶
+### sqlite3
 
 [`sqlite3.Cursor.lastrowid`](https://docs.python.org/3.6/library/sqlite3.html\#
 sqlite3.Cursor.lastrowid "sqlite3.Cursor.lastrowid" ) 现在支持
 `REPLACE` 声明. (贡献者： Alex LordThorsen 于 [issue
 16864](https://bugs.python.org/issue16864).)
 
-### socket¶
+### socket
 
 [`ioctl()`](https://docs.python.org/3.6/library/socket.html#socket.socket.
 ioctl "socket.socket.ioctl" ) 函数现在支持 [\`SIO\_LOOPBACK\_FAST\_PA
@@ -1002,7 +1002,7 @@ tml#socket.socket.sendmsg\_afalg "socket.socket.sendmsg\_afalg" ).
 (贡献者： Christian Heimes 于 [issue
 27744](https://bugs.python.org/issue27744) with support from Victor Stinner.)
 
-### socketserver¶
+### socketserver
 
 基于
 [`socketserver`](https://docs.python.org/3.6/library/socketserver.html#module-
@@ -1026,7 +1026,7 @@ ttps://docs.python.org/3.6/library/io.html#io.BufferedIOBase.write
 (贡献者： Martin Panter 于 [issue
 26721](https://bugs.python.org/issue26721).)
 
-### ssl¶
+### ssl
 
 [`ssl`][139] 已支持 OpenSSL 1.1.0. 最低推荐版本号是 1.0.2. (贡献者： Christian Heimes 于 [issue
 26470](https://bugs.python.org/issue26470).)
@@ -1059,21 +1059,21 @@ Server 和 client-side 添加 [`SSLContext`](https://docs.python.org/3.6/library
 "ssl.SSLContext" ) 特定 TLS 协议. (贡献者： Christian Heimes 于 [issue
 28085](https://bugs.python.org/issue28085).)
 
-### statistics¶
+### statistics
 
 A new [`harmonic_mean()`](https://docs.python.org/3.6/library/statistics.html\#
 statistics.harmonic\_mean "statistics.harmonic\_mean" ) function has been added.
 (Contributed by Steven D'Aprano in [issue
 27181](https://bugs.python.org/issue27181).)
 
-### struct¶
+### struct
 
 [`struct`](https://docs.python.org/3.6/library/struct.html#module-struct
 "struct: Interpret bytes as packed binary data." ) now supports IEEE 754 half-
 precision floats via the `'e'` format specifier. (Contributed by Eli Stevens,
 Mark Dickinson in [issue 11734][139].)
 
-### subprocess¶
+### subprocess
 
 [`subprocess.Popen`](https://docs.python.org/3.6/library/subprocess.html#subpr
 ocess.Popen "subprocess.Popen" ) destructor now emits a [`ResourceWarning`](ht
@@ -1092,7 +1092,7 @@ Specifying either of these will enable text mode for the _stdin_, _stdout_ and
 _stderr_ streams. (Contributed by Steve Dower in [issue
 6135](https://bugs.python.org/issue6135).)
 
-### sys¶
+### sys
 
 The new [`getfilesystemencodeerrors()`](https://docs.python.org/3.6/library/sy
 s.html#sys.getfilesystemencodeerrors "sys.getfilesystemencodeerrors" )
@@ -1107,20 +1107,20 @@ major version, minor version and build number of the current operating system,
 rather than the version that is being emulated for the process (Contributed by
 Steve Dower in [issue 27932][140].)
 
-### telnetlib¶
+### telnetlib
 
 [`Telnet`](https://docs.python.org/3.6/library/telnetlib.html#telnetlib.Telnet
 "telnetlib.Telnet" ) is now a context manager (contributed by Stéphane Wirtel
 in [issue 25485][141]).
 
-### time¶
+### time
 
 The
 [`struct_time`](https://docs.python.org/3.6/library/time.html#time.struct\_time
 "time.struct\_time" ) attributes `tm_gmtoff` and `tm_zone` are now available on
 all platforms.
 
-### timeit¶
+### timeit
 
 The new [`Timer.autorange()`](https://docs.python.org/3.6/library/timeit.html\#
 timeit.Timer.autorange "timeit.Timer.autorange" ) convenience method has been
@@ -1134,7 +1134,7 @@ D'Aprano in [issue 6422][142].)
 there is substantial (4x) variance between best and worst times. (Contributed
 by Serhiy Storchaka in [issue 23552][143].)
 
-### tkinter¶
+### tkinter
 
 在`tkinter.Variable`类中添加了方法 `trace_add（）`，`trace_remove（）`和`trace_info（）`。 它们代替了之前版本中的 `trace_variable（）`，`trace（）`，`trace_vdelete（）`和 `trace_vinfo（）`方法，这些方法使用过时的Tcl命令，而在未来版本的Tcl中，这些Tcl命令可能不起作用。（由Serhiy Storchaka在[issue 22115](https://bugs.python.org/issue22115) 提供）。
 
@@ -1197,20 +1197,20 @@ traceback模块和解释器内置的异常展示现在都省略回溯中重复�
 
 静态类型检查器将会把新的类型当成原始类型的一个子类。 (由Ivan Levkivskyi在[Github #189](https://github.com/python/typing/issues/189)中贡献。)
 
-### unicodedata¶
+### unicodedata
 
 The [`unicodedata`](https://docs.python.org/3.6/library/unicodedata.html#module-unicodedata "unicodedata: Access the Unicode Database.") module now
 uses data from [Unicode 9.0.0][148].
 (Contributed by Benjamin Peterson.)
 
-### unittest.mock¶
+### unittest.mock
 
 The [`Mock`](https://docs.python.org/3.6/library/unittest.mock.html#unittest.mock.Mock "unittest.mock.Mock" ) class has the following improvements:
 
   * Two new methods, [`Mock.assert_called()`][149] and [`Mock.assert_called_once()`][150] to check if the mock object was called. (Contributed by Amit Saha in [issue 26323][151].)
   * The [`Mock.reset_mock()`][152] method now has two optional keyword only arguments: _return\_value_ and _side\_effect_. (Contributed by Kushal Das in [issue 21271][153].)
 
-### urllib.request¶
+### urllib.request
 
 If a HTTP request has a file or iterable body (other than a bytes object) but
 no `Content-Length` header, rather than throwing an error,
@@ -1218,19 +1218,19 @@ no `Content-Length` header, rather than throwing an error,
 (Contributed by Demian Brecht and Rolf Krahl in [issue
 12319](https://bugs.python.org/issue12319).)
 
-### urllib.robotparser¶
+### urllib.robotparser
 
 [`RobotFileParser`](https://docs.python.org/3.6/library/urllib.robotparser.html#urllib.robotparser.RobotFileParser"urllib.robotparser.RobotFileParser" )
 now supports the `Crawl-delay` and `Request-rate` extensions. (Contributed by
 Nikolay Bogoychev in [issue 16099][154].)
 
-### venv¶
+### venv
 
 [`venv`][155] accepts a new parameter `--prompt`. This
 parameter provides an alternative prefix for the virtual environment.
 (Proposed by Łukasz Balcerzak and ported to 3.6 by Stéphane Wirtel in [issue22829](https://bugs.python.org/issue22829).)
 
-### warnings¶
+### warnings
 
 增加一个可选参数到 [`warnings.warn_explicit（）`](https://docs.python.org/3.6/library/warnings.html#warnings.warn_explici%0At)函数中：引发 [`ResourceWarning` ](https://docs.python.org/3.6/library/exceptions.html#Resource%0AWarning)的已销毁对象。 同时，属性也添加到 `warnings.WarningMessage` 中。（由Victor Stinner在[issue 26568](https://bugs.python.org/issue26568)和[issue 26567](https://bugs.python.org/issue26567)中提供）。
 
@@ -1258,25 +1258,25 @@ parameter provides an alternative prefix for the virtual environment.
 ```
 “对象分配”跟踪是新的，并且只有当[`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-%0Atracemalloc)正在跟踪Python内存分配，并且[ `warnings`](https://docs.python.org/3.6/library/warnings.html#module-warnings) 模块已经导入时才会显示。
 
-### winreg¶
+### winreg
 
 新增64位整数类型
 [`REG_QWORD`](https://docs.python.org/3.6/library/winreg.html#winreg.REG\_QWORD
 "winreg.REG\_QWORD" ). (Contributed by Clement Rouault in [issue
 23026](https://bugs.python.org/issue23026).)
 
-### winsound¶
+### winsound
 
 允许传递关键词参数到 [`Beep`](https://docs.python.org/3.6/library/winsound.html#winsound.Beep"winsound.Beep" ), [`MessageBeep`](https://docs.python.org/3.6/library/winsoun
 d.html#winsound.MessageBeep "winsound.MessageBeep" ), 和 [`PlaySound`](https:
 //docs.python.org/3.6/library/winsound.html#winsound.PlaySound"winsound.PlaySound" ) 方法。 ([issue 27982][156]).
 
-### xmlrpc.client¶
+### xmlrpc.client
 
 [`xmlrpc.client`](https://docs.python.org/3.6/library/xmlrpc.client.html# module-xmlrpc.client "xmlrpc.client: XML-RPC clientaccess." ) 模块现支持解压由apache XML-RPC实现用于数字和'None'的附加数据类型。(Contributed by Serhiy Storchaka in
 [issue 26885][157].)
 
-### zipfile¶
+### zipfile
 
 一个新的类方法 [`ZipInfo.from_file()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo.from\_file "zipfile.ZipInfo.from\_file") 允许从文件系统文件中生成一个
 [`ZipInfo`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipInfo
@@ -1285,7 +1285,7 @@ d.html#winsound.MessageBeep "winsound.MessageBeep" ), 和 [`PlaySound`](https:
 
 [`ZipFile.open()`](https://docs.python.org/3.6/library/zipfile.html#zipfile.ZipFile.open "zipfile.ZipFile.open" ) 方法现在能够将数据写入到一个ZIP文件，也能够从中提取数据。 (Contributed by Thomas Kluyver in [issue 26039][159].)
 
-### zlib¶
+### zlib
 
 [`compress()`](https://docs.python.org/3.6/library/zlib.html#zlib.compress
 "zlib.compress" ) 以及
@@ -1340,9 +1340,9 @@ $ ./python -VV
 ```
 
 
-## 弃用的模块，包以及函数¶
+## 弃用的模块，包以及函数
 
-### 新的关键词¶
+### 新的关键词
 
 
 在后续的Python 3.7 中，`async` 和 `await` 将作为关键字使用， 因此不再建议使用它们作为变量名,类名，函数名以及模块名称。
@@ -1351,7 +1351,7 @@ $ ./python -VV
 s.python.org/3.6/library/exceptions.html#DeprecationWarning
 "DeprecationWarning" )
 
-### 已弃用的 Python 行为¶
+### 已弃用的 Python 行为
 
 
 Python 3.7 中, 在生成器中引发[`StopIteration`](https://docs.python.org/3.6/library/exceptions.html#StopIteration "StopIteration")异常，现在将会导致[`DesprecationWarning`](https://docs.python.org/3.6/library/exceptions.html#DeprecationWarning "DeprecationWarning" ),
@@ -1382,10 +1382,10 @@ by Emanuel Barry in [issue 27364][231].)
 l#ImportWarning "ImportWarning" )异常.  (Contributed by Rose Ames in [issue
 25791](https://bugs.python.org/issue25791).)
 
-### Deprecated Python modules, functions and methods¶
+### Deprecated Python modules, functions and methods
 ### 弃用的 Python 模块，函数和方法
 
-#### asynchat¶
+#### asynchat
 
 
 为了支持[`asyncio`](https://docs.python.org/3.6/library/asyncio.html#module-asyncio
@@ -1394,7 +1394,7 @@ l#ImportWarning "ImportWarning" )异常.  (Contributed by Rose Ames in [issue
  "asynchat: Support for asynchronous command/response protocols." )已被弃用。(Contributed
  by Mariatta in [issue 25002][232].)
 
-#### asyncore¶
+#### asyncore
 
 
 为了支持[`asyncio`](https://docs.python.org/3.6/library/asyncio.html#module-asyncio
@@ -1403,7 +1403,7 @@ asyncore "asyncore: A base class for developing asynchronous socket handling
 services." )模块已被弃用. (Contributed
 by Mariatta in [issue 25002][233].),
 
-#### dbm¶
+#### dbm
 
 
 与其他[`dbm`](https://docs.python.org/3.6/library/dbm.html#module-dbm
@@ -1413,14 +1413,14 @@ by Mariatta in [issue 25002][233].),
 并允许通过`'r'`模式来修改数据库，不过这种行为现在将被弃用，在Python 3.8 将会被移除。(Contributed by Serhiy Storchaka in [issue
 21708](https://bugs.python.org/issue21708).)
 
-#### distutils¶
+#### distutils
 
 `Distribution`构造器中`extra_path`参数现在被认为是过时的，如果在 Python 3.6 中对其进行
 设置的话将会引发一个警告。
 对这个参数的支持将会在后续 Python 版本中移除。详情请参阅[issue
 27919](https://bugs.python.org/issue27919)
 
-#### grp¶
+#### grp
 
 
 [`getgrgid()`](https://docs.python.org/3.6/library/grp.html#grp.getgrgid
@@ -1428,7 +1428,7 @@ by Mariatta in [issue 25002][233].),
 [issue 26129][234].)
 
 
-#### importlib¶
+#### importlib
 
 为了用来在之前的版本中支持
 [\`importlib.abc.Loader.exec\_module()\`](https://docs.python.org/3.6/library/importlib.html#im
@@ -1450,7 +1450,7 @@ library/importlib.html#importlib.machinery.WindowsRegistryFinder
 [`sys.meta_path`](https://docs.python.org/3.6/library/sys.html#sys.meta\_path
 "sys.meta\_path" )中， 不过在将来这可能会发生变化。
 
-#### os¶
+#### os
 
 
 在[`os`][235]中对作为路径的通用[bytes-like
@@ -1458,13 +1458,13 @@ objects](https://docs.python.org/3.6/glossary.html#term-bytes-like-object)，[`c
 "compile" )以及对类函数的非正式支持，现在已经弃用。
 
 
-#### re¶
+#### re
 
 
 对正则式中间的内联标志 `(?letters)`的支持已被弃用，并将在后续 Python 版本中移除。对正则式开头的标志的支持仍然被保留。
 (Contributed by Serhiy Storchaka in [issue 22493][237].)
 
-#### ssl¶
+#### ssl
 
 
 OpenSSL 0.9.8, 1.0.0 和 1.0.1 已被弃用，不再支持。以后[`ssl`](https://docs.python.org/3.6/library/ssl.html#module-ssl
@@ -1488,7 +1488,7 @@ sockets\)." ), [`imaplib`](https://docs.python.org/3.6/library/imaplib.html#modu
 [issue 28022][239] 和 [issue26470](https://bugs.python.org/issue26470).)
 
 
-#### tkinter¶
+#### tkinter
 
 
 [`tkinter.tix`](https://docs.python.org/3.6/library/tkinter.tix.html#module-tkinter.tix "tkinter.tix: Tk Extension Widgets for Tkinter")模块已被弃用。
@@ -1496,13 +1496,13 @@ sockets\)." ), [`imaplib`](https://docs.python.org/3.6/library/imaplib.html#modu
 "tkinter: Interface to Tcl/Tk for graphical user interfaces" )的使用者，可以使用
 [`tkinter.ttk`](https://docs.python.org/3.6/library/tkinter.ttk.html#module-tkinter.ttk "tkinter.ttk: Tk themed widget set")来代替。
 
-#### venv¶
+#### venv
 
 为了引入`python3 -m venv`命令，`pyvenv` 已被弃用。 这可以防止混淆何种 Python 解释器将被`pyvenv`连接
 以及何种 Python 解释器将被用在虚拟环境中。(Contributed by Brett Cannon in [issue
 25154](https://bugs.python.org/issue25154).)
 
-### Deprecated functions and types of the C API¶
+### Deprecated functions and types of the C API
 
 Undocumented functions `PyUnicode_AsEncodedObject()`,
 `PyUnicode_AsDecodedObject()`, `PyUnicode_AsEncodedUnicode()` and
@@ -1510,7 +1510,7 @@ Undocumented functions `PyUnicode_AsEncodedObject()`,
 based API](https://docs.python.org/3.6/c-api/codec.html#codec-registry)
 instead.
 
-### Deprecated Build Options¶
+### Deprecated Build Options
 
 The `--with-system-ffi` configure flag is now on by default on non-macOS UNIX
 platforms. It may be disabled by using `--without-system-ffi`, but using the
@@ -1518,9 +1518,9 @@ flag is deprecated and will not be accepted in Python 3.7. macOS is unaffected
 by this change. Note that many OS distributors already use the \`--with-system-
 ffi\` flag when building their system Python.
 
-## Removed¶
+## Removed
 
-### API and Feature Removals¶
+### API and Feature Removals
 
   * Unknown escapes consisting of `'\'` and an ASCII letter in regular expressions will now cause an error. In replacement templates for [`re.sub()`][240] they are still allowed, but deprecated. The [`re.LOCALE`][241] flag can now only be used with binary patterns.
   * `inspect.getmoduleinfo()` was removed (was deprecated since CPython 3.3). [`inspect.getmodulename()`][242] should be used for obtaining the module name for a given path. (Contributed by Yury Selivanov in [issue 13248][243].)
@@ -1530,15 +1530,15 @@ ffi\` flag when building their system Python.
   * The undocumented `IN`, `CDROM`, `DLFCN`, `TYPES`, `CDIO`, and `STROPTS` modules have been removed. They had been available in the platform specific `Lib/plat-*/` directories, but were chronically out of date, inconsistently available across platforms, and unmaintained. The script that created these modules is still available in the source distribution at [Tools/scripts/h2py.py][250].
   * The deprecated `asynchat.fifo` class has been removed.
 
-## 移植到Python 3.6¶
+## 移植到Python 3.6
 
 本节列出了与之前版本相比，一些特性的更改和bug的修复，这些可能会影响到你代码的编写。
 
-###'python'命令行操作变更 ¶
+###'python'命令行操作变更 
 
   * 默认情况下，用`COUNT_ALLOCS`，`SHOW_ALLOC_COUNT`或`SHOW_TRACK_COUNT`等宏定义的特殊python输出是关闭的。 它可以使用`-X showalloccount`选项重新启用. 它现在输出到`stderr`而不是`stdout`。 (由Serhiy Storchaka撰写在 [issue 23034][251].)
 
-### Changes in the Python API¶
+### Changes in the Python API
 
   * [`open()`][252] `'U'` 模式不再允许使用`'+'`拼接. (由Jeff Balogh and John O'Connor撰写在 [issue 2091][253].)
 
@@ -1611,12 +1611,12 @@ Setuptools 26.0.0.
   * when custom metaclasses are combined with zero-argument [`super()`][354] or direct references from methods to the implicit `__class__` closure variable, the implicit `__classcell__` namespace entry must now be passed up to `type.__new__` for initialisation. Failing to do so will result in a [`DeprecationWarning`][355] in 3.6 and a [`RuntimeWarning`][356] in the future.
 
 
-### 在C API上的改动¶
+### 在C API上的改动
 
   * 旧的[`PyMem_Malloc()`][357]分配算符族将使用新的[pymalloc分配算符][358]，替换掉了系统原有的’malloc()’。应用程序在没有捕获GIL时调用[`PyMem_Malloc()`][359]会导致崩溃。可通过设置[pythonmalloc][360]环境变量去’debug’来实现应用程内存的分配。详情请看[问题26429][361]。
   * [`Py_Exit()`][362]（和新的主注释器），如果刷新缓存失败，将覆盖当前状态。详情请看[问题5319][363]
 
-### CPython 字节码的更改¶
+### CPython 字节码的更改
 
 在Python 3.6中将会出现几个关于[字节码][364]要更新。
 3.6.
