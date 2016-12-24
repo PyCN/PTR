@@ -524,7 +524,7 @@ Python现在可以使用`--with-dtrace`来构建，它为解释器中的以下�
 
 	PEP 由 Steven D'Aprano 编写及实现。
 
-## Improved Modules
+## 改进模块
 
 ### array
 
@@ -947,8 +947,7 @@ kletools.dis "pickletools.dis" ) 输出的隐含备注是`MEMOIZE`操作码的�
 
 ### readline
 
-增加了 [`set_auto_history()`](https://docs.python.org/3.6/library/readline.html)
-# readline.set\_auto\_history "readline.set\_auto\_history" ) 启用或停用
+增加了 [`set_auto_history()`](https://docs.python.org/3.6/library/readline.html#readline.set_auto_history) 启用或停用
 自动把输入加到历史列表中。 (由Tyler Crompton 在[issue 26870][134]的贡献。)
 
 ### rlcompleter
@@ -1382,7 +1381,6 @@ by Emanuel Barry in [issue 27364][231].)
 l#ImportWarning "ImportWarning" )异常.  (Contributed by Rose Ames in [issue
 25791](https://bugs.python.org/issue25791).)
 
-### Deprecated Python modules, functions and methods
 ### 弃用的 Python 模块，函数和方法
 
 #### asynchat
