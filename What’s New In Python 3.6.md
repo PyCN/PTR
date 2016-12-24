@@ -973,60 +973,47 @@ kletools.dis "pickletools.dis" ) 输出的隐含备注是`MEMOIZE`操作码的�
 
 ### random¶
 
-The new
-[`choices()`](https://docs.python.org/3.6/library/random.html#random.choices
-"random.choices" ) function returns a list of elements of specified size from
-the given population with optional weights. (Contributed by Raymond Hettinger
-in [issue 18844][132].)
+这个新[`choices()`](https://docs.python.org/3.6/library/random.html#random.choices
+"random.choices" ) 函数返回一个指定元素大小的列表，通过可选权重给出它的规模。(由Raymond Hettinger在[issue 18844][132]的贡献。)
 
 ### re¶
 
-Added support of modifier spans in regular expressions. Examples:
-`'(?i:p)ython'` matches `'python'` and `'Python'`, but not `'PYTHON'`;
-`'(?i)g(?-i:v)r'` matches `'GvR'` and `'gvr'`, but not `'GVR'`. (Contributed
-by Serhiy Storchaka in [issue 433028][133].)
+在正则表达式中，增加对 spans 修饰符的支持。 示例:
+`'(?i:p)ython'` 匹配 `'python'` 和 `'Python'`, 但不匹配 `'PYTHON'`；
+`'(?i)g(?-i:v)r'` 匹配 `'GvR'` 和 `'gvr'`, 但不匹配 `'GVR'`。(由Serhiy Storchaka在 [issue 433028][133] 的贡献。)
 
-Match object groups can be accessed by `__getitem__`, which is equivalent to
-`group()`. So `mo['name']` is now equivalent to `mo.group('name')`.
-(Contributed by Eric Smith in [issue
-24454](https://bugs.python.org/issue24454).)
+匹配对象组可通过 `__getitem__`访问, 它就等价于 `group()`。因此， 现在`mo['name']` 就等价于 `mo.group('name')`。
+(由 Eric Smith 在[issue
+24454](https://bugs.python.org/issue24454)的贡献。)
 
-`Match` objects now support [`index-like objects`](https://docs.python.org/3.6
-/reference/datamodel.html#object.\_\_index\_\_ "object.\_\_index\_\_" ) as group
-indices. (Contributed by Jeroen Demeyer and Xiang Zhang in [issue
-27177](https://bugs.python.org/issue27177).)
+现在，`Match` 对象支持 [`index-like objects`](https://docs.python.org/3.6
+/reference/datamodel.html#object.\_\_index\_\_ "object.\_\_index\_\_" ) 一样的组索引。 (由Jeroen Demeyer and Xiang Zhang 在 [issue
+27177](https://bugs.python.org/issue27177)的贡献。)
 
 ### readline¶
 
-Added [`set_auto_history()`](https://docs.python.org/3.6/library/readline.html
-# readline.set\_auto\_history "readline.set\_auto\_history" ) to enable or disable
-automatic addition of input to the history list. (Contributed by Tyler
-Crompton in [issue 26870][134].)
+增加了 [`set_auto_history()`](https://docs.python.org/3.6/library/readline.html)
+# readline.set\_auto\_history "readline.set\_auto\_history" ) 启用或停用
+自动把输入加到历史列表中。 (由Tyler Crompton 在[issue 26870][134]的贡献。)
 
 ### rlcompleter¶
 
-Private and special attribute names now are omitted unless the prefix starts
-with underscores. A space or a colon is added after some completed keywords.
-(Contributed by Serhiy Storchaka in [issue
-25011](https://bugs.python.org/issue25011) and [issue
-25209](https://bugs.python.org/issue25209).)
+现在，除非前缀开始使用下划线，否则私有和特殊属性名称就被忽略。在一些完成的关键字后面添加一个空格或冒号。
+(由Serhiy Storchaka 在[issue
+25011](https://bugs.python.org/issue25011) 和 [issue
+25209](https://bugs.python.org/issue25209)的贡献。)
 
 ### shlex¶
 
-The [`shlex`](https://docs.python.org/3.6/library/shlex.html#shlex.shlex
-"shlex.shlex" ) has much [improved shell
-compatibility](https://docs.python.org/3.6/library/shlex.html#improved-shell-
-compatibility) through the new _punctuation\_chars_ argument to control which
-characters are treated as punctuation. (Contributed by Vinay Sajip in [issue
-1521950](https://bugs.python.org/issue1521950).)
+[`shlex`](https://docs.python.org/3.6/library/shlex.html#shlex.shlex
+"shlex.shlex" ) 已经大大 [改进shell的兼容性](https://docs.python.org/3.6/library/shlex.html#improved-shell-compatibility) ,通过新的 _punctuation\_chars_ 参数来控制，哪些字符被作为标点符号。 (由Vinay Sajip 在[issue
+1521950](https://bugs.python.org/issue1521950)的贡献。)
 
 ### site¶
 
-When specifying paths to add to
-[`sys.path`](https://docs.python.org/3.6/library/sys.html#sys.path "sys.path"
-) in a .pth file, you may now specify file paths on top of directories (e.g.
-zip files). (Contributed by Wolfgang Langner in [issue
-26587](https://bugs.python.org/issue26587)).
+在一个.pth文件里，当指定路径添加到[`sys.path`](https://docs.python.org/3.6/library/sys.html#sys.path "sys.path"
+) 中, 可能你现在要在目录之上指定文件路径 (例如：zip文件)。 (由Wolfgang Langner 在[issue
+26587](https://bugs.python.org/issue26587)的贡献)。
 
 ### sqlite3¶
 
