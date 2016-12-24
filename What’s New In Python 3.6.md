@@ -1622,12 +1622,8 @@ Setuptools 26.0.0.
 
 ----
 (C) [Copyright][383] 2001-2016, Python
-Software Foundation.
-The Python Software Foundation is a non-profit corporation. [Please
-donate.](https://www.python.org/psf/donations/)
-Last updated on Dec 15, 2016. [Found a
-bug](https://docs.python.org/3.6/bugs.html)?
-Created using [Sphinx][384] 1.3.3.
+软件基金会版权所有.
+Python软件基金会是一个非营利性组织. [欢迎捐赠](https://www.python.org/psf/donations/)
 
 [1]:	https://docs.python.org/3.6/whatsnew/3.6.html
 [2]:	mailto:elvis@magic.io
