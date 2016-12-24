@@ -1193,36 +1193,28 @@ traceback模块和解释器内置的异常展示现在都省略回溯中重复�
 
 ### unicodedata
 
-The [`unicodedata`](https://docs.python.org/3.6/library/unicodedata.html#module-unicodedata "unicodedata: Access the Unicode Database.") module now
-uses data from [Unicode 9.0.0][148].
-(Contributed by Benjamin Peterson.)
+[`unicodedata`](https://docs.python.org/3.6/library/unicodedata.html#module-unicodedata "unicodedata: Access the Unicode Database.")模块现在使用来自[Unicode 9.0.0][148]的数据。
+(由Benjamin Peterson贡献)
 
 ### unittest.mock
 
-The [`Mock`](https://docs.python.org/3.6/library/unittest.mock.html#unittest.mock.Mock "unittest.mock.Mock" ) class has the following improvements:
+[`Mock`](https://docs.python.org/3.6/library/unittest.mock.html#unittest.mock.Mock "unittest.mock.Mock" )类有以下改进：
 
-  * Two new methods, [`Mock.assert_called()`][149] and [`Mock.assert_called_once()`][150] to check if the mock object was called. (Contributed by Amit Saha in [issue 26323][151].)
-  * The [`Mock.reset_mock()`][152] method now has two optional keyword only arguments: _return\_value_ and _side\_effect_. (Contributed by Kushal Das in [issue 21271][153].)
+  * 两个新的方法，[`Mock.assert_called()`][149]和[`Mock.assert_called_once()`][150]，用来检测是否调用了mock对象。(由Amit Saha在[issue 26323][151]中贡献。)
+  * [`Mock.reset_mock()`][152]方法现在拥有两个可选的仅关键字参数： _return\_value_ 和 _side\_effect_。 (由Kushal Das在[issue 21271][153]中贡献。)
 
 ### urllib.request
 
-If a HTTP request has a file or iterable body (other than a bytes object) but
-no `Content-Length` header, rather than throwing an error,
-`AbstractHTTPHandler` now falls back to use chunked transfer encoding.
-(Contributed by Demian Brecht and Rolf Krahl in [issue
-12319](https://bugs.python.org/issue12319).)
+如果一个HTTP请求具有一个文件或者可迭代请求体 (不同于一个bytes对象)，但是没有`Content-Length`头，那么现在`AbstractHTTPHandler`会回退到使用分块传输编码，而不是抛出一个错误。
+(由Demian Brecht和Rolf Krahl在[issue 12319](https://bugs.python.org/issue12319)中贡献。)
 
 ### urllib.robotparser
 
-[`RobotFileParser`](https://docs.python.org/3.6/library/urllib.robotparser.html#urllib.robotparser.RobotFileParser"urllib.robotparser.RobotFileParser" )
-now supports the `Crawl-delay` and `Request-rate` extensions. (Contributed by
-Nikolay Bogoychev in [issue 16099][154].)
+[`RobotFileParser`](https://docs.python.org/3.6/library/urllib.robotparser.html#urllib.robotparser.RobotFileParser"urllib.robotparser.RobotFileParser" )现在支持`Crawl-delay`和`Request-rate`扩展。(由Nikolay Bogoychev在[issue 16099][154]中贡献。)
 
 ### venv
 
-[`venv`][155] accepts a new parameter `--prompt`. This
-parameter provides an alternative prefix for the virtual environment.
-(Proposed by Łukasz Balcerzak and ported to 3.6 by Stéphane Wirtel in [issue22829](https://bugs.python.org/issue22829).)
+[`venv`][155]接受一个新的参数`--prompt`。这个参数为虚拟环境提供一个可替换的前缀。(在[issue22829](https://bugs.python.org/issue22829)中，由Łukasz Balcerzak提出，并由Stéphane Wirtel移植到3.6。)
 
 ### warnings
 
