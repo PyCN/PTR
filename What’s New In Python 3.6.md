@@ -618,27 +618,22 @@ s.html#collections.deque "collections.deque" ) 实例现在可使用pickle持久
 (由Serhiy Storchaka在[issue
 26482](https://bugs.python.org/issue26482)中贡献.)
 
-### concurrent.futures
+### concurrent.futures¶
 
-The [`ThreadPoolExecutor`](https://docs.python.org/3.6/library/concurrent.futu
+[`ThreadPoolExecutor`](https://docs.python.org/3.6/library/concurrent.futu
 res.html#concurrent.futures.ThreadPoolExecutor
-"concurrent.futures.ThreadPoolExecutor" ) class constructor now accepts an
-optional _thread\_name\_prefix_ argument to make it possible to customize the
-names of the threads created by the pool. (Contributed by Gregory P. Smith in
-[issue 27664][112].)
+"concurrent.futures.ThreadPoolExecutor" ) 类的构造函数现在接受一个可选的 _thread\_name\_prefix_ 参数，使自定义线程池中的线程名字成为可能 (由Gregory P. Smith 贡献在[issue 27664][112].)
 
-### contextlib
+### contextlib¶
 
-The [`contextlib.AbstractContextManager`](https://docs.python.org/3.6/library/
+[`contextlib.AbstractContextManager`](https://docs.python.org/3.6/library/
 contextlib.html#contextlib.AbstractContextManager
-"contextlib.AbstractContextManager" ) class has been added to provide an
-abstract base class for context managers. It provides a sensible default
-implementation for __enter__() which returns `self` and leaves __exit__() an
-abstract method. A matching class has been added to the
-[`typing`](https://docs.python.org/3.6/library/typing.html#module-typing
-"typing: Support for type hints \(see PEP 484\)." ) module as [\`typing.Context
+"contextlib.AbstractContextManager" ) 类已经成为上下文管理器中的一个抽象基类
+。它提供了一个合理的默认返回`self`的 __enter__()方法，和一个 __exit__()抽象方法. 一个匹配的类[\`typing.Context
 Manager\`](https://docs.python.org/3.6/library/typing.html#typing.ContextManage
-r "typing.ContextManager" ). (Contributed by Brett Cannon in [issue
+r "typing.ContextManager" ).被添加到
+[`typing`](https://docs.python.org/3.6/library/typing.html#module-typing
+"typing: Support for type hints \(see PEP 484\)." )。 (由 Brett Cannon 贡献在[issue
 25609](https://bugs.python.org/issue25609).)
 
 ### datetime
