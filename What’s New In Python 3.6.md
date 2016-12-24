@@ -1055,78 +1055,38 @@ Server 和 client-side 添加 [`SSLContext`](https://docs.python.org/3.6/library
 
 ### statistics
 
-A new [`harmonic_mean()`](https://docs.python.org/3.6/library/statistics.html\#
-statistics.harmonic\_mean "statistics.harmonic\_mean" ) function has been added.
-(Contributed by Steven D'Aprano in [issue
-27181](https://bugs.python.org/issue27181).)
+已添加一个新的[`harmonic_mean()`](https://docs.python.org/3.6/library/statistics.html\#statistics.harmonic\_mean "statistics.harmonic\_mean" )函数。 (由Steven D'Aprano在[issue 27181](https://bugs.python.org/issue27181)中贡献。)
 
 ### struct
 
-[`struct`](https://docs.python.org/3.6/library/struct.html#module-struct
-"struct: Interpret bytes as packed binary data." ) now supports IEEE 754 half-
-precision floats via the `'e'` format specifier. (Contributed by Eli Stevens,
-Mark Dickinson in [issue 11734][139].)
+通过`'e'`格式限定符，[`struct`](https://docs.python.org/3.6/library/struct.html#module-struct "struct: Interpret bytes as packed binary data." )现在支持IEEE 754半精度浮点。(由Eli Stevens, Mark Dickinson在[issue 11734][139]中贡献。)
 
 ### subprocess
 
-[`subprocess.Popen`](https://docs.python.org/3.6/library/subprocess.html#subpr
-ocess.Popen "subprocess.Popen" ) destructor now emits a [`ResourceWarning`](ht
-tps://docs.python.org/3.6/library/exceptions.html#ResourceWarning
-"ResourceWarning" ) warning if the child process is still running. Use the
-context manager protocol (`with proc: ...`) or explicitly call the [`wait()`](
-https://docs.python.org/3.6/library/subprocess.html#subprocess.Popen.wait
-"subprocess.Popen.wait" ) method to read the exit status of the child process.
-(Contributed by Victor Stinner in [issue
-26741](https://bugs.python.org/issue26741).)
+当子系统仍然运行着的时候，[`subprocess.Popen`](https://docs.python.org/3.6/library/subprocess.html#subprocess.Popen "subprocess.Popen" )析构函数现在发出一个[`ResourceWarning`](https://docs.python.org/3.6/library/exceptions.html#ResourceWarning "ResourceWarning" )警告。使用上下文管理器协议(`with proc: ...`)或者明确调用[`wait()`](https://docs.python.org/3.6/library/subprocess.html#subprocess.Popen.wait "subprocess.Popen.wait" )方法来读取子进程的退出状态。
+(由Victor Stinner在[issue 26741](https://bugs.python.org/issue26741)中贡献。)
 
-The [`subprocess.Popen`](https://docs.python.org/3.6/library/subprocess.html#s
-ubprocess.Popen "subprocess.Popen" ) constructor and all functions that pass
-arguments through to it now accept _encoding_ and _errors_ arguments.
-Specifying either of these will enable text mode for the _stdin_, _stdout_ and
-_stderr_ streams. (Contributed by Steve Dower in [issue
-6135](https://bugs.python.org/issue6135).)
+[`subprocess.Popen`](https://docs.python.org/3.6/library/subprocess.html#subprocess.Popen "subprocess.Popen" )构造函数和所有传给它的函数现在接受_encoding_和_errors_参数。指定其中一个将会为_stdin_, _stdout_和_stderr_流启用文本模式。(由Steve Dower在[issue 6135](https://bugs.python.org/issue6135)中贡献。)
 
 ### sys
 
-The new [`getfilesystemencodeerrors()`](https://docs.python.org/3.6/library/sy
-s.html#sys.getfilesystemencodeerrors "sys.getfilesystemencodeerrors" )
-function returns the name of the error mode used to convert between Unicode
-filenames and bytes filenames. (Contributed by Steve Dower in [issue
-27781](https://bugs.python.org/issue27781).)
+新的[`getfilesystemencodeerrors()`](https://docs.python.org/3.6/library/sys.html#sys.getfilesystemencodeerrors "sys.getfilesystemencodeerrors" )函数返回用来在Unicode文件名和字节文件名之间转换的错误模式的名字。(由Steve Dower在[issue 27781](https://bugs.python.org/issue27781)中贡献。)
 
-On Windows the return value of the [`getwindowsversion()`](https://docs.python
-.org/3.6/library/sys.html#sys.getwindowsversion "sys.getwindowsversion" )
-function now includes the _platform\_version_ field which contains the accurate
-major version, minor version and build number of the current operating system,
-rather than the version that is being emulated for the process (Contributed by
-Steve Dower in [issue 27932][140].)
+在Windows上，[`getwindowsversion()`](https://docs.python.org/3.6/library/sys.html#sys.getwindowsversion "sys.getwindowsversion" )函数的返回值现在包含了_platform\_version_字段，它包含当前操作系统准确的最大版本、最小版本和构建版本，而不是模拟进程的版本 (由Steve Dower在[issue 27932][140]中贡献。)
 
 ### telnetlib
 
-[`Telnet`](https://docs.python.org/3.6/library/telnetlib.html#telnetlib.Telnet
-"telnetlib.Telnet" ) is now a context manager (contributed by Stéphane Wirtel
-in [issue 25485][141]).
+[`Telnet`](https://docs.python.org/3.6/library/telnetlib.html#telnetlib.Telnet "telnetlib.Telnet" )现在是一个上下文管理器了 (由Stéphane Wirtel在[issue 25485][141]中贡献)。
 
 ### time
 
-The
-[`struct_time`](https://docs.python.org/3.6/library/time.html#time.struct\_time
-"time.struct\_time" ) attributes `tm_gmtoff` and `tm_zone` are now available on
-all platforms.
+[`struct_time`](https://docs.python.org/3.6/library/time.html#time.struct_time "time.struct_time" )的属性`tm_gmtoff`和`tm_zone`现在在所有平台上都可用了。
 
 ### timeit
 
-The new [`Timer.autorange()`](https://docs.python.org/3.6/library/timeit.html\#
-timeit.Timer.autorange "timeit.Timer.autorange" ) convenience method has been
-added to call [`Timer.timeit()`](https://docs.python.org/3.6/library/timeit.ht
-ml#timeit.Timer.timeit "timeit.Timer.timeit" ) repeatedly so that the total
-run time is greater or equal to 200 milliseconds. (Contributed by Steven
-D'Aprano in [issue 6422][142].)
+已添加新的[`Timer.autorange()`](https://docs.python.org/3.6/library/timeit.html\#timeit.Timer.autorange "timeit.Timer.autorange" )便捷方法来反复调用[`Timer.timeit()`](https://docs.python.org/3.6/library/timeit.html#timeit.Timer.timeit "timeit.Timer.timeit" )，以便总运行时间大于或等于200毫秒(由Steven D'Aprano在[issue 6422][142]中贡献。)
 
-[`timeit`](https://docs.python.org/3.6/library/timeit.html#module-timeit
-"timeit: Measure the execution time of small code snippets." ) now warns when
-there is substantial (4x) variance between best and worst times. (Contributed
-by Serhiy Storchaka in [issue 23552][143].)
+当在最佳和最差时间之间存在一个很大（4x）的差时，[`timeit`](https://docs.python.org/3.6/library/timeit.html#module-timeit "timeit: Measure the execution time of small code snippets." )现在会告警。(由Serhiy Storchaka在[issue 23552][143]中贡献。)
 
 ### tkinter
 
