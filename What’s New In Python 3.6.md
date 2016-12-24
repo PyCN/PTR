@@ -1487,33 +1487,26 @@ sockets\)." ), [`imaplib`](https://docs.python.org/3.6/library/imaplib.html#modu
 以及何种 Python 解释器将被用在虚拟环境中。(Contributed by Brett Cannon in [issue
 25154](https://bugs.python.org/issue25154).)
 
-### Deprecated functions and types of the C API
+### 弃用C API的函数和类型
 
-Undocumented functions `PyUnicode_AsEncodedObject()`,
-`PyUnicode_AsDecodedObject()`, `PyUnicode_AsEncodedUnicode()` and
-`PyUnicode_AsDecodedUnicode()` are deprecated now. Use the [generic codec
-based API](https://docs.python.org/3.6/c-api/codec.html#codec-registry)
-instead.
+现在，弃用未公开函数`PyUnicode_AsEncodedObject()`，`PyUnicode_AsDecodedObject()`，`PyUnicode_AsEncodedUnicode()`和`PyUnicode_AsDecodedUnicode()`。使用[通用的基于codec的API](https://docs.python.org/3.6/c-api/codec.html#codec-registry)来代替。
 
-### Deprecated Build Options
+### 弃用构建选项
 
-The `--with-system-ffi` configure flag is now on by default on non-macOS UNIX
-platforms. It may be disabled by using `--without-system-ffi`, but using the
-flag is deprecated and will not be accepted in Python 3.7. macOS is unaffected
-by this change. Note that many OS distributors already use the \`--with-system-
-ffi\` flag when building their system Python.
+在非macOS UNIX平台上，现在默认打开`--with-system-ffi`配置标志。它也许可以用`--without-system-ffi`来禁用，但是这个标志的使用已经弃用了，并且在Python 3.7中将不会接受这个标志。macOS不受这个改动的影响。注意，许多OS发行版在构建它们的系统Python时已经使用了`--with-system-
+ffi`标志。
 
-## Removed
+## 已移除
 
-### API and Feature Removals
+### API和特性移除
 
-  * Unknown escapes consisting of `'\'` and an ASCII letter in regular expressions will now cause an error. In replacement templates for [`re.sub()`][240] they are still allowed, but deprecated. The [`re.LOCALE`][241] flag can now only be used with binary patterns.
-  * `inspect.getmoduleinfo()` was removed (was deprecated since CPython 3.3). [`inspect.getmodulename()`][242] should be used for obtaining the module name for a given path. (Contributed by Yury Selivanov in [issue 13248][243].)
-  * `traceback.Ignore` class and `traceback.usage`, `traceback.modname`, `traceback.fullmodname`, `traceback.find_lines_from_code`, `traceback.find_lines`, `traceback.find_strings`, `traceback.find_executable_lines` methods were removed from the [`traceback`][244] module. They were undocumented methods deprecated since Python 3.2 and equivalent functionality is available from private methods.
-  * The `tk_menuBar()` and `tk_bindForTraversal()` dummy methods in [`tkinter`][245] widget classes were removed (corresponding Tk commands were obsolete since Tk 4.0).
-  * The [`open()`][246] method of the [`zipfile.ZipFile`][247] class no longer supports the `'U'` mode (was deprecated since Python 3.4). Use [`io.TextIOWrapper`][248] for reading compressed text files in [universal newlines][249] mode.
-  * The undocumented `IN`, `CDROM`, `DLFCN`, `TYPES`, `CDIO`, and `STROPTS` modules have been removed. They had been available in the platform specific `Lib/plat-*/` directories, but were chronically out of date, inconsistently available across platforms, and unmaintained. The script that created these modules is still available in the source distribution at [Tools/scripts/h2py.py][250].
-  * The deprecated `asynchat.fifo` class has been removed.
+  * 正则表达式中`'\'`和一个ASCII字母组成的未知转义现在会触发错误。在[`re.sub()`][240]上的替换模板中，仍然允许使用它们，但是已经弃用了。[`re.LOCALE`][241]标志现在只能用于二进制模式。
+  * 移除`inspect.getmoduleinfo()` (自CPython 3.3起弃用)。[`inspect.getmodulename()`][242]应该被用于获取一个给定路径的模块名。(由Yury Selivanov在[issue 13248][243]中贡献。)
+  * `traceback.Ignore`类和`traceback.usage`，`traceback.modname`，`traceback.fullmodname`，`traceback.find_lines_from_code`，`traceback.find_lines`，`traceback.find_strings`，`traceback.find_executable_lines`方法已从[`traceback`][244]模块移除。它们是自Python 3.2起弃用的未公开方法，并且可以从私有方法获得等价的功能。
+  * 移除[`tkinter`][245] widget类中的`tk_menuBar()`和`tk_bindForTraversal()`哑方法 (自Tk 4.0起，相应的Tk命令已废弃)。
+  * [`zipfile.ZipFile`][247]类的[`open()`][246]方法不再支持`'U'`模式 (自Python 3.4起弃用)。使用[`io.TextIOWrapper`][248]来在[universal newlines][249]模式下读取压缩文本文件。
+  * 已移除未公开的`IN`, `CDROM`, `DLFCN`, `TYPES`, `CDIO`, 和`STROPTS`模块。它们在平台特定的`Lib/plat-*/`目录中可用，但是慢慢过时了，跨平台不一定可用，并且未维护。创建这些模块的脚本在源代码发行版中仍然可以找到，位于[Tools/scripts/h2py.py][250]中。
+  * 已移除弃用的`asynchat.fifo`类。
 
 ## 移植到Python 3.6
 
