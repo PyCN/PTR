@@ -1575,46 +1575,45 @@ ffi\` flag when building their system Python.
   * The undocumented `IN`, `CDROM`, `DLFCN`, `TYPES`, `CDIO`, and `STROPTS` modules have been removed. They had been available in the platform specific `Lib/plat-*/` directories, but were chronically out of date, inconsistently available across platforms, and unmaintained. The script that created these modules is still available in the source distribution at [Tools/scripts/h2py.py][250].
   * The deprecated `asynchat.fifo` class has been removed.
 
-## Porting to Python 3.6¶
+## 移植到Python 3.6¶
 
-This section lists previously described changes and other bugfixes that may
-require changes to your code.
+本节列出了与之前版本相比，一些特性的更改和bug的修复，这些可能会影响到你代码的编写。
 
-### Changes in 'python' Command Behavior¶
+###'python'命令行操作变更 ¶
 
-  * The output of a special Python build with defined `COUNT_ALLOCS`, `SHOW_ALLOC_COUNT` or `SHOW_TRACK_COUNT` macros is now off by default. It can be re-enabled using the `-X showalloccount` option. It now outputs to `stderr` instead of `stdout`. (Contributed by Serhiy Storchaka in [issue 23034][251].)
+  * 默认情况下，用`COUNT_ALLOCS`，`SHOW_ALLOC_COUNT`或`SHOW_TRACK_COUNT`等宏定义的特殊python输出是关闭的。 它可以使用`-X showalloccount`选项重新启用. 它现在输出到`stderr`而不是`stdout`。 (由Serhiy Storchaka撰写在 [issue 23034][251].)
 
 ### Changes in the Python API¶
 
-  * [`open()`][252] will no longer allow combining the `'U'` mode flag with `'+'`. (Contributed by Jeff Balogh and John O'Connor in [issue 2091][253].)
+  * [`open()`][252] `'U'` 模式不再允许使用`'+'`拼接. (由Jeff Balogh and John O'Connor撰写在 [issue 2091][253].)
 
-  * [`sqlite3`][254] no longer implicitly commits an open transaction before DDL statements.
+  * [`sqlite3`][254] 不允许在DDL语句之前隐式地提交打开的事务。
 
-  * On Linux, [`os.urandom()`][255] now blocks until the system urandom entropy pool is initialized to increase the security.
+  * 在Linux系统上, [`os.urandom()`][255] 现在为了增强安全性，系统会一直阻塞直到系统urandom熵池被初始化。
 
-  * When [`importlib.abc.Loader.exec_module()`][256] is defined, [`importlib.abc.Loader.create_module()`][257] must also be defined.
+  * 当[`importlib.abc.Loader.exec_module()`][256] 被定义时, [`importlib.abc.Loader.create_module()`][257] 也必须被定义.
 
-  * [`PyErr_SetImportError()`][258] now sets [`TypeError`][259] when its **msg** argument is not set. Previously only `NULL` was returned.
+  * [`PyErr_SetImportError()`][258] 现在被设置为[`TypeError`] [259]当它的** msg **参数没有设置。 以前只返回“NULL”。
 
   * The format of the `co_lnotab` attribute of code objects changed to support a negative line number delta. By default, Python does not emit bytecode with a negative line number delta. Functions using `frame.f_lineno`, `PyFrame_GetLineNumber()` or `PyCode_Addr2Line()` are not affected. Functions directly decoding `co_lnotab` should be updated to use a signed 8-bit integer type for the line number delta, but this is only required to support applications using a negative line number delta. See `Objects/lnotab_notes.txt` for the `co_lnotab` format and how to decode it, and see the [**PEP 511**][260] for the rationale.
 
-  * The functions in the [`compileall`][261] module now return booleans instead of `1` or `0` to represent success or failure, respectively. Thanks to booleans being a subclass of integers, this should only be an issue if you were doing identity checks for `1` or `0`. See [issue 25768][262].
+  * [`compileall`] [261]模块中的函数现在返回布尔类型的值，而不是用`1`或`0`来表示成功或失败. 由于布尔值是整数的子类，如果你对'1'或'0'进行身份检查，这只应该是一个问题。 查看[issue 25768][262].
 
-  * Reading the `port` attribute of [`urllib.parse.urlsplit()`][263] and [`urlparse()`][264] results now raises [`ValueError`][265] for out-of-range values, rather than returning [`None`][266]. See [issue 20059][267].
+  * 读取[`urllib.parse.urlsplit（）`] [263]和[`urlparse（）`]的`port`属性现在引发超出范围值的[`ValueError`] [265] ，而不是返回[`None`][266]. 查看 [issue 20059][267].
 
-  * The [`imp`][268] module now raises a [`DeprecationWarning`][269] instead of [`PendingDeprecationWarning`][270].
+  * [`imp`][268] 模块现在代替原来的[`PendingDeprecationWarning`][270]抛出[`DeprecationWarning`][269]告警 .
 
-  * The following modules have had missing APIs added to their `__all__` attributes to match the documented APIs: [`calendar`][271], [`cgi`][272], [`csv`][273], [`ElementTree`][274], [`enum`][275], [`fileinput`][276], [`ftplib`][277], [`logging`][278], [`mailbox`][279], [`mimetypes`][280], [`optparse`][281], [`plistlib`][282], [`smtpd`][283], [`subprocess`][284], [`tarfile`][285], [`threading`][286] and [`wave`][287]. This means they will export new symbols when `import *` is used. (Contributed by Joel Taddei and Jacek Kołodziej in [issue 23883][288].)
+  * 以下模块已将缺少的API添加到其 `__all__` 属性中，匹配文档说明API: [`calendar`][271], [`cgi`][272], [`csv`][273], [`ElementTree`][274], [`enum`][275], [`fileinput`][276], [`ftplib`][277], [`logging`][278], [`mailbox`][279], [`mimetypes`][280], [`optparse`][281], [`plistlib`][282], [`smtpd`][283], [`subprocess`][284], [`tarfile`][285], [`threading`][286] and [`wave`][287].  这意味着在使用`import *`引入时，有一定的变化 . (由Joel Taddei and Jacek Kołodziej i撰写在[issue 23883][288].)
 
-  * When performing a relative import, if `__package__` does not compare equal to `__spec__.parent` then [`ImportWarning`][289] is raised. (Contributed by Brett Cannon in [issue 25791][290].)
+  * 当执行相对导入时，如果`__package__`不等于`__spec __。parent`，那么 [`ImportWarning`][289] 警告将被抛出. (由 Brett Cannon 撰写在[issue 25791][290].)
 
-  * When a relative import is performed and no parent package is known, then [`ImportError`][291] will be raised. Previously, [`SystemError`][292] could be raised. (Contributed by Brett Cannon in [issue 18018][293].)
+  * 当执行相对导入并且没有已知父包时，则将抛出[`ImportError`] [291]异常。 以前，是抛出[`SystemError`] [292]异常。 (由Brett Cannon 撰写在 [issue 18018][293].)
 
-  * Servers based on the [`socketserver`][294] module, including those defined in [`http.server`][295], [`xmlrpc.server`][296] and [`wsgiref.simple_server`][297], now only catch exceptions derived from [`Exception`][298]. Therefore if a request handler raises an exception like [`SystemExit`][299] or [`KeyboardInterrupt`][300], [`handle_error()`][301] is no longer called, and the exception will stop a single-threaded server. (Contributed by Martin Panter in [issue 23430][302].)
+  * 基于[`socketserver`] [294]模块的服务器，包括[`http.server`] [295]，[`xmlrpc.server`] [296]和[`wsgiref.simple_server`] ，现在只捕获从[`Exception`] [298]派生的异常。 因此，如果一个请求处理程序引发了[[SystemExit]] [299]或[KeyboardInterrupt]] [300]异常，则[`handle_error（）`] [301] 异常不再被调用，同时异常会终止单线程的服务器。 (由Martin Panter 撰写在[issue 23430][302].)
 
-  * [`spwd.getspnam()`][303] now raises a [`PermissionError`][304] instead of [`KeyError`][305] if the user doesn't have privileges.
+  * 如果用户没有相关权限，[`spwd.getspnam()`][303]现在抛出 [`PermissionError`][304] 异常，代替原来的[`KeyError`][305].
 
-  * The [`socket.socket.close()`][306] method now raises an exception if an error (e.g. `EBADF`) was reported by the underlying system call. (Contributed by Martin Panter in [issue 26685][307].)
+  * (如 `EBADF`) 这样的底层调用错误，[`socket.socket.close()`][306]方法现在会抛出异常。 (由Martin Panter撰写于[issue 26685][307].)
 
   * The _decode\_data_ argument for the [`smtpd.SMTPChannel`][308] and [`smtpd.SMTPServer`][309] constructors is now `False` by default. This means that the argument passed to [`process_message()`][310] is now a bytes object by default, and `process_message()` will be passed keyword arguments. Code that has already been updated in accordance with the deprecation warning generated by 3.5 will not be affected.
 
@@ -1655,6 +1654,7 @@ Setuptools 26.0.0.
   * [`zipfile.ZipFile`][347] will now raise [`NotImplementedError`][348] for unrecognized compression values. Previously a plain [`RuntimeError`][349] was raised. Additionally, calling [`ZipFile`][350] methods on a closed ZipFile or calling the [`write()`][351] method on a ZipFile created with mode `'r'` will raise a [`ValueError`][352]. Previously, a [`RuntimeError`][353] was raised in those scenarios.
 
   * when custom metaclasses are combined with zero-argument [`super()`][354] or direct references from methods to the implicit `__class__` closure variable, the implicit `__classcell__` namespace entry must now be passed up to `type.__new__` for initialisation. Failing to do so will result in a [`DeprecationWarning`][355] in 3.6 and a [`RuntimeWarning`][356] in the future.
+
 
 ### 在C API上的改动¶
 
