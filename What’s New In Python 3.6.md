@@ -12,6 +12,7 @@ Github：[https://github.com/PyCN/PTR](https://github.com/PyCN/PTR/blob/master/W
 由阿橙([@sinoandywong](https://github.com/sinoandywong))召集，Ele([@ictar](https://github.com/ictar))、苍冥([@eastrd](https://github.com/eastrd))组织翻译。
 
 **译者：**
+
 [eastrd](https://github.com/eastrd)：苍冥
 
 [ictar](https://github.com/ictar) ：Ele
@@ -46,11 +47,13 @@ Github：[https://github.com/PyCN/PTR](https://github.com/PyCN/PTR/blob/master/W
 
 
 **特别感谢：**
+
 Ele([@ictar](https://github.com/ictar))：她为本文档的翻译做了大量工作，一个热爱美食的菇凉。
 
 [Py字幕组](https://github.com/PyCN/PTR)：一个各路大(dou)神(bi)聚集的团队。
 
 **感谢他们所作出的工作，圣诞快乐！**
+
 **2016.12.25**
 
 
