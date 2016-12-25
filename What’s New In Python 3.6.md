@@ -692,46 +692,19 @@ r "typing.ContextManager" ).被添加到
 "typing: Support for type hints \(see PEP 484\)." )。 (由 Brett Cannon 贡献在[issue
 25609](https://bugs.python.org/issue25609).)
 
-### datetime
+### datetime¶
 
-The [`datetime`](https://docs.python.org/3.6/library/datetime.html#datetime.da
-tetime "datetime.datetime" ) and
-[`time`](https://docs.python.org/3.6/library/datetime.html#datetime.time
-"datetime.time" ) classes have the new `fold` attribute used to disambiguate
-local time when necessary. Many functions in the
-[`datetime`](https://docs.python.org/3.6/library/datetime.html#module-datetime
-"datetime: Basic date and time types." ) have been updated to support local
-time disambiguation. See Local Time Disambiguation section for more
-information. (Contributed by Alexander Belopolsky in [issue
-24773](https://bugs.python.org/issue24773).)
+[`datetime`](https://docs.python.org/3.6/library/datetime.html#datetime.datetime "datetime.datetime" )和[`time`](https://docs.python.org/3.6/library/datetime.html#datetime.time)类有了新的`fold`属性，用于在必要时消除本地时间歧义。[`datetime`](https://docs.python.org/3.6/library/datetime.html#module-datetime"datetime: Basic date and time types." )中的许多功能已经更新来支持本地时间消歧。详细信息请参阅[Local Time Disambiguation](https://docs.python.org/3.6/whatsnew/3.6.html#whatsnew36-pep495)。（由Alexander Belopolsky在[issue 24773](https://bugs.python.org/issue24773)中提供。）
 
-The [`datetime.strftime()`](https://docs.python.org/3.6/library/datetime.html\#
-datetime.datetime.strftime "datetime.datetime.strftime" ) and [\`date.strftime(
-)\`](https://docs.python.org/3.6/library/datetime.html#datetime.date.strftime
-"datetime.date.strftime" ) methods now support ISO 8601 date directives `%G`,
-`%u` and `%V`. (Contributed by Ashley Anderson in [issue
-12006](https://bugs.python.org/issue12006).)
+[`datetime.strftime()`](https://docs.python.org/3.6/library/datetime.html\#datetime.datetime.strftime "datetime.datetime.strftime" )和[`date.strftime()`](https://docs.python.org/3.6/library/datetime.html#datetime.date.strftime"datetime.date.strftime" )方法现在支持ISO 8601标准中的日期指令`%G`,`%u` and `%V`。（由Ashley Anderson在[issue 12006](https://bugs.python.org/issue12006)中提供。）
 
-The [`datetime.isoformat()`](https://docs.python.org/3.6/library/datetime.html
-# datetime.datetime.isoformat "datetime.datetime.isoformat" ) function now
-accepts an optional _timespec_ argument that specifies the number of
-additional components of the time value to include. (Contributed by Alessandro
-Cucci and Alexander Belopolsky in [issue
-19475](https://bugs.python.org/issue19475).)
+[`datetime.isoformat()`](https://docs.python.org/3.6/library/datetime.html# datetime.datetime.isoformat "datetime.datetime.isoformat" )现在接受一个可选的_timespec_参数，该参数指定函数中要包含的时间值的附加组件数。（由Alessandro Cucci和 Alexander Belopolsky在[issue 19475](https://bugs.python.org/issue19475)中提供。）
 
-The [`datetime.combine()`](https://docs.python.org/3.6/library/datetime.html#d
-atetime.datetime.combine "datetime.datetime.combine" ) now accepts an optional
-_tzinfo_ argument. (Contributed by Alexander Belopolsky in [issue
-27661](https://bugs.python.org/issue27661).)
+[`datetime.combine()`](https://docs.python.org/3.6/library/datetime.html#datetime.datetime.combine "datetime.datetime.combine" )现在接受一个可选的_tzinfo_参数。（由Alexander Belopolsky在[issue 27661](https://bugs.python.org/issue27661)中提供。
 
-### decimal
+### decimal¶
 
-New [`Decimal.as_integer_ratio()`](https://docs.python.org/3.6/library/decimal
-.html#decimal.Decimal.as\_integer\_ratio "decimal.Decimal.as\_integer\_ratio" )
-method that returns a pair `(n, d)` of integers that represent the given
-[`Decimal`](https://docs.python.org/3.6/library/decimal.html#decimal.Decimal
-"decimal.Decimal" ) instance as a fraction, in lowest terms and with a
-positive denominator:
+新的[`Decimal.as_integer_ratio()`](https://docs.python.org/3.6/library/decimal.html#decimal.Decimal.as\_integer\_ratio "decimal.Decimal.as\_integer\_ratio" )方法返回一对整数`(n, d)`，将给定的[`Decimal`](https://docs.python.org/3.6/library/decimal.html#decimal.Decimal"decimal.Decimal" )转换成最简分数，且分母为正：
 
 ```
 
@@ -740,73 +713,33 @@ positive denominator:
 
 ```
 
-(Contributed by Stefan Krah amd Mark Dickinson in [issue
-25928](https://bugs.python.org/issue25928).)
+（由Stefan Krah和Mark Dickinson在[issue 25928](https://bugs.python.org/issue25928)中提供。）
 
-### distutils
+### distutils¶
 
-The `default_format` attribute has been removed from
-`distutils.command.sdist.sdist` and the `formats` attribute defaults to
-`['gztar']`. Although not anticipated, any code relying on the presence of
-`default_format` may need to be adapted. See [issue
-27819](https://bugs.python.org/issue27819) for more details.
+`default_format`属性已经从`distutils.command.sdist.sdist`中移除。同时，`formats`属性被设置为`['gztar']`。尽管这无法预见，但是所有使用`default_format`的代码都需要修改。详细信息参见[issue 27819](https://bugs.python.org/issue27819)。
 
-### email
+### email¶
 
-The new email API, enabled via the _policy_ keyword to various constructors,
-is no longer provisional. The
-[`email`](https://docs.python.org/3.6/library/email.html#module-email "email:
-Package supporting the parsing, manipulating, and generating email messages."
-) documentation has been reorganized and rewritten to focus on the new API,
-while retaining the old documentation for the legacy API. (Contributed by R.
-David Murray in [issue 24277][113].)
+允许通过关键字_policy_为各种函数构造的新emailAPI不再是临时的。[`email`](https://docs.python.org/3.6/library/email.html#module-email "email:Package supporting the parsing, manipulating, and generating email messages.")文档重组重写之后着重于新的API，但仍然保留了之前的API的文档。（由R.David Murray在[issue 24277][113]中提供。）
 
-The [`email.mime`](https://docs.python.org/3.6/library/email.mime.html#module-
-email.mime "email.mime: Build MIME messages." ) classes now all accept an
-optional _policy_ keyword. (Contributed by Berker Peksag in [issue
-27331](https://bugs.python.org/issue27331).)
+[`email.mime`](https://docs.python.org/3.6/library/email.mime.html#module-email.mime "email.mime: Build MIME messages." )类现在都接受可选择的关键字_policy_。（由Berker Peksag在[issue 27331](https://bugs.python.org/issue27331)中提供。）
 
-The [`DecodedGenerator`](https://docs.python.org/3.6/library/email.generator.h
-tml#email.generator.DecodedGenerator "email.generator.DecodedGenerator" ) now
-supports the _policy_ keyword.
+[`DecodedGenerator`](https://docs.python.org/3.6/library/email.generator.html#email.generator.DecodedGenerator "email.generator.DecodedGenerator" )现在支持关键字_policy_。
 
-There is a new
-[`policy`](https://docs.python.org/3.6/library/email.policy.html#module-
-email.policy "email.policy: Controlling the parsing and generating of
-messages" ) attribute, [`message_factory`](https://docs.python.org/3.6/library
-/email.policy.html#email.policy.Policy.message\_factory
-"email.policy.Policy.message\_factory" ), that controls what class is used by
-default when the parser creates new message objects. For the [\`email.policy.co
-mpat32\`](https://docs.python.org/3.6/library/email.policy.html#email.policy.co
-mpat32 "email.policy.compat32" ) policy this is [`Message`](https://docs.pytho
-n.org/3.6/library/email.compat32-message.html#email.message.Message
-"email.message.Message" ), for the new policies it is [`EmailMessage`](https:/
-/docs.python.org/3.6/library/email.message.html#email.message.EmailMessage
-"email.message.EmailMessage" ). (Contributed by R. David Murray in [issue
-20476](https://bugs.python.org/issue20476).)
+有一个新的[`policy`](https://docs.python.org/3.6/library/email.policy.html#module-email.policy "email.policy: Controlling the parsing and generating ofmessages" )属性[`message_factory`](https://docs.python.org/3.6/library/email.policy.html#email.policy.Policy.message\_factory"email.policy.Policy.message\_factory" )，它控制当解释器创造新的消息对象时使用哪一个默认的类。 [`email.policy.compat32`](https://docs.python.org/3.6/library/email.policy.html#email.policy.compat32 "email.policy.compat32" ) policy使用[`Message`](https://docs.python.org/3.6/library/email.compat32-message.html#email.message.Message"email.message.Message" )类，new policies使用[`EmailMessage`](https://docs.python.org/3.6/library/email.message.html#email.message.EmailMessage"email.message.EmailMessage" )类。（由R. David Murray在[issue 20476](https://bugs.python.org/issue20476)中提供。）
 
-### encodings
+### encodings¶
 
-On Windows, added the `'oem'` encoding to use `CP_OEMCP`, and the `'ansi'`
-alias for the existing `'mbcs'` encoding, which uses the `CP_ACP` code page.
-(Contributed by Steve Dower in [issue
-27959](https://bugs.python.org/issue27959).)
+在Windows中，增加了`'oem'`编码来使用`CP_OEMCP`，给现有的`'mbcs'`编码增加了别名`'ansi'`，它使用`CP_ACP`代码页。（由Steve Dower在[issue 27959](https://bugs.python.org/issue27959)中提供。）
 
-### enum
+### enum¶
 
-Two new enumeration base classes have been added to the
-[`enum`][114] module:
-[`Flag`][115]
-and `IntFlags`. Both are used to define constants that can be combined using
-the bitwise operators. (Contributed by Ethan Furman in [issue
-23591](https://bugs.python.org/issue23591).)
+两个新的枚举基类已经添加到[`enum`][114]模块中：[`Flag`][115]和`IntFlags`。两种类都是用来定义能用位操作符组合的常数。（由Ethan Furman在[issue 23591](https://bugs.python.org/issue23591)中提供。）
 
-Many standard library modules have been updated to use the `IntFlags` class
-for their constants.
+许多标准库模块已经更新来为它们的常数使用`IntFlags`类。
 
-The new [`enum.auto`](https://docs.python.org/3.6/library/enum.html#enum.auto
-"enum.auto" ) value can be used to assign values to enum members
-automatically:
+新的[`enum.auto`](https://docs.python.org/3.6/library/enum.html#enum.auto"enum.auto" )值可以用来为enum成分自动分配值：
 
 ```
 
