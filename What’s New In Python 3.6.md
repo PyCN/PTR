@@ -1,35 +1,53 @@
-原文：[Python 3.6新特性简介][1]
 
 # Python 3.6新特性简介
 
 原文：[What’s New In Python 3.6][1]
+
 翻译团队：[Py字幕组](https://github.com/PyCN/PTR) 
+
 首发刊物：[PyCN技术评论](https://pycntech.github.io)
+
 Github：[https://github.com/PyCN/PTR](https://github.com/PyCN/PTR/blob/master/What%E2%80%99s%20New%20In%20Python%203.6.md)
 
 由阿橙([@sinoandywong](https://github.com/sinoandywong))召集，Ele([@ictar](https://github.com/ictar))、苍冥([@eastrd](https://github.com/eastrd))组织翻译。
 
 **译者：**
 [eastrd](https://github.com/eastrd)：苍冥
+
 [ictar](https://github.com/ictar) ：Ele
+
 [linchart](https://github.com/linchart)
+
 [szthanatos ](https://github.com/szthanatos)
+
 [alex-marmot](https://github.com/alex-marmot)
+
 [heyuanree](https://github.com/heyuanree)
+
 [sinoandywong](https://github.com/sinoandywong)：阿橙
+
 [sxqs-yang](https://github.com/sxqs-yang):若木羊
+
 [zilongcc](https://github.com/zilongcc)：水手
+
 [bubuyo](https://github.com/bubuyo):铲屎官,www.bububupt.com
+
 [yifan1024](https://github.com/yifan1024)
+
 [YoungZiyi](https://github.com/YoungZiyi)
+
 [fuckexception](https://github.com/fuckexception)
+
 [Lving](https://github.com/Lving)
+
 [LoveSn0w](https://github.com/LoveSn0w)
+
 [phdhorse41](https://github.com/phdhorse41)
 
 
 **特别感谢：**
 Ele([@ictar](https://github.com/ictar))：她为本文档的翻译做了大量工作，一个热爱美食的菇凉。
+
 [Py字幕组](https://github.com/PyCN/PTR)：一个各路大(dou)神(bi)聚集的团队。
 
 **感谢他们所作出的工作，圣诞快乐！**
