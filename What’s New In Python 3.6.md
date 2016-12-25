@@ -31,7 +31,7 @@ Github：[https://github.com/PyCN/PTR](https://github.com/PyCN/PTR/blob/master/W
 
 [zilongcc](https://github.com/zilongcc)：水手
 
-[bubuyo](https://github.com/bubuyo):铲屎官,www.bububupt.com
+[bubuyo](http://www.bububupt.com):铲屎官
 
 [yifan1024](https://github.com/yifan1024)
 
