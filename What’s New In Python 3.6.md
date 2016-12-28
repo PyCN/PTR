@@ -1502,7 +1502,7 @@ ffi`标志。
 
 ```
 
-Setuptools 26.0.0把上面的行为回迁到了之前版本的Python中。
+    Setuptools 26.0.0把上面的行为回迁到了之前版本的Python中。
 
   * 在[`urllib.request`][326]模块和[`http.client.HTTPConnection.request()`][327]方法中，如果没有指定Content-Length头并且请求体是一个文件对象，它将通过HTTP 1.1分块传输。如果是要将一个文件对象发送给一个HTTP 1.0服务器，那Content-Length必须要在调用者中指定。(Contributed by Demian Brecht and Rolf Krahl with tweaks from Martin Panter in [issue 12319][328].)
 
