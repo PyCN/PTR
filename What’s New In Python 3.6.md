@@ -916,8 +916,8 @@ kletools.dis "pickletools.dis" ) 输出的隐含备注是`MEMOIZE`操作码的�
 24454](https://bugs.python.org/issue24454)的贡献。)
 
 现在，`Match` 对象支持 [`index-like objects`](https://docs.python.org/3.6
-/reference/datamodel.html#object.\_\_index\_\_ "object.\_\_index\_\_" ) 一样的组索引。 (由Jeroen Demeyer and Xiang Zhang 在 [issue
-27177](https://bugs.python.org/issue27177)的贡献。)
+/reference/datamodel.html#object.\_\_index\_\_ "object.\_\_index\_\_" ) 作为`group()`的参数。 (由Jeroen Demeyer and Xiang Zhang 在 [issue
+27177](https://bugs.python.org/issue27177)贡献。)
 
 ### readline
 
@@ -1069,7 +1069,7 @@ Server 和 client-side 添加 [`SSLContext`](https://docs.python.org/3.6/library
 
 ### tkinter
 
-在`tkinter.Variable`类中添加了方法 `trace_add（）`，`trace_remove（）`和`trace_info（）`。 它们代替了之前版本中的 `trace_variable（）`，`trace（）`，`trace_vdelete（）`和 `trace_vinfo（）`方法，这些方法使用过时的Tcl命令，而在未来版本的Tcl中，这些Tcl命令可能不起作用。（由Serhiy Storchaka在[issue 22115](https://bugs.python.org/issue22115) 提供）。
+在`tkinter.Variable`类中添加了方法 `trace_add()`，`trace_remove()`和`trace_info()`。 它们代替了之前版本中的 `trace_variable()`，`trace()`，`trace_vdelete()`和 `trace_vinfo()`方法，这些方法使用过时的Tcl命令，而在未来版本的Tcl中，这些Tcl命令可能不起作用。（由Serhiy Storchaka在[issue 22115](https://bugs.python.org/issue22115) 提供）。
 
 ### traceback
 
@@ -1157,9 +1157,9 @@ traceback模块和解释器内置的异常展示现在都省略回溯中重复�
 
 ### warnings
 
-增加一个可选参数到 [`warnings.warn_explicit（）`](https://docs.python.org/3.6/library/warnings.html#warnings.warn_explici%0At)函数中：引发 [`ResourceWarning` ](https://docs.python.org/3.6/library/exceptions.html#Resource%0AWarning)的已销毁对象。 同时，属性也添加到 `warnings.WarningMessage` 中。（由Victor Stinner在[issue 26568](https://bugs.python.org/issue26568)和[issue 26567](https://bugs.python.org/issue26567)中提供）。
+增加一个可选参数到 [`warnings.warn_explicit()`](https://docs.python.org/3.6/library/warnings.html#warnings.warn_explici%0At)函数中：引发 [`ResourceWarning`](https://docs.python.org/3.6/library/exceptions.html#Resource%0AWarning)的已销毁对象。 同时，属性也添加到 `warnings.WarningMessage` 中。（由Victor Stinner在[issue 26568](https://bugs.python.org/issue26568)和[issue 26567](https://bugs.python.org/issue26567)中提供）。
 
-当引发[ `ResourceWarning` ](https://docs.python.org/3.6/library/exceptions.html)警告时，[`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-%0Atracemalloc) 模块就尝试检索分配了销毁对象的跟踪。
+当引发[`ResourceWarning`](https://docs.python.org/3.6/library/exceptions.html)警告时，[`tracemalloc`](https://docs.python.org/3.6/library/tracemalloc.html#module-%0Atracemalloc) 模块就尝试检索分配了销毁对象的跟踪。
 
 一个名为 `example.py`的例子
 ```
@@ -1279,18 +1279,18 @@ s.python.org/3.6/library/exceptions.html#DeprecationWarning
 ### 已弃用的 Python 行为
 
 
-Python 3.7 中, 在生成器中引发[`StopIteration`](https://docs.python.org/3.6/library/exceptions.html#StopIteration "StopIteration")异常，现在将会导致[`DesprecationWarning`](https://docs.python.org/3.6/library/exceptions.html#DeprecationWarning "DeprecationWarning" ),
-并且触发[\`RuntimeError\`](https://docs.python.org/3.6/library/exceptions.html#RuntimeError
-"RuntimeError" ). 查阅[PEP 479: Change StopIteration handlinginside generators](https://docs.python.org/3.6/whatsnew/3.5.html#whatsnew-
+在生成器中抛出[`StopIteration`](https://docs.python.org/3.6/library/exceptions.html#StopIteration "StopIteration")异常，现在将会导致[`DeprecationWarning`](https://docs.python.org/3.6/library/exceptions.html#DeprecationWarning "DeprecationWarning" ),
+在Python 3.7中，将触发[\`RuntimeError\`](https://docs.python.org/3.6/library/exceptions.html#RuntimeError
+"RuntimeError" )。查阅[PEP 479: Change StopIteration handlinginside generators](https://docs.python.org/3.6/whatsnew/3.5.html#whatsnew-
 pep-479)获得相关细节.
 
 
 
 [`__aiter__()`](https://docs.python.org/3.6/reference/datamodel.html#objec
 t.\_\_aiter\_\_ "object.\_\_aiter\_\_" )方法现在被期望返回异步迭代器，
-而不是之前版本中的可等待迭代器，在 Python 3.6 中调用`__aiter__()`将会触发[`DeprecationWarning`](https://doc
+而不是之前版本中的awaitable，返回awaitable现在会触发[`DeprecationWarning`](https://doc
 s.python.org/3.6/library/exceptions.html#DeprecationWarning
-"DeprecationWarning" )。 Python 3.7 将会移除其的后向兼容性。(Contributed by Yury Selivanov in [issue27243](https://bugs.python.org/issue27243).)
+"DeprecationWarning" )。Python 3.7将会移除其的后向兼容性。(Contributed by Yury Selivanov in [issue27243](https://bugs.python.org/issue27243).)
 
 
 反斜杠对现在不能再作为有效的转义字符串使用，其会导致
@@ -1465,19 +1465,19 @@ ffi`标志。
 
   * 当[`importlib.abc.Loader.exec_module()`][256] 被定义时, [`importlib.abc.Loader.create_module()`][257] 也必须被定义.
 
-  * [`PyErr_SetImportError()`][258] 现在被设置为[`TypeError`] [259]当它的** msg **参数没有设置。 以前只返回“NULL”。
+  * [`PyErr_SetImportError()`][258] 现在被设置为[`TypeError`] [259]当它的**msg**参数没有设置。 以前只返回`NULL`。
 
   * The format of the `co_lnotab` attribute of code objects changed to support a negative line number delta. By default, Python does not emit bytecode with a negative line number delta. Functions using `frame.f_lineno`, `PyFrame_GetLineNumber()` or `PyCode_Addr2Line()` are not affected. Functions directly decoding `co_lnotab` should be updated to use a signed 8-bit integer type for the line number delta, but this is only required to support applications using a negative line number delta. See `Objects/lnotab_notes.txt` for the `co_lnotab` format and how to decode it, and see the [**PEP 511**][260] for the rationale.
 
   * [`compileall`] [261]模块中的函数现在返回布尔类型的值，而不是用`1`或`0`来表示成功或失败. 由于布尔值是整数的子类，如果你对'1'或'0'进行身份检查，这只应该是一个问题。 查看[issue 25768][262].
 
-  * 读取[`urllib.parse.urlsplit（）`] [263]和[`urlparse（）`]的`port`属性现在引发超出范围值的[`ValueError`] [265] ，而不是返回[`None`][266]. 查看 [issue 20059][267].
+  * 如果[`urllib.parse.urlsplit()`][263]和[`urlparse()`]的结果的`port`属性超出了范围，在读取的时候将会抛出一个[`ValueError`][265]，而不是返回[`None`][266]. 查看 [issue 20059][267].
 
   * [`imp`][268] 模块现在代替原来的[`PendingDeprecationWarning`][270]抛出[`DeprecationWarning`][269]告警 .
 
   * 以下模块已将缺少的API添加到其 `__all__` 属性中，匹配文档说明API: [`calendar`][271], [`cgi`][272], [`csv`][273], [`ElementTree`][274], [`enum`][275], [`fileinput`][276], [`ftplib`][277], [`logging`][278], [`mailbox`][279], [`mimetypes`][280], [`optparse`][281], [`plistlib`][282], [`smtpd`][283], [`subprocess`][284], [`tarfile`][285], [`threading`][286] and [`wave`][287].  这意味着在使用`import *`引入时，有一定的变化 . (由Joel Taddei and Jacek Kołodziej i撰写在[issue 23883][288].)
 
-  * 当执行相对导入时，如果`__package__`不等于`__spec __。parent`，那么 [`ImportWarning`][289] 警告将被抛出. (由 Brett Cannon 撰写在[issue 25791][290].)
+  * 当执行相对导入时，如果`__package__`不等于`__spec __.parent`，那么 [`ImportWarning`][289] 警告将被抛出. (由 Brett Cannon 撰写在[issue 25791][290].)
 
   * 当执行相对导入并且没有已知父包时，则将抛出[`ImportError`] [291]异常。 以前，是抛出[`SystemError`] [292]异常。 (由Brett Cannon 撰写在 [issue 18018][293].)
 
@@ -1485,7 +1485,7 @@ ffi`标志。
 
   * 如果用户没有相关权限，[`spwd.getspnam()`][303]现在抛出 [`PermissionError`][304] 异常，代替原来的[`KeyError`][305].
 
-  * (如 `EBADF`) 这样的底层调用错误，[`socket.socket.close()`][306]方法现在会抛出异常。 (由Martin Panter撰写于[issue 26685][307].)
+  * 如果底层的系统调用出错(如`EBADF`)，[`socket.socket.close()`][306]方法现在会抛出异常。 (由Martin Panter撰写于[issue 26685][307].)
 
   * The _decode\_data_ argument for the [`smtpd.SMTPChannel`][308] and [`smtpd.SMTPServer`][309] constructors is now `False` by default. This means that the argument passed to [`process_message()`][310] is now a bytes object by default, and `process_message()` will be passed keyword arguments. Code that has already been updated in accordance with the deprecation warning generated by 3.5 will not be affected.
 
@@ -1530,18 +1530,17 @@ Setuptools 26.0.0.
 
 ### 在C API上的改动
 
-  * 旧的[`PyMem_Malloc()`][357]分配算符族将使用新的[pymalloc分配算符][358]，替换掉了系统原有的’malloc()’。应用程序在没有捕获GIL时调用[`PyMem_Malloc()`][359]会导致崩溃。可通过设置[pythonmalloc][360]环境变量去’debug’来实现应用程内存的分配。详情请看[问题26429][361]。
-  * [`Py_Exit()`][362]（和新的主注释器），如果刷新缓存失败，将覆盖当前状态。详情请看[问题5319][363]
+  * 旧的[`PyMem_Malloc()`][357]分配器族将使用新的[pymalloc分配器][358]，替换掉了系统原有的`malloc()`。应用程序在没有捕获GIL时调用[`PyMem_Malloc()`][359]会导致崩溃。可通过设置[PYTHONMALLOC][360]环境变量去调试应用程序中内存分配器的使用情况。详情请看[issue 26429][361]。
+  * [`Py_Exit()`][362]（和主解释器），如果刷新缓冲区失败，会将退出状态码设置为120。详情请看[issue 5319][363]
 
 ### CPython 字节码的更改
 
-在Python 3.6中将会出现几个关于[字节码][364]要更新。
-3.6.
+在Python 3.6中将会出现几个关于[字节码][364]的重要更新。
 
-  * 新的Python注释器将使用16位词码去替代老的字符码。（感谢Demur Rumed在Serhiy Storchaka和Victor Stinner[问题26647][365]和[问题28050][366]中做出贡献后的审查）
-  * 将启用新的[`FORMAT_VALUE`][367]和[`BUILD_STRING`][368] 操作码作为一部分格式化字符串。（感谢Eric Smith在[问题25483][369]和Serhiy Storchaka在[问题27078][370]的贡献）
-  * 将启用新的[`BUILD_CONST_KEY_MAP`][371]操作码并伴随常量关键字优化创建字典的过程。（感谢Serhiy Storchaka 提出的[问题27140][372].）
-  * 为了更好的表现和更快捷的启动, 已经对调用操作码的功能进行了深度重做。[`MAKE_FUNCTION`][373], [`CALL_FUNCTION`][374],[` CALL_FUNCTION_KW`][375] 以及 `BUILD_MAP_UNPACK_WITH_CALL` 这些操作码已经做了修改，并添加了新的`CALL_FUNCTION_EX` 和 `BUILD_TUPLE_UNPACK_WITH_CALL`。而`CALL_FUNCTION_VAR`, `CALL_FUNCTION_VAR_KW` 和`MAKE_CLOSURE`则在新的Python中被移除。（感谢Demur Rumed在[问题27905][376]中的贡献以及Serhiy Storchaka在[问题27213][377]、[问题28257][378]中的贡献）
+  * 新的Python注释器将使用16位宽码去替代老的字节码。（感谢Demur Rumed在Serhiy Storchaka和Victor Stinner[问题26647][365]和[问题28050][366]中做出贡献后的审查）
+  * 将启用新的[`FORMAT_VALUE`][367]和[`BUILD_STRING`][368] 操作码作为格式化字符串实现的一部分。（感谢Eric Smith在[问题25483][369]和Serhiy Storchaka在[问题27078][370]的贡献）
+  * 将启用新的[`BUILD_CONST_KEY_MAP`][371]操作码优化创建带有常量键值的字典。（感谢Serhiy Storchaka 提出的[问题27140][372].）
+  * 为了更好的性能和简化实现, 对调用函数的操作码进行了深度重做。[`MAKE_FUNCTION`][373], [`CALL_FUNCTION`][374],[` CALL_FUNCTION_KW`][375] 以及 `BUILD_MAP_UNPACK_WITH_CALL` 这些操作码已经做了修改，并添加了新的`CALL_FUNCTION_EX` 和 `BUILD_TUPLE_UNPACK_WITH_CALL`。而`CALL_FUNCTION_VAR`, `CALL_FUNCTION_VAR_KW` 和`MAKE_CLOSURE`则在新的Python中被移除。（感谢Demur Rumed在[问题27905][376]中的贡献以及Serhiy Storchaka在[问题27213][377]、[问题28257][378]中的贡献）
   * 添加了[`SETUP_ANNOTATIONS`][379] 和 [`STORE_ANNOTATION`][380]操作码，用于支持新的[变量注释语法][381]。（感谢Ivan Levkivskyi在[问题27985][382]中的贡献）
 
 ----
