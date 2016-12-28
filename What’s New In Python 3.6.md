@@ -926,7 +926,7 @@ kletools.dis "pickletools.dis" ) 输出的隐含备注是`MEMOIZE`操作码的�
 
 ### rlcompleter
 
-现在，除非前缀开始使用下划线，否则私有和特殊属性名称就被忽略。在一些完成的关键字后面添加一个空格或冒号。
+现在，除非以下划线开头，否则私有和特殊属性的名字就会被忽略。一个空格或冒号会被添加在一些自动填充完的关键词后。
 (由Serhiy Storchaka 在[issue
 25011](https://bugs.python.org/issue25011) 和 [issue
 25209](https://bugs.python.org/issue25209)的贡献。)
