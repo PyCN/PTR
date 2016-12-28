@@ -2,9 +2,9 @@
 
 # Python 3.6新特性简介
 
-原文：[What’s New In Python 3.6][1]
+原文：[What's New In Python 3.6][1]
 
-翻译团队：[Py字幕组](https://github.com/PyCN/PTR) 
+翻译团队：[Py字幕组](https://github.com/PyCN/PTR)
 
 首发刊物：[PyCN技术评论](https://pycntech.github.io)
 
@@ -62,9 +62,7 @@ Ele([@ictar](https://github.com/ictar))：她为本文档的翻译做了大量�
 版本:| 3.6.0
 ---|---
 日期:| December 15, 2016
-编辑:| Elvis Pranskevichus
-&lt;[elvis@magic.io][2]&gt;, Yury Selivanov
-&lt;[yury@magic.io][3]&gt;
+编辑:| Elvis Pranskevichus&lt;[elvis@magic.io][2]&gt;, Yury Selivanov&lt;[yury@magic.io][3]&gt;
 
 这篇文章介绍了与3.5相比， Python 3.6中多出的新特性。
 
@@ -123,7 +121,7 @@ Windows上的改进:
 
 ### PEP 498: 格式化字符串
 
-[**PEP 498**][25]引入了一种新的字符串：\_f-strings\_, 或者[格式化字符串][26]。
+[**PEP 498**][25]引入了一种新的字符串：_f-strings_, 或者[格式化字符串][26]。
 
 格式化字符串带`'f'`前缀，类似于[`str.format()`][27]接受的格式字符串。它们包含了由花括号括起来的替换字段。替换字段是表达式，它们会在运行时计算，然后使用[`format()`][28]协议进行格式化：
 
@@ -175,9 +173,9 @@ Windows上的改进:
 
 使用或将要使用这个新语法的工具：[mypy][33], [pytype][34], PyCharm等等。
 
-### PEP 515: 数值文字中的下划线
+### PEP 515: 数字字面量中的下划线
 
-[**PEP 515**][35]添加了在数值文字中使用下划线的能力，以提高可读性。例如：
+[**PEP 515**][35]添加了在数字字面量中使用下划线的能力，以提高可读性。例如：
 
 ```
 
@@ -210,7 +208,7 @@ Windows上的改进:
 ### PEP 525: 异步生成器
 
 [**PEP 492**][38] 引入支持原生协程和`async` /`await`的语法到Python 3.5。 在Python 3.5实现里的一个值得注意的
-局限性就在于它不可能使用`await`和`yield'在同一个函数体中。 而在Python 3.6中，这个限制
+局限性就在于它不可能使用`await`和`yield`在同一个函数体中。 而在Python 3.6中，这个限制
 已解除，这使得定义_异步生成器_成为可能：
 
 ```
@@ -239,7 +237,7 @@ Windows上的改进:
 
 ```
 
-此外，所有解析式都支持“await”表达式：
+此外，所有解析式都支持`await`表达式：
 
 ```
 
@@ -254,7 +252,7 @@ Windows上的改进:
 
 ### PEP 487: 用于建立类的更简单的自定义
 
-现在可以在不使用元类的情况下自定义子类。每当创建一个新的子类时，新的`__init_subclass__`类方法将在基类上被调用，：
+现在可以在不使用元类的情况下自定义子类。每当创建一个新的子类时，新的`__init_subclass__`类方法将在基类上被调用：
 
 ```
 
@@ -272,15 +270,7 @@ Windows上的改进:
         pass
 
 ```
-为了允许零参数
-[`super（）`] [42]
-从[`_init_subclass __（）`](https://docs.python.org/3
-.6/reference/datamodel.html#object.\_\_init\_subclass\_\_
-"object.\_\_init\_subclass\_\_" )实现中被正确的调用并工作，自定义元类必须确保
-新的`__classcell__`命名空间输入传递到`type .__ new__`
-（如[创建类
-对象](https://docs.python.org/3.6/reference/datamodel.html#class-object-
-creation))
+为了使零参数[`super()`][42]在实现了[`__init_subclass__()`](https://docs.python.org/3.6/reference/datamodel.html#object.\_\_init\_subclass\_\_"object.\_\_init\_subclass\_\_" )之后能够正常地工作，自定义的元类(metaclass)必须确保`__classcell__`被传递给了`type.__new__`(见[创建类对象](https://docs.python.org/3.6/reference/datamodel.html#class-object-creation))。
 
 参见
 
@@ -292,7 +282,7 @@ creation))
 
 ### PEP 487: 描述符协议增强
 
-[**PEP 487**][44] 扩展描述符协议必须包括新的可选的[`__set_name __（）`](https://docs.python.org/3.6/reference/datamodel.html#object.\_\_set\_name\_\_ "object.\_\_set\_name\_\_" )方法。 每当定义一个新类时，新方法将会调用定义中所有的描述符，并给它们提供定义类的引用，以及类命名空间中给予描述符的名字。 换句话说，描述符的实例现在可以获知所有者类的属性名：
+[**PEP 487**][44] 扩展描述符协议必须包括新的可选的[`__set_name __()`](https://docs.python.org/3.6/reference/datamodel.html#object.\_\_set\_name\_\_ "object.\_\_set\_name\_\_" )方法。 每当定义一个新类时，新方法将会调用定义中所有的描述符，并给它们提供定义类的引用，以及类命名空间中给予描述符的名字。换句话说，描述符的实例现在可以获知所有者类的属性名：
 ```
 
     class IntField:
@@ -342,7 +332,7 @@ like](https://docs.python.org/3.6/glossary.html#term-path-like-object),它代表
 "os.DirEntry" )以及[`pathlib`](https://docs.python.org/3.6/library/pathlib.html#module-pathlib
 "pathlib: Object-oriented filesystem paths" )中相关的类也已经可以实现[`os.PathLike`](https://docs.python.org/3.6/library/os.html#os.PathLike
 "os.PathLike" )。
-希望对操作文件系统路径基本功能的更新能够让第三方代码在不改变任何代码，或者至少是非常少的代码（例如，在操作path-like对象之前，在代码的开头调用[`os.fspath()`](https://docs.python.org/3.6/library/os.html#os.fspath "os.fspath" )）的情况下，能够隐含地支持所有[path-like objects](https://docs.python.org/3.6/glossary.html#term-path-like-object)对象。
+希望对操作文件系统路径基本功能的更新能够让第三方代码在不改变任何代码，或者至少是非常少的代码（例如，在操作path-like对象之前，在代码的开头调用[`os.fspath()`](https://docs.python.org/3.6/library/os.html#os.fspath "os.fspath" )）的情况下，能够隐含地支持所有[path-like对象](https://docs.python.org/3.6/glossary.html#term-path-like-object)。
 下面举一些例子说明新接口是如何让预先存在的代码简单透明地使用[`pathlib.Path`](https://docs.python.org/3.6/library/pathlib.html#pathlib.Path
 "pathlib.Path" ):
 ```
@@ -395,7 +385,8 @@ e\`](https://docs.python.org/3.6/library/datetime.html#datetime.time
 
 属性 [`fold`](https://docs.python.org/3.6/library/datetime.html#d
 atetime.datetime.fold "datetime.datetime.fold" ) 的值除了表示不明确情况下的第二（时间顺序）时刻之外，其他所有实例的值都为 `0`。
-See also
+
+参见
 
 [**PEP 495**][57] - 本地时间消歧
 
@@ -449,11 +440,11 @@ windows下的默认控制台现在支持所有的Unicode字符并可以正确读
 
 ### 新的 [字典dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型的实现
 
-[字典dict](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型现在使用 [PyPy首创](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html)的 "紧凑" 表达方式。 新[`字典dict()`](https://docs.python.org/3.6/library/stdtypes.html#dict "dict" ) 的内存占用比Python3.5中减少20%到25%。
+[字典(dict)](https://docs.python.org/3.6/library/stdtypes.html#typesmapping)类型现在使用 [PyPy首创](https://morepypy.blogspot.com/2015/01/faster-more-memory-efficient-and-more.html)的 "紧凑" 表达方式。 新[`字典(dict)`](https://docs.python.org/3.6/library/stdtypes.html#dict "dict" ) 的内存占用比Python3.5中减少20%到25%。
 
 新的实现中保存顺序的功能被认为是不可过于依赖的(未来也许会改变，不过在将所有当前和未来的Python实现的语言规范转换为保证顺序的语法之前的几个版本中，新的dict有望被实现的; 这也能帮助保证对那些仍旧是随机迭代顺序的旧版本的向后兼容，比如Python 3.5)。
 
-(由INADA Naoki在[issue 27350](https://bugs.python.org/issue27350)提供。 想法 [最初由Raymond Hettinger提出](https://mail.python.org/pipermail/python-dev/2012-December/123028.html).)
+(由INADA Naoki在[issue 27350](https://bugs.python.org/issue27350)提供。想法 [最初由Raymond Hettinger提出](https://mail.python.org/pipermail/python-dev/2012-December/123028.html).)
 
 ### PEP 523：添加一个frame解析API到CPython
 
@@ -757,7 +748,7 @@ r "typing.ContextManager" ).被添加到
 
 ### faulthandler
 
-在Windows平台, 
+在Windows平台,
 [`faulthandler`](https://docs.python.org/3.6/library/faulthandler.html#module-
 faulthandler "faulthandler: Dump the Python traceback." )模块安装了一个指示Windows异常的句柄 : 详情可见于 [`faulthandler.enable()`](https://docs.p
 ython.org/3.6/library/faulthandler.html#faulthandler.enable
@@ -1462,7 +1453,7 @@ ffi`标志。
 
 本节列出了与之前版本相比，一些特性的更改和bug的修复，这些可能会影响到你代码的编写。
 
-###'python'命令行操作变更 
+###'python'命令行操作变更
 
   * 默认情况下，用`COUNT_ALLOCS`，`SHOW_ALLOC_COUNT`或`SHOW_TRACK_COUNT`等宏定义的特殊python输出是关闭的。 它可以使用`-X showalloccount`选项重新启用. 它现在输出到`stderr`而不是`stdout`。 (由Serhiy Storchaka撰写在 [issue 23034][251].)
 
