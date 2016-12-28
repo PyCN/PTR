@@ -879,10 +879,8 @@ Linux的`getrandom()`系统调用(获取随机字节)现在作为新的[`os.getr
 
 ### pickle
 
-对象，现在可以使用关键参数 `__new__`进行持久存储[pickle协议](https://docs.python.org/3.6/library/pickle.html
-# pickle-protocols)超过已有的协议版本4.
-支持这种情况. (由Serhiy Storchaka在[issue
-24164](https://bugs.python.org/issue24164)的贡献。)
+使用关键词参数调用`__new__`的对象现在可以通过版本4以下的[pickle协议](https://docs.python.org/3.6/library/pickle.html#pickle-protocols)进行序列化。
+版本4的协议之前已经支持这种情况. (由Serhiy Storchaka在[issue 24164](https://bugs.python.org/issue24164)的贡献。)
 
 ### pickletools
 
