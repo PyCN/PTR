@@ -1,5 +1,7 @@
 原文：[The Python Language Reference](https://docs.python.org/3/reference/index.html)
 
+日期：2017/02/14
+
 本参考手册描述了该语言的语法和“核心语义”。它虽简洁，但力图精确和完整。非必需的内置对象类型和内置函数以及模块的语义在[Python标准库](https://docs.python.org/3/library/index.html#library-index)中进行了描述。有关该语言的非正式介绍，请参阅[Python教程](https://docs.python.org/3/tutorial/index.html#tutorial-index)。对于C或者C++程序员，还有两个附加手册：[扩展和嵌入Python解释器](https://docs.python.org/3/extending/index.html#extending-index)描述了如何编写Python扩展模块的高级图像，而[Python/C API参考手册](https://docs.python.org/3/c-api/index.html#c-api-index)则描述了C/C++程序员可用接口的详细细节。
 
   * [1\. Introduction](https://docs.python.org/3/reference/introduction.html)
@@ -21,16 +23,16 @@
     * [4.1. Structure of a program](https://docs.python.org/3/reference/executionmodel.html#structure-of-a-program)
     * [4.2. Naming and binding](https://docs.python.org/3/reference/executionmodel.html#naming-and-binding)
     * [4.3. Exceptions](https://docs.python.org/3/reference/executionmodel.html#exceptions)
-  * [5\. The import system](https://docs.python.org/3/reference/import.html)
-    * [5.1. `importlib`](https://docs.python.org/3/reference/import.html#importlib)
-    * [5.2. Packages](https://docs.python.org/3/reference/import.html#packages)
-    * [5.3. Searching](https://docs.python.org/3/reference/import.html#searching)
-    * [5.4. Loading](https://docs.python.org/3/reference/import.html#loading)
-    * [5.5. The Path Based Finder](https://docs.python.org/3/reference/import.html#the-path-based-finder)
-    * [5.6. Replacing the standard import system](https://docs.python.org/3/reference/import.html#replacing-the-standard-import-system)
-    * [5.7. Special considerations for __main__](https://docs.python.org/3/reference/import.html#special-considerations-for-main)
-    * [5.8. Open issues](https://docs.python.org/3/reference/import.html#open-issues)
-    * [5.9. References](https://docs.python.org/3/reference/import.html#references)
+  * [5\. The import system](https://github.com/PyCN/PTR/blob/master/The%20Python%20Language%20Reference%20(3.6)/import.md)
+    * [5.1. `importlib`](https://github.com/PyCN/PTR/blob/master/The%20Python%20Language%20Reference%20(3.6)/import.md#importlib)
+    * [5.2. Packages](https://github.com/PyCN/PTR/blob/master/The%20Python%20Language%20Reference%20(3.6)/import.md#packages)
+    * [5.3. Searching](https://github.com/PyCN/PTR/blob/master/The%20Python%20Language%20Reference%20(3.6)/import.md#searching)
+    * [5.4. Loading](https://github.com/PyCN/PTR/blob/master/The%20Python%20Language%20Reference%20(3.6)/import.md#loading)
+    * [5.5. The Path Based Finder](https://github.com/PyCN/PTR/blob/master/The%20Python%20Language%20Reference%20(3.6)/import.md#the-path-based-finder)
+    * [5.6. Replacing the standard import system](https://github.com/PyCN/PTR/blob/master/The%20Python%20Language%20Reference%20(3.6)/import.md#replacing-the-standard-import-system)
+    * [5.7. Special considerations for __main__](https://github.com/PyCN/PTR/blob/master/The%20Python%20Language%20Reference%20(3.6)/import.md#special-considerations-for-main)
+    * [5.8. Open issues](https://github.com/PyCN/PTR/blob/master/The%20Python%20Language%20Reference%20(3.6)/import.md#open-issues)
+    * [5.9. References](https://github.com/PyCN/PTR/blob/master/The%20Python%20Language%20Reference%20(3.6)/import.md#references)
   * [6\. Expressions](https://docs.python.org/3/reference/expressions.html)
     * [6.1. Arithmetic conversions](https://docs.python.org/3/reference/expressions.html#arithmetic-conversions)
     * [6.2. Atoms](https://docs.python.org/3/reference/expressions.html#atoms)
