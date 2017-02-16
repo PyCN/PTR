@@ -18,7 +18,7 @@
 
 [`importlib`](https://docs.python.org/3/library/importlib.html#module-importlib "importlib: The implementation of the import machinery." )模块提供了用以与导入系统交互的丰富的API。例如[`importlib.import_module()`](https://docs.python.org/3/library/importlib.html#importlib.import_module "importlib.import_module" )提供了一个推荐的比内置的[`__import__()`](https://docs.python.org/3/library/functions.html#__import__ "__import__" )更简单的API，用来调用导入机制。参考[`importlib`](https://docs.python.org/3/library/importlib.html#module-importlib "importlib: The implementation of the import machinery." )库文档以获取额外的细节。
 
-## 5.2. Packages
+## 5.2. 包
 
 Python只有一种类型的module对象，而所有的模块都是这个类型，无论这个模块是用Python，C，还是其他什么语言实现的。为了帮助组织模块并提供一个命名层级，Python有[包](https://docs.python.org/3/glossary.html#term-package)的概念。
 
