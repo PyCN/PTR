@@ -70,8 +70,8 @@
     * [8.3. The `for` statement](https://docs.python.org/3/reference/compound_stmts.html#the-for-statement)
     * [8.4. The `try` statement](https://docs.python.org/3/reference/compound_stmts.html#the-try-statement)
     * [8.5. The `with` statement](https://docs.python.org/3/reference/compound_stmts.html#the-with-statement)
-    * [8.6. Function definitions](https://docs.python.org/3/reference/compound_stmts.html#function-definitions)
-    * [8.7. Class definitions](https://docs.python.org/3/reference/compound_stmts.html#class-definitions)
+    * [8.6. Function definitions](https://docs.python.org/3/reference/compound_stmts.html#function-definitions) @YoungZiyi 认领
+    * [8.7. Class definitions](https://docs.python.org/3/reference/compound_stmts.html#class-definitions) @YoungZiyi 认领
     * [8.8. Coroutines](https://docs.python.org/3/reference/compound_stmts.html#coroutines)
   * [9\. Top-level components](https://docs.python.org/3/reference/toplevel_components.html)
     * [9.1. Complete Python programs](https://docs.python.org/3/reference/toplevel_components.html#complete-python-programs)
