@@ -1,34 +1,6 @@
 原文：[5. The import system](https://docs.python.org/3/reference/import.html)
 
 ---
-  
-### [目录](https://docs.python.org/3/contents.html)
-
-  * 5. 导入系统
-    * 5.1. `importlib`
-    * 5.2. 包
-      * 5.2.1. 常规包
-      * 5.2.2. 名字空间包
-    * 5.3. 搜索
-      * 5.3.1. 模块缓存
-      * 5.3.2. 查找器和加载器
-      * 5.3.3. 导入钩子
-      * 5.3.4. 元路径
-    * 5.4. 加载
-      * 5.4.1. 加载器
-      * 5.4.2. 子模块
-      * 5.4.3. Module spec
-      * 5.4.4. 导入相关的模块属性
-      * 5.4.5. module.__path__
-      * 5.4.6. Module reprs
-    * 5.5. 基于路径的查找器
-      * 5.5.1. Path entry finders
-      * 5.5.2. Path entry finder protocol
-    * 5.6. Replacing the standard import system
-    * 5.7. Special considerations for __main__
-      * 5.7.1. __main__.__spec__
-    * 5.8. Open issues
-    * 5.9. References
 
 通过[导入](https://docs.python.org/3/glossary.html#term-importing)过程，一个[模块](https://docs.python.org/3/glossary.html#term-module)中的Python代码可以访问另一个模块中的代码。[`import`](https://docs.python.org/3/reference/simple_stmts.html#import)语句是调用导入机制最常见的方式，但是它并非唯一的方式。诸如[`importlib.import_module()`](https://docs.python.org/3/library/importlib.html#importlib.import_module "importlib.import_module" )和内置的[`__import__()`](https://docs.python.org/3/library/functions.html#__import__ "__import__" )这样的函数也可以被用来调用导入机制。
 
@@ -62,7 +34,6 @@ Python定义了两种类型的包，[常规包](https://docs.python.org/3/glossa
 
 例如，以下文件系统布局定义了一个带有三个子包的顶级`parent`包：
 
-[code]
 
     parent/
         __init__.py
@@ -73,7 +44,6 @@ Python定义了两种类型的包，[常规包](https://docs.python.org/3/glossa
         three/
             __init__.py
     
-[/code]
 
 导入`parent.one`将会隐式执行`parent/__init__.py`和`parent/one/__init__.py`。随后对`parent.two`或者`parent.three`的导入将会分别执行`parent/two/__init__.py`和`parent/three/__init__.py`。
 
@@ -81,21 +51,11 @@ Python定义了两种类型的包，[常规包](https://docs.python.org/3/glossa
 
 一个名字空间包是各种[部分(portion)](https://docs.python.org/3/glossary.html#term-portion)的组成，其中，每个部分都共享了一个子包给父包。这些部分可能位于文件系统中的不同位置。这些部分也有可能位于zip文件中、网络上、或者任何其他Python在导入时搜索的位置。名字空间包可能或者可能不直接对应于文件系统上的对象；它们或许是没有实体的虚拟模块。
 
-名字空间包的`__path__`属性并不适用一个普通的列表。相反，它们使用一个自定义的可迭代类型，which will automatically perform a new
-search for package portions on the next import attempt within that package if
-the path of their parent package (or
-[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )
-for a top level package) changes.
+名字空间包的`__path__`属性并不使用一个普通的列表。相反，它们使用一个自定义的可迭代类型，如果它们父包的路径(或者对于一个顶级包，[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" ))发生了改变，会在那个包中的下一次导入尝试时，自动进行对包部分的新的搜索。
 
-With namespace packages, there is no `parent/__init__.py` file. In fact, there
-may be multiple `parent` directories found during import search, where each
-one is provided by a different portion. Thus `parent/one` may not be
-physically located next to `parent/two`. In this case, Python will create a
-namespace package for the top-level `parent` package whenever it or one of its
-subpackages is imported.
+对于名字空间包，没有`parent/__init__.py`文件。事实上，在导入搜索过程中，可能会找到多个`parent`目录，其中，每一个都是由一个不同的部分提供的。因此，`parent/one`在物理上，可能不会挨着`parent/two`。在这种情况下，每当导入顶级`parent`包或者它其中一个子包时，Python将会为这个顶级`parent`包创建一个名字空间包。
 
-See also [**PEP 420**](https://www.python.org/dev/peps/pep-0420) for the
-namespace package specification.
+另见[**PEP 420**](https://www.python.org/dev/peps/pep-0420)，了解名字空间包的详细说明。
 
 ## 5.3. 搜索
 
@@ -117,51 +77,23 @@ namespace package specification.
 
 如果在[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules  "sys.modules" )中并未找到该命名模块，那么会调用Python的导入协议来查找和加载该模块。这个协议由两个概念上的对象组成，[查找器](https://docs.python.org/3/glossary.html#term-finder)和[加载器](https://docs.python.org/3/glossary.html#term-loader)。一个查找器的工作是决定它是否可以使用任何它所知道的策略来查找该命名模块。同时实现这两个接口的对象被称之为[导入器](https://docs.python.org/3/glossary.html#term-importer) —— 当它们发现他们可以加载所请求的模块时，返回自身。
 
-Python包含了大量的默认查找器和导入器。前者知道如何定位到内置模块，而后者知道如何定位到冻结模块。一个third default finder searches an [import path](https://docs.python.org/3/glossary.html#term-import-path) for modules.
-The [import path](https://docs.python.org/3/glossary.html#term-import-path) is
-a list of locations that may name file system paths or zip files. It can also
-be extended to search for any locatable resource, such as those identified by
-URLs.
+Python包含了大量的默认查找器和导入器。第一个知道如何定位到内置模块，而第二个知道如何定位到冻结模块。第三哥默认的查找器搜索[导入路径](https://docs.python.org/3/glossary.html#term-import-path)来查找模块。[导入路径](https://docs.python.org/3/glossary.html#term-import-path)是一个位置列表，这些位置可能是命名文件系统路径，或者zip文件。也可以扩展以搜索任何可定位资源，例如那些由URL标识的资源。
 
-The import machinery is extensible, so new finders can be added to extend the
-range and scope of module searching.
+导入机制是可扩展的，因此，可以添加新的查找器来扩展模块搜索的范围。
 
-Finders do not actually load modules. If they can find the named module, they
-return a _module spec_, an encapsulation of the module's import-related
-information, which the import machinery then uses when loading the module.
+查找器实际上并不加载模块。如果它们可以找到命名模块，那么它们返回一个_模块spec(module spec)_，它是模块导入相关信息的封装，导入机制稍后会在加载模块的时候使用它们。
 
-The following sections describe the protocol for finders and loaders in more
-detail, including how you can create and register new ones to extend the
-import machinery.
+以下部分更详细地描述了查找器和加载器的协议，包括你可以如何创建和注册新的来扩展导入机制。
 
-Changed in version 3.4: In previous versions of Python, finders returned
-[loaders](https://docs.python.org/3/glossary.html#term-loader) directly,
-whereas now they return module specs which _contain_ loaders. Loaders are
-still used during import but have fewer responsibilities.
+版本3.4改动：在Python前面的版本中，查找器直接返回[加载器](https://docs.python.org/3/glossary.html#term-loader)，而现在，它们返回模块spec，其中_包含_加载器。仍会在导入期间使用加载器，但它承担较少的责任。
 
-### 5.3.3. Import hooks¶
+### 5.3.3. 导入钩子
 
-The import machinery is designed to be extensible; the primary mechanism for
-this are the _import hooks_. There are two types of import hooks: _meta hooks_
-and _import path hooks_.
+导入机制被设计为可扩展的；而其主要机制是_导入钩子_。有两种类型的导入钩子：_元钩子_和_导入路径钩子_。
 
-Meta hooks are called at the start of import processing, before any other
-import processing has occurred, other than
-[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules
-"sys.modules" ) cache look up. This allows meta hooks to override
-[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )
-processing, frozen modules, or even built-in modules. Meta hooks are
-registered by adding new finder objects to
-[`sys.meta_path`](https://docs.python.org/3/library/sys.html#sys.meta_path
-"sys.meta_path" ), as described below.
+元钩子是在导入过程的开始，任何其他导入过程发生之前调用的，不用于[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules "sys.modules" )缓存查找。这样，元钩子就可以覆盖[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )处理，冻结模块，或者甚至是内置模块。元钩子是通过添加新的查找器对象到[`sys.meta_path`](https://docs.python.org/3/library/sys.html#sys.meta_path "sys.meta_path" )来注册的，如下所述。
 
-Import path hooks are called as part of
-[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )
-(or `package.__path__`) processing, at the point where their associated path
-item is encountered. Import path hooks are registered by adding new callables
-to
-[`sys.path_hooks`](https://docs.python.org/3/library/sys.html#sys.path_hooks
-"sys.path_hooks" ) as described below.
+导入路径钩子作为[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )(或者`package.__path__`)处理的一部分来调用，在碰到它们相关联路径入口的那个时候。导入路径钩子是通过添加新的可回调对象到[`sys.path_hooks`](https://docs.python.org/3/library/sys.html#sys.path_hooks "sys.path_hooks" )来注册的，如下所述。
 
 ### 5.3.4. 元路径
 
@@ -169,46 +101,20 @@ to
 
 如果该元路径查找器知道如何处理这个命名模块，那么它返回一个spec对象。如果它不能处理这个命名模块，那么它返回`None`。如果[`sys.meta_path`](https://docs.python.org/3/library/sys.html#sys.meta_path "sys.meta_path" )处理到达了它的列表的尾部都没有返回一个spec，那么会抛出一个[`ModuleNotFoundError`](https://docs.python.org/3/library/exceptions.html#ModuleNotFoundError "ModuleNotFoundError" )。抛出的任何其他异常将会简单地向外层传播，中止导入过程。
 
-带两个或三个参数调用元路径查找器的[`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.abc.MetaPathFinder.find_spec "importlib.abc.MetaPathFinder.find_spec" )方法。第一个是导入模块的完整限定名，例如，`foo.bar.baz`。第二个是用来进行模块搜索的路径项。对于顶层模块，第二个参数是`None`，但是对于子模块或者子包，第二个参数是父包的`__path__`属性。如果不能访问适当的`__path__`属性，那么会抛出一个[`ModuleNotFoundError`](https://docs.python.org/3/library/exceptions.html#ModuleNotFoundError "ModuleNotFoundError" )。第三个参数是一个存在的module对象，它将会是稍后的加载目标。导入系统只有在重载期间才会传递进一个目标模块。
+带两个或三个参数调用元路径查找器的[`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.abc.MetaPathFinder.find_spec "importlib.abc.MetaPathFinder.find_spec" )方法。第一个是导入模块的完整限定名，例如，`foo.bar.baz`。第二个是用来进行模块搜索的路径入口。对于顶级模块，第二个参数是`None`，但是对于子模块或者子包，第二个参数是父包的`__path__`属性。如果不能访问适当的`__path__`属性，那么会抛出一个[`ModuleNotFoundError`](https://docs.python.org/3/library/exceptions.html#ModuleNotFoundError "ModuleNotFoundError" )。第三个参数是一个存在的module对象，它将会是稍后的加载目标。导入系统只有在重载期间才会传递进一个目标模块。
 
-The meta path may be traversed multiple times for a single import request. For
-example, assuming none of the modules involved has already been cached,
-importing `foo.bar.baz` will first perform a top level import, calling
-`mpf.find_spec("foo", None, None)` on each meta path finder (`mpf`). After
-`foo` has been imported, `foo.bar` will be imported by traversing the meta
-path a second time, calling `mpf.find_spec("foo.bar", foo.__path__, None)`.
-Once `foo.bar` has been imported, the final traversal will call
-`mpf.find_spec("foo.bar.baz", foo.bar.__path__, None)`.
+对于单个导入请求，元路径也许会被多次遍历。例如，假设涉及的模块都没有被缓存，那么导入`foo.bar.baz`会首先执行一次顶级导入，在么个元路径查找器(`mpf`)上调用`mpf.find_spec("foo", None, None)`。在导入`foo`之后，将通过第二次遍历元路径，调用`mpf.find_spec("foo.bar", foo.__path__, None)`来导入`foo.bar`。一旦导入了`foo.bar`，最后一次遍历将会调用`mpf.find_spec("foo.bar.baz", foo.bar.__path__, None)`。
 
-Some meta path finders only support top level imports. These importers will
-always return `None` when anything other than `None` is passed as the second
-argument.
+一些元路径查找器只支持顶级导入。当把非`None`作为第二个参数传递时，这些导入器将总是返回`None`。
 
-Python's default
-[`sys.meta_path`](https://docs.python.org/3/library/sys.html#sys.meta_path
-"sys.meta_path" ) has three meta path finders, one that knows how to import
-built-in modules, one that knows how to import frozen modules, and one that
-knows how to import modules from an [import
-path](https://docs.python.org/3/glossary.html#term-import-path) (i.e. the
-[path based finder](https://docs.python.org/3/glossary.html#term-path-based-
-finder)).
+Python默认的[`sys.meta_path`](https://docs.python.org/3/library/sys.html#sys.meta_path "sys.meta_path" )有三个元路径查找器，一个直到如何导入内置模块，一个知道如何导入冻结模块，而另一个知道如何导入来自[导入路径](https://docs.python.org/3/glossary.html#term-import-path) (例如，[基于路径的查找器](https://docs.python.org/3/glossary.html#term-path-based-finder))的模块。
 
-Changed in version 3.4: The [`find_spec()`](https://docs.python.org/3/library/
-importlib.html#importlib.abc.MetaPathFinder.find_spec
-"importlib.abc.MetaPathFinder.find_spec" ) method of meta path finders
-replaced [`find_module()`](https://docs.python.org/3/library/importlib.html#im
-portlib.abc.MetaPathFinder.find_module
-"importlib.abc.MetaPathFinder.find_module" ), which is now deprecated. While
-it will continue to work without change, the import machinery will try it only
-if the finder does not implement `find_spec()`.
+版本3.4改动：元路径查找器的[`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.abc.MetaPathFinder.find_spec "importlib.abc.MetaPathFinder.find_spec" )方法替代了[`find_module()`](https://docs.python.org/3/library/importlib.html#importlib.abc.MetaPathFinder.find_module "importlib.abc.MetaPathFinder.find_module" )，后者已经弃用了。虽然它将在无需改动的情况下继续工作，但是导入机制只有在查找器没有实现`find_spec()`的情况下才会试着使用它。
 
-## 5.4. Loading¶
+## 5.4. 加载
 
-If and when a module spec is found, the import machinery will use it (and the
-loader it contains) when loading the module. Here is an approximation of what
-happens during the loading portion of import:
+如果（当）找到了一个模块spec，在加载该模块的时候，导入机制将会使用它 (以及它包含的加载器)。这里是在导入的加载部分过程中所发生的事情的近似：
 
-[code]
 
     module = None
     if spec.loader is not None and hasattr(spec.loader, 'create_module'):
@@ -241,166 +147,80 @@ happens during the loading portion of import:
             raise
     return sys.modules[spec.name]
     
-[/code]
 
-Note the following details:
+注意以下细节：
 
->   * If there is an existing module object with the given name in
-[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules
-"sys.modules" ), import will have already returned it.
+>   * 如果在[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules "sys.modules" )中，对于给定的名字，已经有一个module对象了，那么导入将会返回它。
 
->   * The module will exist in
-[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules
-"sys.modules" ) before the loader executes the module code. This is crucial
-because the module code may (directly or indirectly) import itself; adding it
-to [`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules
-"sys.modules" ) beforehand prevents unbounded recursion in the worst case and
-multiple loading in the best.
+>   * 在加载器执行模块代码之前，模块将会存在于[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules "sys.modules" )中。这至关重要，因为模块代码也许（直接或者间接）导入自身；预先将其添加到[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules "sys.modules" )防止最糟糕情况下的无限递归以及最佳情况下的多次加载。
 
->   * If loading fails, the failing module - and only the failing module -
-gets removed from
-[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules
-"sys.modules" ). Any module already in the
-[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules
-"sys.modules" ) cache, and any module that was successfully loaded as a side-
-effect, must remain in the cache. This contrasts with reloading where even the
-failing module is left in
-[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules
-"sys.modules" ).
+>   * 如果加载失败，那么失败的模块，并且只有失败的模块，会从[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules "sys.modules" )中移除。任何已经在[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules "sys.modules" )缓存中模块，以及任何作为副作用成功加载的模块，必须保留在缓存中。这与重载相反，对于后者而言，即使是失败模块，也会被留在[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules "sys.modules" )中。
 
->   * After the module is created but before execution, the import machinery
-sets the import-related module attributes ("_init_module_attrs" in the pseudo-
-code example above), as summarized in a later section.
+>   * 在创建模块之后，执行模块之前，导入机制设置导入相关的模块属性 (上面的伪代码样例中的"_init_module_attrs")，如在[后面部分](https://docs.python.org/3/reference/import.html#import-mod-attrs)中所提到的。
 
->   * Module execution is the key moment of loading in which the module's
-namespace gets populated. Execution is entirely delegated to the loader, which
-gets to decide what gets populated and how.
+>   * 模块执行时加载的关键之处，其中，模块的命名空间被填充。执行被完全委托给加载器，它决定要填充什么，以及如何填充。
 
->   * The module created during loading and passed to exec_module() may not be
-the one returned at the end of import [2].
+>   * 在加载期间创建以及被传递给exec_module()的模块也许并不是在导入结束时返回的那个 [2]。
 
 >
 
-Changed in version 3.4: The import system has taken over the boilerplate
-responsibilities of loaders. These were previously performed by the [`importli
-b.abc.Loader.load_module()`](https://docs.python.org/3/library/importlib.html#
-importlib.abc.Loader.load_module "importlib.abc.Loader.load_module" ) method.
+版本3.4改动：导入系统已经接管了加载器的样板功能。这些之前是由[`importlib.abc.Loader.load_module()`](https://docs.python.org/3/library/importlib.html#importlib.abc.Loader.load_module "importlib.abc.Loader.load_module" )方法所执行的。
 
-### 5.4.1. Loaders¶
+### 5.4.1. 加载器
 
-Module loaders provide the critical function of loading: module execution. The
-import machinery calls the [`importlib.abc.Loader.exec_module()`](https://docs
-.python.org/3/library/importlib.html#importlib.abc.Loader.exec_module
-"importlib.abc.Loader.exec_module" ) method with a single argument, the module
-object to execute. Any value returned from [`exec_module()`](https://docs.pyth
-on.org/3/library/importlib.html#importlib.abc.Loader.exec_module
-"importlib.abc.Loader.exec_module" ) is ignored.
+模块加载器提供加载的关键功能：模块执行。导入机制带单个参数（要执行的module对象）调用[`importlib.abc.Loader.exec_module()`](https://docs.python.org/3/library/importlib.html#importlib.abc.Loader.exec_module "importlib.abc.Loader.exec_module" )方法。忽略任何从[`exec_module()`](https://docs.python.org/3/library/importlib.html#importlib.abc.Loader.exec_module "importlib.abc.Loader.exec_module" )返回的值。
 
-Loaders must satisfy the following requirements:
+加载器必须满足以下要求：
 
->   * If the module is a Python module (as opposed to a built-in module or a
-dynamically loaded extension), the loader should execute the module's code in
-the module's global name space (`module.__dict__`).
+>   * 如果模块是一个Python模块 (而不是一个内置模块或者一个动态加载的扩展)，那么加载器应该在模块的全局名字空间(`module.__dict__`)中执行该模块的代码。
 
->   * If the loader cannot execute the module, it should raise an
-[`ImportError`](https://docs.python.org/3/library/exceptions.html#ImportError
-"ImportError" ), although any other exception raised during [`exec_module()`](
-https://docs.python.org/3/library/importlib.html#importlib.abc.Loader.exec_mod
-ule "importlib.abc.Loader.exec_module" ) will be propagated.
+>   * 如果加载器不能够执行该模块，那么它应该抛出一个[`ImportError`](https://docs.python.org/3/library/exceptions.html#ImportError
+"ImportError" )，虽然任何其他在[`exec_module()`](https://docs.python.org/3/library/importlib.html#importlib.abc.Loader.exec_mod ule "importlib.abc.Loader.exec_module" )期间引发的异常都将被扩散。
 
 >
 
-In many cases, the finder and loader can be the same object; in such cases the
-[`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.abc
-.MetaPathFinder.find_spec "importlib.abc.MetaPathFinder.find_spec" ) method
-would just return a spec with the loader set to `self`.
+在许多情况下，查找器和加载器可以是同一个对象；在这样的场景下，[`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.abc.MetaPathFinder.find_spec "importlib.abc.MetaPathFinder.find_spec" )方法会值返回一个加载器被设置成`self`的spec。
 
-Module loaders may opt in to creating the module object during loading by
-implementing a [`create_module()`](https://docs.python.org/3/library/importlib
-.html#importlib.abc.Loader.create_module "importlib.abc.Loader.create_module"
-) method. It takes one argument, the module spec, and returns the new module
-object to use during loading. `create_module()` does not need to set any
-attributes on the module object. If the method returns `None`, the import
-machinery will create the new module itself.
+模块加载器可以通过实现[`create_module()`](https://docs.python.org/3/library/importlib.html#importlib.abc.Loader.create_module "importlib.abc.Loader.create_module")方法，在加载期间，选择创建module对象。这个方法接受一个参数，模块spec(module spec)，并返回加载期间要使用的新的module对象。`create_module()`并不需要在module对象上设置任何属性。如果该方法返回`None`，那么，导入机制将会创建新模块自身。
 
-New in version 3.4: The create_module() method of loaders.
+版本3.4新特性：加载器的create_module()方法。
 
-Changed in version 3.4: The [`load_module()`](https://docs.python.org/3/librar
-y/importlib.html#importlib.abc.Loader.load_module
-"importlib.abc.Loader.load_module" ) method was replaced by [`exec_module()`](
-https://docs.python.org/3/library/importlib.html#importlib.abc.Loader.exec_mod
-ule "importlib.abc.Loader.exec_module" ) and the import machinery assumed all
-the boilerplate responsibilities of loading.
+版本3.4改动：[`load_module()`](https://docs.python.org/3/library/importlib.html#importlib.abc.Loader.load_module "importlib.abc.Loader.load_module" )方法被[`exec_module()`](https://docs.python.org/3/library/importlib.html#importlib.abc.Loader.exec_module "importlib.abc.Loader.exec_module" )替代，而导入机制承担所有加载的样板责任。
 
-For compatibility with existing loaders, the import machinery will use the
-`load_module()` method of loaders if it exists and the loader does not also
-implement `exec_module()`. However, `load_module()` has been deprecated and
-loaders should implement `exec_module()` instead.
+要与现有的加载器兼容，如果加载器的`load_module()`存在，并且加载器也没有实现`exec_module()`，那么导入机制会使用加载器的`load_module()`方法。但是，`load_module()`已被启用，而加载器应该实现`exec_module()`。
 
-The `load_module()` method must implement all the boilerplate loading
-functionality described above in addition to executing the module. All the
-same constraints apply, with some additional clarification:
+除了执行模块，`load_module()`方法必须实现上述的所有样板加载功能。所有相同的约束都适用，有一些而外的澄清：
 
->   * If there is an existing module object with the given name in
-[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules
-"sys.modules" ), the loader must use that existing module. (Otherwise, [`impor
-tlib.reload()`](https://docs.python.org/3/library/importlib.html#importlib.rel
-oad "importlib.reload" ) will not work correctly.) If the named module does
-not exist in
-[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules
-"sys.modules" ), the loader must create a new module object and add it to
-[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules
-"sys.modules" ).
+>   * 如果在[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules "sys.modules" )中，存在与现有名字相同的module对象，那么加载器必须使用哪个现有模块。(否则，[`importlib.reload()`](https://docs.python.org/3/library/importlib.html#importlib.reload "importlib.reload" )不会正确工作。) 如果命名模块在[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules "sys.modules" )中并不存在，那么加载器必须创建一个新的module对象，并把它添加到[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules "sys.modules" )中。
 
->   * The module _must_ exist in
-[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules
-"sys.modules" ) before the loader executes the module code, to prevent
-unbounded recursion or multiple loading.
+>   * 在加载器执行模块代码之前，模块_必须_存在于[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules "sys.modules" )之中，以防止无限递归或者多重加载。
 
->   * If loading fails, the loader must remove any modules it has inserted
-into [`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules
-"sys.modules" ), but it must remove **only** the failing module(s), and only
-if the loader itself has loaded the module(s) explicitly.
+>   * 如果加载失败，那么加载器必须移除任何它已经插入到[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules "sys.modules" )中的模块，但是它必须**只**移除失败的模块，并且只有加载器自身已明确加载的那些模块。
 
 >
 
-Changed in version 3.5: A [`DeprecationWarning`](https://docs.python.org/3/lib
-rary/exceptions.html#DeprecationWarning "DeprecationWarning" ) is raised when
-`exec_module()` is defined but `create_module()` is not. Starting in Python
-3.6 it will be an error to not define `create_module()` on a loader attached
-to a ModuleSpec.
+版本3.5改动： 当定义了`exec_module()`，而未定义`create_module()`时，会抛出[`DeprecationWarning`](https://docs.python.org/3/library/exceptions.html#DeprecationWarning "DeprecationWarning" )。从Python 3.6开始，不在附加到一个ModuleSpec上的加载器上定义`create_module()`，这种情况将会是一种错误。
 
-### 5.4.2. Submodules¶
+### 5.4.2. 子模块
 
-When a submodule is loaded using any mechanism (e.g. `importlib` APIs, the
-`import` or `import-from` statements, or built-in `__import__()`) a binding is
-placed in the parent module's namespace to the submodule object. For example,
-if package `spam` has a submodule `foo`, after importing `spam.foo`, `spam`
-will have an attribute `foo` which is bound to the submodule. Let's say you
-have the following directory structure:
+当使用任意机制(例如，`importlib` API，`import`或者`import-from`语句，或者内置的`__import__()`)加载一个子模块时，会在父模块的名字空间中对子模块对象进行绑定。例如，如果在导入`spam.foo`之后，包`spam`有一个子模块`foo`，那么`spam`将会有一个属性`foo`，它被绑定到该子模块。假设你有以下目录结构：
 
-[code]
 
     spam/
         __init__.py
         foo.py
         bar.py
     
-[/code]
 
-and `spam/__init__.py` has the following lines in it:
+而在`spam/__init__.py`中，有以下行：
 
-[code]
 
     from .foo import Foo
     from .bar import Bar
     
-[/code]
 
-then executing the following puts a name binding to `foo` and `bar` in the
-`spam` module:
+那么，执行以下代码，会在`spam`模块中放置一个到`foo`和`foo`的名字绑定：
 
-[code]
 
     >>> import spam
     >>> spam.foo
@@ -408,594 +228,230 @@ then executing the following puts a name binding to `foo` and `bar` in the
     >>> spam.bar
     <module 'spam.bar' from '/tmp/imports/spam/bar.py'>
     
-[/code]
 
-Given Python's familiar name binding rules this might seem surprising, but
-it's actually a fundamental feature of the import system. The invariant
-holding is that if you have `sys.modules['spam']` and
-`sys.modules['spam.foo']` (as you would after the above import), the latter
-must appear as the `foo` attribute of the former.
+给定Python熟悉的名字绑定规则，这也许看起来令人惊讶，但是它实际上是导入系统的一个基本特征。不变的是，如果你有`sys.modules['spam']`和`sys.modules['spam.foo']` (在上面的导入之后，就会有)，那么后者必须作为前者的`foo`属性出现。
 
-### 5.4.3. Module spec¶
+### 5.4.3. 模块spec（Module spec）
 
-The import machinery uses a variety of information about each module during
-import, especially before loading. Most of the information is common to all
-modules. The purpose of a module's spec is to encapsulate this import-related
-information on a per-module basis.
+在导入过程中，特别是在加载之前，导入机制使用关于每个模块的各种信息。大部分的信息对所有模块而言都是通用的。模块spec的目的在于，在每个模块基础上，封装导入相关的信息。
 
-Using a spec during import allows state to be transferred between import
-system components, e.g. between the finder that creates the module spec and
-the loader that executes it. Most importantly, it allows the import machinery
-to perform the boilerplate operations of loading, whereas without a module
-spec the loader had that responsibility.
+在导入期间使用一个spec允许在导入系统组件之间传输状态，例如，在创建模块spec的查找器和执行spec的加载器之间。最重要的是，它允许导入机制执行加载的样板操作，反之，没有模块spec，加载器则承担那个责任。
 
-See [`ModuleSpec`](https://docs.python.org/3/library/importlib.html#importlib.
-machinery.ModuleSpec "importlib.machinery.ModuleSpec" ) for more specifics on
-what information a module's spec may hold.
+见[`ModuleSpec`](https://docs.python.org/3/library/importlib.html#importlib.machinery.ModuleSpec "importlib.machinery.ModuleSpec" )，了解关于模块可能包含的信息的更多详细信息。
 
-New in version 3.4.
+版本3.4新特性。
 
-### 5.4.4. Import-related module attributes¶
+### 5.4.4. 导入相关的模块属性
 
-The import machinery fills in these attributes on each module object during
-loading, based on the module's spec, before the loader executes the module.
+在加载器执行模块之前，加载期间，基于模块spec，导入机制在每个module对象上填充这些属性。
 
-`__name__`¶
+`__name__`
 
     
 
-The `__name__` attribute must be set to the fully-qualified name of the
-module. This name is used to uniquely identify the module in the import
-system.
+`__name__`属性必须设置为模块的完全限定名。这个名字被用来在导入系统中唯一标识该模块。
 
-`__loader__`¶
+`__loader__`
 
     
 
-The `__loader__` attribute must be set to the loader object that the import
-machinery used when loading the module. This is mostly for introspection, but
-can be used for additional loader-specific functionality, for example getting
-data associated with a loader.
+`__loader__`属性必须设置为导入机制在加载该模块的时候使用的加载器对象。这大部分是用于自省，但可以被用于额外的加载特定的功能，例如，获取与加载器关联的数据。
 
-`__package__`¶
+`__package__`
 
     
 
-The module's `__package__` attribute must be set. Its value must be a string,
-but it can be the same value as its `__name__`. When the module is a package,
-its `__package__` value should be set to its `__name__`. When the module is
-not a package, `__package__` should be set to the empty string for top-level
-modules, or for submodules, to the parent package's name. See [**PEP
-366**](https://www.python.org/dev/peps/pep-0366) for further details.
+必须设置模块的`__package__`属性。它的值必须是一个字符串，但是，它可以是与`__name__`一样的值。当该模块是一个包的时候，必须设置它的`__package__`值为它的`__name__`。当该模块不是一个包的时候，对于顶级模块，应该设置`__package__`为空字符串，或者对于子模块，应该设置为其父包名。见[**PEP 366**](https://www.python.org/dev/peps/pep-0366)，以了解更多细节。
 
-This attribute is used instead of `__name__` to calculate explicit relative
-imports for main modules, as defined in [**PEP
-366**](https://www.python.org/dev/peps/pep-0366). It is expected to have the
-same value as `__spec__.parent`.
+这个属性被用来取代`__name__`计算主模块的显式相对导入，如[**PEP 366**](https://www.python.org/dev/peps/pep-0366)中定义。期望它拥有与`__spec__.parent`相同的值。
 
-Changed in version 3.6: The value of `__package__` is expected to be the same
-as `__spec__.parent`.
+版本3.6改动：期望`__package__`的值与`__spec__.parent`相同。
 
-`__spec__`¶
+`__spec__`
 
     
 
-The `__spec__` attribute must be set to the module spec that was used when
-importing the module. Setting `__spec__` appropriately applies equally to
-[modules initialized during interpreter startup](https://docs.python.org/3/ref
-erence/toplevel_components.html#programs). The one exception is `__main__`,
-where `__spec__` is set to None in some cases.
+必须设置`__spec__`属性为在导入该模块时使用的模块spec。适当地设置`__spec__`同样适用于[解释器启动期间初始化的模块](https://docs.python.org/3/reference/toplevel_components.html#programs)。唯一的例外是`__main__`，这里，在某些情况下，`__spec__`被设置为None。
 
-When `__package__` is not defined, `__spec__.parent` is used as a fallback.
+当`__package__`未定义时，`__spec__.parent`被当成回退使用。
 
-New in version 3.4.
+版本3.4新特性.
 
-Changed in version 3.6: `__spec__.parent` is used as a fallback when
-`__package__` is not defined.
+版本3.6改动：当`__package__`未定义时，`__spec__.parent`被当成回退使用。
 
-`__path__`¶
+`__path__`
 
     
 
-If the module is a package (either regular or namespace), the module object's
-`__path__` attribute must be set. The value must be iterable, but may be empty
-if `__path__` has no further significance. If `__path__` is not empty, it must
-produce strings when iterated over. More details on the semantics of
-`__path__` are given below.
+如果模块是一个包 (无论是常规的还是名字空间)，都必须设置module对象的`__path__`属性。值必须是可迭代的，但如果`__path__`没有进一步的意义，则可以为空。如果`__path__`非空，那么在迭代的时候，必须生成字符串。下面给出了关于`__path__`语义的更多细节。
 
-Non-package modules should not have a `__path__` attribute.
+非包模块不应该有`__path__`属性。
 
-`__file__`¶
+`__file__`
 
     
 
-`__cached__`¶
+`__cached__`
 
     
 
-`__file__` is optional. If set, this attribute's value must be a string. The
-import system may opt to leave `__file__` unset if it has no semantic meaning
-(e.g. a module loaded from a database).
+`__file__`是可选的。如果设置了这个属性，那么它的值必须是字符串。如果导入系统没有语义（例如，一个从数据库加载的模块），则可以保留`__file__`未设置。
 
-If `__file__` is set, it may also be appropriate to set the `__cached__`
-attribute which is the path to any compiled version of the code (e.g. byte-
-compiled file). The file does not need to exist to set this attribute; the
-path can simply point to where the compiled file would exist (see [**PEP
-3147**](https://www.python.org/dev/peps/pep-3147)).
+如果设置了`__file__`，那么也可以适当地设置`__cached__`属性，这是到代码的任何编译版本 (例如，字节编译文件) 的路径。要设置这个属性，文件无需存在；路径可以简单指向编译文件将存在的地方 (见[**PEP 3147**](https://www.python.org/dev/peps/pep-3147)).
 
-It is also appropriate to set `__cached__` when `__file__` is not set.
-However, that scenario is quite atypical. Ultimately, the loader is what makes
-use of `__file__` and/or `__cached__`. So if a loader can load from a cached
-module but otherwise does not load from a file, that atypical scenario may be
-appropriate.
+当未设置`__file__`的时候，也可以适当地设置`__cached__`。然而，这种情况是相当不正常的。最终，加载器是利用`__file__`和/或者`__cached__`的那个东东。因此，如果一个加载器可以从一个已缓存模块加载，但不能从文件加载，那么，那个非典型场景也许是适当的。
 
-### 5.4.5. module.__path__¶
+### 5.4.5. module.__path__
 
-By definition, if a module has an `__path__` attribute, it is a package,
-regardless of its value.
+根据定义，如果一个模块拥有一个`__path__`属性，那么它是一个包，而不管它的值是什么。
 
-A package's `__path__` attribute is used during imports of its subpackages.
-Within the import machinery, it functions much the same as
-[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" ),
-i.e. providing a list of locations to search for modules during import.
-However, `__path__` is typically much more constrained than
-[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" ).
+在一个包的子包的导入期间，会使用这个包的`__path__`属性。在导入机制中，它的功能几乎与[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )一致，例如，提供导入期间用以搜索模块的位置列表。然而，`__path__`通常比[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )更多约束。
 
-`__path__` must be an iterable of strings, but it may be empty. The same rules
-used for [`sys.path`](https://docs.python.org/3/library/sys.html#sys.path
-"sys.path" ) also apply to a package's `__path__`, and
-[`sys.path_hooks`](https://docs.python.org/3/library/sys.html#sys.path_hooks
-"sys.path_hooks" ) (described below) are consulted when traversing a package's
-`__path__`.
+`__path__`必须是字符串的可迭代对象，但它也可以是空的。用于[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )的规则同样也适用于包的`__path__`，而在遍历一个包的`__path__`的时候，会参考[`sys.path_hooks`](https://docs.python.org/3/library/sys.html#sys.path_hooks "sys.path_hooks" ) (下述)。
 
-A package's `__init__.py` file may set or alter the package's `__path__`
-attribute, and this was typically the way namespace packages were implemented
-prior to [**PEP 420**](https://www.python.org/dev/peps/pep-0420). With the
-adoption of [**PEP 420**](https://www.python.org/dev/peps/pep-0420), namespace
-packages no longer need to supply `__init__.py` files containing only
-`__path__` manipulation code; the import machinery automatically sets
-`__path__` correctly for the namespace package.
+一个包的`__init__.py`文件也许会设置或者改变该包的`__path__`属性，这通常是名字空间包在[**PEP 420**](https://www.python.org/dev/peps/pep-0420)之前实现的方式。随着[**PEP 420**](https://www.python.org/dev/peps/pep-0420)的采纳，名字空间包不再需要提供只包含`__path__`操作代码的`__init__.py`文件；导入机制自动为名字空间包正确设置`__path__`。
 
-### 5.4.6. Module reprs¶
+### 5.4.6. 模块repr
 
-By default, all modules have a usable repr, however depending on the
-attributes set above, and in the module's spec, you can more explicitly
-control the repr of module objects.
+默认情况下，所有的模块都有一个可用的repr，然而，根据上面设置的属性，在模块spec中，可以更明确地控制module对象的repr。
 
-If the module has a spec (`__spec__`), the import machinery will try to
-generate a repr from it. If that fails or there is no spec, the import system
-will craft a default repr using whatever information is available on the
-module. It will try to use the `module.__name__`, `module.__file__`, and
-`module.__loader__` as input into the repr, with defaults for whatever
-information is missing.
+如果模块有一个spec (`__spec__`)，那么导入机制将会尝试从中生成一个repr。如果失败了，或者没有spec，那么导入系统会利用该模块上的任何可用信息来创建默认的repr。它会试着使用`module.__name__`，`module.__file__`，和`module.__loader__`作为repr的输入，对于任何缺失的信息，使用默认值。
 
-Here are the exact rules used:
+以下是使用的确切规则：
 
->   * If the module has a `__spec__` attribute, the information in the spec is
-used to generate the repr. The "name", "loader", "origin", and "has_location"
-attributes are consulted.
+>   * 如果模块拥有一个`__spec__`属性，那么spec重的信息会被用来生成repr。会参考"name", "loader", "origin", 和"has_location"属性。
 
->   * If the module has a `__file__` attribute, this is used as part of the
-module's repr.
+>   * 如果模块拥有一个`__file__`属性，那么这会作为模块的repr的部分使用。
 
->   * If the module has no `__file__` but does have a `__loader__` that is not
-`None`, then the loader's repr is used as part of the module's repr.
+>   * 如果模块没有`__file__`，但有一个非`None`的`__loader__`，那么该加载器的repr会作为模块的repr的部分使用。
 
->   * Otherwise, just use the module's `__name__` in the repr.
+>   * 否则，只需在repr中使用模块的`__name__`。
 
 >
 
-Changed in version 3.4: Use of [`loader.module_repr()`](https://docs.python.or
-g/3/library/importlib.html#importlib.abc.Loader.module_repr
-"importlib.abc.Loader.module_repr" ) has been deprecated and the module spec
-is now used by the import machinery to generate a module repr.
+版本3.4改动：[`loader.module_repr()`](https://docs.python.org/3/library/importlib.html#importlib.abc.Loader.module_repr "importlib.abc.Loader.module_repr" )的使用已被启用，而现在，导入机制使用模块spec来生成一个模块repr。
 
-For backward compatibility with Python 3.3, the module repr will be generated
-by calling the loader's [`module_repr()`](https://docs.python.org/3/library/im
-portlib.html#importlib.abc.Loader.module_repr
-"importlib.abc.Loader.module_repr" ) method, if defined, before trying either
-approach described above. However, the method is deprecated.
+要向后兼容Python 3.3，在尝试任何上述方法之前，如果定义了加载器的[`module_repr()`](https://docs.python.org/3/library/importlib.html#importlib.abc.Loader.module_repr "importlib.abc.Loader.module_repr" )方法，那么将会调用它来生成模块repr。但是，这个方法已弃用。
 
-## 5.5. The Path Based Finder¶
+## 5.5. 基于路径的查找器
 
-As mentioned previously, Python comes with several default meta path finders.
-One of these, called the [path based
-finder](https://docs.python.org/3/glossary.html#term-path-based-finder) ([`Pat
-hFinder`](https://docs.python.org/3/library/importlib.html#importlib.machinery
-.PathFinder "importlib.machinery.PathFinder" )), searches an [import
-path](https://docs.python.org/3/glossary.html#term-import-path), which
-contains a list of [path entries](https://docs.python.org/3/glossary.html
-#term-path-entry). Each path entry names a location to search for modules.
+如前所述，Python附带了几个默认的元路径查找器。其中之一称为[基于路径的查找器](https://docs.python.org/3/glossary.html#term-path-based-finder) ([`PathFinder`](https://docs.python.org/3/library/importlib.html#importlib.machinery.PathFinder "importlib.machinery.PathFinder" ))，它搜索一个[导入路径](https://docs.python.org/3/glossary.html#term-import-path)，其中包含一个[路径入口](https://docs.python.org/3/glossary.html #term-path-entry)列表。每个路径入口命名一个搜索模块的位置。
 
-The path based finder itself doesn't know how to import anything. Instead, it
-traverses the individual path entries, associating each of them with a path
-entry finder that knows how to handle that particular kind of path.
+基于路径的查找器自身并不知道如何导入。相反，它遍历各个路径入口，将它们每个与知道如何处理该特定类型的路径的路径入口查找器相关联。
 
-The default set of path entry finders implement all the semantics for finding
-modules on the file system, handling special file types such as Python source
-code (`.py` files), Python byte code (`.pyc` files) and shared libraries (e.g.
-`.so` files). When supported by the
-[`zipimport`](https://docs.python.org/3/library/zipimport.html#module-
-zipimport "zipimport: support for importing Python modules from ZIP archives."
-) module in the standard library, the default path entry finders also handle
-loading all of these file types (other than shared libraries) from zipfiles.
+路径入口查找器的默认集实现了在文件系统上查找模块的所有语义，处理特殊文件类型，例如Python源代码 (`.py`文件)，Python字节码(`.pyc`文件)，以及共享库 (例如，`.so`文件)。当标准库中的[`zipimport`](https://docs.python.org/3/library/zipimport.html#module-zipimport "zipimport: support for importing Python modules from ZIP archives.")模块支持的时候，默认路径入口查找器还处理来自zip文件的所有这些文件类型 (除共享库外) 的加载。
 
-Path entries need not be limited to file system locations. They can refer to
-URLs, database queries, or any other location that can be specified as a
-string.
+路径入口不必限于文件系统位置。它们可以适用于URL，数据库查询，或者任何其他可以指定为字符串的位置。
 
-The path based finder provides additional hooks and protocols so that you can
-extend and customize the types of searchable path entries. For example, if you
-wanted to support path entries as network URLs, you could write a hook that
-implements HTTP semantics to find modules on the web. This hook (a callable)
-would return a [path entry finder](https://docs.python.org/3/glossary.html
-#term-path-entry-finder) supporting the protocol described below, which was
-then used to get a loader for the module from the web.
+基于路径的查找器提供额外的钩子和协议，以便你能扩展和自定义可搜索路径入口的类型。例如，如果你想要支持网络URL作为路径入口，那么你可以编写一个实现了HTTP语义来在网上查找模块的钩子。这个钩子 (一个可调用对象) 将返回一个[路径入口查找器](https://docs.python.org/3/glossary.html#term-path-entry-finder)，支持下述协议，然后用来从网上获取模块的加载器。
 
-A word of warning: this section and the previous both use the term _finder_,
-distinguishing between them by using the terms [meta path
-finder](https://docs.python.org/3/glossary.html#term-meta-path-finder) and
-[path entry finder](https://docs.python.org/3/glossary.html#term-path-entry-
-finder). These two types of finders are very similar, support similar
-protocols, and function in similar ways during the import process, but it's
-important to keep in mind that they are subtly different. In particular, meta
-path finders operate at the beginning of the import process, as keyed off the
-[`sys.meta_path`](https://docs.python.org/3/library/sys.html#sys.meta_path
-"sys.meta_path" ) traversal.
+提醒一句：本节和前面部分都使用了术语_查找器_，通过使用术语[元路径查找器](https://docs.python.org/3/glossary.html#term-meta-path-finder)和[路径入口查找器](https://docs.python.org/3/glossary.html#term-path-entry-finder)来区分它们。这两个类型的查找器是非常相似的，支持类似协议，并且在导入过程中功能类似，但是请务必记住，它们有微妙的区别。特别是，元路径查找器在导入过程的开始时执行，切断[`sys.meta_path`](https://docs.python.org/3/library/sys.html#sys.meta_path "sys.meta_path" )遍历。
 
-By contrast, path entry finders are in a sense an implementation detail of the
-path based finder, and in fact, if the path based finder were to be removed
-from
-[`sys.meta_path`](https://docs.python.org/3/library/sys.html#sys.meta_path
-"sys.meta_path" ), none of the path entry finder semantics would be invoked.
+相比之下，某种意义上，路径入口查找器是基于路径的查找器一种实现细节，并且，实际上，如果将基于路径的查找器从[`sys.meta_path`](https://docs.python.org/3/library/sys.html#sys.meta_path "sys.meta_path" )移除，那么，不会调用任何路径入口查找器语义。
 
-### 5.5.1. Path entry finders¶
+### 5.5.1. 路径入口查找器
 
-The [path based finder](https://docs.python.org/3/glossary.html#term-path-
-based-finder) is responsible for finding and loading Python modules and
-packages whose location is specified with a string [path
-entry](https://docs.python.org/3/glossary.html#term-path-entry). Most path
-entries name locations in the file system, but they need not be limited to
-this.
+[路径入口查找器](https://docs.python.org/3/glossary.html#term-path-based-finder)负责查找和加载位置由一个字符串[路径入口](https://docs.python.org/3/glossary.html#term-path-entry)指定的Python模块和包。大部分的路径入口在文件系统中命名位置，但是它们无需受限于此。
 
-As a meta path finder, the [path based
-finder](https://docs.python.org/3/glossary.html#term-path-based-finder)
-implements the [`find_spec()`](https://docs.python.org/3/library/importlib.htm
-l#importlib.abc.MetaPathFinder.find_spec
-"importlib.abc.MetaPathFinder.find_spec" ) protocol previously described,
-however it exposes additional hooks that can be used to customize how modules
-are found and loaded from the [import
-path](https://docs.python.org/3/glossary.html#term-import-path).
+作为一个元路径查找器，[基于路径的查找器](https://docs.python.org/3/glossary.html#term-path-based-finder)实现了前面提到的[`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.abc.MetaPathFinder.find_spec "importlib.abc.MetaPathFinder.find_spec" )协议，但是，它公开了额外的钩子，可以用来自定义怎样查找并从[导入路径](https://docs.python.org/3/glossary.html#term-import-path)中加载模块。
 
-Three variables are used by the [path based
-finder](https://docs.python.org/3/glossary.html#term-path-based-finder),
-[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" ),
-[`sys.path_hooks`](https://docs.python.org/3/library/sys.html#sys.path_hooks
-"sys.path_hooks" ) and [`sys.path_importer_cache`](https://docs.python.org/3/l
-ibrary/sys.html#sys.path_importer_cache "sys.path_importer_cache" ). The
-`__path__` attributes on package objects are also used. These provide
-additional ways that the import machinery can be customized.
+[基于路径的查找器](https://docs.python.org/3/glossary.html#term-path-based-finder)使用三个变量：[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )，[`sys.path_hooks`](https://docs.python.org/3/library/sys.html#sys.path_hooks "sys.path_hooks" )和[`sys.path_importer_cache`](https://docs.python.org/3/library/sys.html#sys.path_importer_cache "sys.path_importer_cache" )。也使用包对象上的`__path__`属性。这些提供了可以自定义导入机制的额外的方法。
 
-[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )
-contains a list of strings providing search locations for modules and
-packages. It is initialized from the `PYTHONPATH` environment variable and
-various other installation- and implementation-specific defaults. Entries in
-[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )
-can name directories on the file system, zip files, and potentially other
-"locations" (see the [`site`](https://docs.python.org/3/library/site.html
-#module-site "site: Module responsible for site-specific configuration." )
-module) that should be searched for modules, such as URLs, or database
-queries. Only strings and bytes should be present on
-[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" );
-all other data types are ignored. The encoding of bytes entries is determined
-by the individual [path entry finders](https://docs.python.org/3/glossary.html
-#term-path-entry-finder).
+[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )包含了模块和包的搜索位置字符串组成的列表。它是根据`PYTHONPATH`环境变量和各种其他安装以及实现相关的默认值进行初始化的。[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )中的项可以在文件系统、zip文件和潜在的其他应该可以用来搜索模块的“位置” (见[`site`](https://docs.python.org/3/library/site.html#module-site "site: Module responsible for site-specific configuration." )，例如URL，或者数据库查询，上命名目录。[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )应该只存在字符串和字节；忽略所有其他数据类型。字节项的编码由各个[路径入口查找器](https://docs.python.org/3/glossary.html#term-path-entry-finder)决定。
 
-The [path based finder](https://docs.python.org/3/glossary.html#term-path-
-based-finder) is a [meta path finder](https://docs.python.org/3/glossary.html
-#term-meta-path-finder), so the import machinery begins the [import
-path](https://docs.python.org/3/glossary.html#term-import-path) search by
-calling the path based finder's [`find_spec()`](https://docs.python.org/3/libr
-ary/importlib.html#importlib.machinery.PathFinder.find_spec
-"importlib.machinery.PathFinder.find_spec" ) method as described previously.
-When the `path` argument to [`find_spec()`](https://docs.python.org/3/library/
-importlib.html#importlib.machinery.PathFinder.find_spec
-"importlib.machinery.PathFinder.find_spec" ) is given, it will be a list of
-string paths to traverse - typically a package's `__path__` attribute for an
-import within that package. If the `path` argument is `None`, this indicates a
-top level import and
-[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )
-is used.
+[基于路径的查找器](https://docs.python.org/3/glossary.html#term-path-based-finder)是一种[元路径查找器](https://docs.python.org/3/glossary.html#term-meta-path-finder)，因此，导入机制通过调用前面描述的基于路径的查找器的[`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.machinery.athFinder.find_spec "importlib.machinery.PathFinder.find_spec" )方法来开始[导入路径](https://docs.python.org/3/glossary.html#term-import-path)搜索。当为[`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.machinery.PathFinder.find_spec "importlib.machinery.PathFinder.find_spec" )提供了`path`参数值时，这个值将会是要遍历的字符串路径列表 —— 通常是一个包中用于导入的包的`__path__`属性。如果`path`参数值是`None`，表示这是一个顶级导入，会使用[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )。
 
-The path based finder iterates over every entry in the search path, and for
-each of these, looks for an appropriate [path entry
-finder](https://docs.python.org/3/glossary.html#term-path-entry-finder) ([`Pat
-hEntryFinder`](https://docs.python.org/3/library/importlib.html#importlib.abc.
-PathEntryFinder "importlib.abc.PathEntryFinder" )) for the path entry. Because
-this can be an expensive operation (e.g. there may be stat() call overheads
-for this search), the path based finder maintains a cache mapping path entries
-to path entry finders. This cache is maintained in [`sys.path_importer_cache`]
-(https://docs.python.org/3/library/sys.html#sys.path_importer_cache
-"sys.path_importer_cache" ) (despite the name, this cache actually stores
-finder objects rather than being limited to
-[importer](https://docs.python.org/3/glossary.html#term-importer) objects). In
-this way, the expensive search for a particular [path
-entry](https://docs.python.org/3/glossary.html#term-path-entry) location's
-[path entry finder](https://docs.python.org/3/glossary.html#term-path-entry-
-finder) need only be done once. User code is free to remove cache entries from
-[`sys.path_importer_cache`](https://docs.python.org/3/library/sys.html#sys.pat
-h_importer_cache "sys.path_importer_cache" ) forcing the path based finder to
-perform the path entry search again [3].
+基于路径的查找器遍历搜索路径中的每一项，对于它们中的每一个，为其寻找一个适当的[路径入口查找器](https://docs.python.org/3/glossary.html#term-path-entry-finder) ([`PathEntryFinder`](https://docs.python.org/3/library/importlib.html#importlib.abc.PathEntryFinder "importlib.abc.PathEntryFinder" ))。由于这可能会是一种昂贵的操作 (例如，对于这种搜索，可能存在stat()调用开销)，因此，该基于路径的查找器维护一个缓存，将路径入口映射到路径入口查找器。这个缓存是在[`sys.path_importer_cache`](https://docs.python.org/3/library/sys.html#sys.path_importer_cache "sys.path_importer_cache" )中维护的 (尽管名字如此，但是这个缓存实际上存储了查找器对象，而不是受限于[导入器](https://docs.python.org/3/glossary.html#term-importer) objects)。通过这种方式，对于特定[路径入口](https://docs.python.org/3/glossary.html#term-path-entry)位置的[路径入口查找器](https://docs.python.org/3/glossary.html#term-path-entry-finder)的昂贵搜索，只需要进行一次。用户代码可以自由地将缓存项从[`sys.path_importer_cache`](https://docs.python.org/3/library/sys.html#sys.path_importer_cache "sys.path_importer_cache" )中删除，强制基于路径的查找器再次进行路径入口搜索 [3]。
 
-If the path entry is not present in the cache, the path based finder iterates
-over every callable in
-[`sys.path_hooks`](https://docs.python.org/3/library/sys.html#sys.path_hooks
-"sys.path_hooks" ). Each of the [path entry
-hooks](https://docs.python.org/3/glossary.html#term-path-entry-hook) in this
-list is called with a single argument, the path entry to be searched. This
-callable may either return a [path entry
-finder](https://docs.python.org/3/glossary.html#term-path-entry-finder) that
-can handle the path entry, or it may raise
-[`ImportError`](https://docs.python.org/3/library/exceptions.html#ImportError
-"ImportError" ). An
-[`ImportError`](https://docs.python.org/3/library/exceptions.html#ImportError
-"ImportError" ) is used by the path based finder to signal that the hook
-cannot find a [path entry finder](https://docs.python.org/3/glossary.html
-#term-path-entry-finder) for that [path
-entry](https://docs.python.org/3/glossary.html#term-path-entry). The exception
-is ignored and [import path](https://docs.python.org/3/glossary.html#term-
-import-path) iteration continues. The hook should expect either a string or
-bytes object; the encoding of bytes objects is up to the hook (e.g. it may be
-a file system encoding, UTF-8, or something else), and if the hook cannot
-decode the argument, it should raise
-[`ImportError`](https://docs.python.org/3/library/exceptions.html#ImportError
-"ImportError" ).
+如果路径入口并不存在于缓存中，那么基于路径的查找器会迭代[`sys.path_hooks`](https://docs.python.org/3/library/sys.html#sys.path_hooks "sys.path_hooks" )中的每个可调用对象。这个列表中的每个[路径入口钩子](https://docs.python.org/3/glossary.html#term-path-entry-hook)在调用时带单个参数，即要搜索的路径入口。这个可调用对象要么返回一个可以处理该路径入口的[路径入口查找器](https://docs.python.org/3/glossary.html#term-path-entry-finder)，要么引发[`ImportError`](https://docs.python.org/3/library/exceptions.html#ImportError "ImportError" )。基于路径的查找器使用[`ImportError`](https://docs.python.org/3/library/exceptions.html#ImportError "ImportError" )来表示钩子无法为那个[路径入口](https://docs.python.org/3/glossary.html#term-path-entry)找到一个[路径入口查找器](https://docs.python.org/3/glossary.html#term-path-entry-finder)。忽略该异常，并继续[导入路径](https://docs.python.org/3/glossary.html#term-import-path)迭代。该钩子应期望一个字符串或者字节对象参数；字节对象的编码取决于钩子 (例如，它可能是一个文件系统编码，UTF-8，或其他什么的)，如果钩子不能解码参数，那么它应该引发[`ImportError`](https://docs.python.org/3/library/exceptions.html#ImportError "ImportError" )。
 
-If
-[`sys.path_hooks`](https://docs.python.org/3/library/sys.html#sys.path_hooks
-"sys.path_hooks" ) iteration ends with no [path entry
-finder](https://docs.python.org/3/glossary.html#term-path-entry-finder) being
-returned, then the path based finder's [`find_spec()`](https://docs.python.org
-/3/library/importlib.html#importlib.machinery.PathFinder.find_spec
-"importlib.machinery.PathFinder.find_spec" ) method will store `None` in [`sys
-.path_importer_cache`](https://docs.python.org/3/library/sys.html#sys.path_imp
-orter_cache "sys.path_importer_cache" ) (to indicate that there is no finder
-for this path entry) and return `None`, indicating that this [meta path
-finder](https://docs.python.org/3/glossary.html#term-meta-path-finder) could
-not find the module.
+如果[`sys.path_hooks`](https://docs.python.org/3/library/sys.html#sys.path_hooks "sys.path_hooks" )迭代的结果是不返回任何一个[路径入口查找器](https://docs.python.org/3/glossary.html#term-path-entry-finder)，那么，基于路径的查找器的[`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.machinery.PathFinder.find_spec "importlib.machinery.PathFinder.find_spec" )方法将会把`None`存在[`sys.path_importer_cache`](https://docs.python.org/3/library/sys.html#sys.path_importer_cache "sys.path_importer_cache" )中 (表示对于这个路径入口，没有查找器)，并返回`None`，表示这个[元路径查找器](https://docs.python.org/3/glossary.html#term-meta-path-finder)无法找到此模块。
 
-If a [path entry finder](https://docs.python.org/3/glossary.html#term-path-
-entry-finder) _is_ returned by one of the [path entry
-hook](https://docs.python.org/3/glossary.html#term-path-entry-hook) callables
-on
-[`sys.path_hooks`](https://docs.python.org/3/library/sys.html#sys.path_hooks
-"sys.path_hooks" ), then the following protocol is used to ask the finder for
-a module spec, which is then used when loading the module.
+如果[`sys.path_hooks`](https://docs.python.org/3/library/sys.html#sys.path_hooks "sys.path_hooks" )上的任意一个[路径入口钩子](https://docs.python.org/3/glossary.html#term-path-entry-hook)可调用对象返回了一个[路径入口查找器](https://docs.python.org/3/glossary.html#term-path-entry-finder)，那么会使用以下协议来向查找器获取一个模块spec，这在稍后加载该模块时会被使用。
 
-The current working directory - denoted by an empty string - is handled
-slightly differently from other entries on
-[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" ).
-First, if the current working directory is found to not exist, no value is
-stored in [`sys.path_importer_cache`](https://docs.python.org/3/library/sys.ht
-ml#sys.path_importer_cache "sys.path_importer_cache" ). Second, the value for
-the current working directory is looked up fresh for each module lookup.
-Third, the path used for [`sys.path_importer_cache`](https://docs.python.org/3
-/library/sys.html#sys.path_importer_cache "sys.path_importer_cache" ) and
-returned by [`importlib.machinery.PathFinder.find_spec()`](https://docs.python
-.org/3/library/importlib.html#importlib.machinery.PathFinder.find_spec
-"importlib.machinery.PathFinder.find_spec" ) will be the actual current
-working directory and not the empty string.
+当前工作目录（由空字符串表示）与[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )上的其他入口的处理方式稍有不同。首先，如果发现当前工作目录不存在，那么，不在[`sys.path_importer_cache`](https://docs.python.org/3/library/sys.html#sys.path_importer_cache "sys.path_importer_cache" )中存储任何值。第二，对于每次模块查找，会搜索刷新的当前工作目录的值。第三，用于[`sys.path_importer_cache`](https://docs.python.org/3/library/sys.html#sys.path_importer_cache "sys.path_importer_cache" )和[`importlib.machinery.PathFinder.find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.machinery.PathFinder.find_spec "importlib.machinery.PathFinder.find_spec" )返回的路径将会是真正的当前工作目录，而不是空字符串。
 
-### 5.5.2. Path entry finder protocol¶
+### 5.5.2. 路径入口查找器协议
 
-In order to support imports of modules and initialized packages and also to
-contribute portions to namespace packages, path entry finders must implement
-the [`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib
-.abc.PathEntryFinder.find_spec "importlib.abc.PathEntryFinder.find_spec" )
-method.
+为了支持模块和已初始包的导入，以及贡献部分到名字空间包中，路径入口查找器必须实现[`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.abc.PathEntryFinder.find_spec "importlib.abc.PathEntryFinder.find_spec" )方法。
 
-[`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.abc
-.PathEntryFinder.find_spec "importlib.abc.PathEntryFinder.find_spec" ) takes
-two argument, the fully qualified name of the module being imported, and the
-(optional) target module. `find_spec()` returns a fully populated spec for the
-module. This spec will always have "loader" set (with one exception).
+[`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.abc.PathEntryFinder.find_spec "importlib.abc.PathEntryFinder.find_spec" )接受两个参数，导入模块的完全限定名，以及（可选的）目标模块。`find_spec()`返回模块的一个完全填充的spec。这个spec将总是拥有“加载器”集合 (有一个例外)。
 
-To indicate to the import machinery that the spec represents a namespace
-[portion](https://docs.python.org/3/glossary.html#term-portion). the path
-entry finder sets "loader" on the spec to `None` and
-"submodule_search_locations" to a list containing the portion.
+要向导入机制表明该spec表示一个名字空间[部分](https://docs.python.org/3/glossary.html#term-portion)，路径入口查找器设置spec上的“加载器”为`None`，设置"submodule_search_locations"为一个包含该部分的列表。
 
-Changed in version 3.4: [`find_spec()`](https://docs.python.org/3/library/impo
-rtlib.html#importlib.abc.PathEntryFinder.find_spec
-"importlib.abc.PathEntryFinder.find_spec" ) replaced [`find_loader()`](https:/
-/docs.python.org/3/library/importlib.html#importlib.abc.PathEntryFinder.find_l
-oader "importlib.abc.PathEntryFinder.find_loader" ) and [`find_module()`](http
-s://docs.python.org/3/library/importlib.html#importlib.abc.PathEntryFinder.fin
-d_module "importlib.abc.PathEntryFinder.find_module" ), both of which are now
-deprecated, but will be used if `find_spec()` is not defined.
+版本3.4改动： [`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.abc.PathEntryFinder.find_spec "importlib.abc.PathEntryFinder.find_spec" )替换了[`find_loader()`](https://docs.python.org/3/library/importlib.html#importlib.abc.PathEntryFinder.find_loader "importlib.abc.PathEntryFinder.find_loader" )和[`find_module()`](https://docs.python.org/3/library/importlib.html#importlib.abc.PathEntryFinder.find_module "importlib.abc.PathEntryFinder.find_module" )，这两个现在都已弃用了，但如果未定义`find_spec()`，则仍会使用它们。
 
-Older path entry finders may implement one of these two deprecated methods
-instead of `find_spec()`. The methods are still respected for the sake of
-backward compatibility. However, if `find_spec()` is implemented on the path
-entry finder, the legacy methods are ignored.
+较老的路径入口查找器可能实现这两个已弃用方法其中的一个，而不是`find_spec()`。出于向后兼容，这些方法仍然会被尊重。然而，如果在路径入口查找器上实现了`find_spec()`，那么就会忽略这些遗留方法。
 
-[`find_loader()`](https://docs.python.org/3/library/importlib.html#importlib.a
-bc.PathEntryFinder.find_loader "importlib.abc.PathEntryFinder.find_loader" )
-takes one argument, the fully qualified name of the module being imported.
-`find_loader()` returns a 2-tuple where the first item is the loader and the
-second item is a namespace [portion](https://docs.python.org/3/glossary.html
-#term-portion). When the first item (i.e. the loader) is `None`, this means
-that while the path entry finder does not have a loader for the named module,
-it knows that the path entry contributes to a namespace portion for the named
-module. This will almost always be the case where Python is asked to import a
-namespace package that has no physical presence on the file system. When a
-path entry finder returns `None` for the loader, the second item of the
-2-tuple return value must be a sequence, although it can be empty.
+[`find_loader()`](https://docs.python.org/3/library/importlib.html#importlib.abc.PathEntryFinder.find_loader "importlib.abc.PathEntryFinder.find_loader" )接受一个参数，导入模块的一个完全受限名。`find_loader()`返回一个二元元组，其中，第一个元素是加载器，第二个元素则是一个名字空间[部分](https://docs.python.org/3/glossary.html#term-portion)。当第一个元素 (即，加载器) 为`None`时，意味着，对于这个命名模块，虽然路径入口查找器没有一个加载器，但是它知道，路径入口贡献给了一个名字空间部分。这将几乎总是这种情况：让Python导入一个在文件系统上没有物理实体的名字空间包。当一个路径入口查找器返回的加载器为`None`的时候，二元元组的第二个元素的返回值必须是一个序列，虽然它可以是空的。
 
-If `find_loader()` returns a non-`None` loader value, the portion is ignored
-and the loader is returned from the path based finder, terminating the search
-through the path entries.
+如果`find_loader()`返回一个非`None`加载器值，那么，忽略部分(portion)，并从基于路径的查找器返回加载器，终止对路径入口的搜索。
 
-For backwards compatibility with other implementations of the import protocol,
-many path entry finders also support the same, traditional `find_module()`
-method that meta path finders support. However path entry finder
-`find_module()` methods are never called with a `path` argument (they are
-expected to record the appropriate path information from the initial call to
-the path hook).
+为了与导入协议的其他实现向后兼容，许多路径入口查找器也支持相同，传统的，为元路径查找器所支持的`find_module()`方法。然而，从不用一个`path`参数调用路径入口查找器的`find_module()`方法 (期望它们记录来自于对路径钩子的初始调用的适当的路径信息)。
 
-The `find_module()` method on path entry finders is deprecated, as it does not
-allow the path entry finder to contribute portions to namespace packages. If
-both `find_loader()` and `find_module()` exist on a path entry finder, the
-import system will always call `find_loader()` in preference to
-`find_module()`.
+路径入口查找器上的`find_module()`方法已被启用，因为它不允许路径入口查找器共享部分到名字空间包中。如果在一个路径入口查找器上同时存在`find_loader()`和`find_module()`，那么那么，导入系统将总是优先于`find_module()`调用`find_loader()`。
 
-## 5.6. Replacing the standard import system¶
+## 5.6. 替换标准输入系统
 
-The most reliable mechanism for replacing the entire import system is to
-delete the default contents of
-[`sys.meta_path`](https://docs.python.org/3/library/sys.html#sys.meta_path
-"sys.meta_path" ), replacing them entirely with a custom meta path hook.
+替换整个导入系统的最可靠的机制是删除[`sys.meta_path`](https://docs.python.org/3/library/sys.html#sys.meta_path "sys.meta_path" )中的默认内容，用一个自定义的元路径钩子来完全替换它们。
 
-If it is acceptable to only alter the behaviour of import statements without
-affecting other APIs that access the import system, then replacing the builtin
-[`__import__()`](https://docs.python.org/3/library/functions.html#__import__
-"__import__" ) function may be sufficient. This technique may also be employed
-at the module level to only alter the behaviour of import statements within
-that module.
+如果可以接受在不影响其他访问导入系统的API的情况下，只改变导入语句的行为，那么，替换内置的[`__import__()`](https://docs.python.org/3/library/functions.html#__import__ "__import__" )函数可能就足够了。这种技术也可以在模块级别使用，用来仅改变那个模块中的导入语句行为。
 
-To selectively prevent import of some modules from a hook early on the meta
-path (rather than disabling the standard import system entirely), it is
-sufficient to raise `ModuleNoFoundError` directly from [`find_spec()`](https:/
-/docs.python.org/3/library/importlib.html#importlib.abc.MetaPathFinder.find_sp
-ec "importlib.abc.MetaPathFinder.find_spec" ) instead of returning `None`. The
-latter indicates that the meta path search should continue, while raising an
-exception terminates it immediately.
+在元路径早期，要选择性地阻止钩子上一些模块的导入 (而不是完全禁用标准导入系统)，则直接从[`find_spec()`](https://docs.python.org/3/library/importlib.html#importlib.abc.MetaPathFinder.find_spec "importlib.abc.MetaPathFinder.find_spec" )抛出`ModuleNoFoundError`，而不是返回`None`。后者暗示元路径搜索应该继续下去，而引发一个异常会立即终止它。
 
-## 5.7. Special considerations for __main__¶
+## 5.7. 对于__main__的特殊考量
 
-The [`__main__`](https://docs.python.org/3/library/__main__.html#module-
-__main__ "__main__: The environment where the top-level script is run." )
-module is a special case relative to Python's import system. As noted [elsewhe
-re](https://docs.python.org/3/reference/toplevel_components.html#programs),
-the `__main__` module is directly initialized at interpreter startup, much
-like [`sys`](https://docs.python.org/3/library/sys.html#module-sys "sys:
-Access system-specific parameters and functions." ) and
-[`builtins`](https://docs.python.org/3/library/builtins.html#module-builtins
-"builtins: The module that provides the built-in namespace." ). However,
-unlike those two, it doesn't strictly qualify as a built-in module. This is
-because the manner in which `__main__` is initialized depends on the flags and
-other options with which the interpreter is invoked.
+相对于Python的导入系统，[`__main__`](https://docs.python.org/3/library/__main__.html#module-__main__ "__main__: The environment where the top-level script is run." )模块是一种特殊情况。如[在其他地方](https://docs.python.org/3/reference/toplevel_components.html#programs)所述的，`__main__`模块是在解释器启动时被直接初始化的，就像[`sys`](https://docs.python.org/3/library/sys.html#module-sys "sys:Access system-specific parameters and functions." )和[`builtins`](https://docs.python.org/3/library/builtins.html#module-builtins "builtins: The module that provides the built-in namespace." )一样。但是，和那两个不一样的是，它并不是严格意义上的内置模块。这是因为，初始化`__main__`的方式取决于调用解释器的标志和其他选项。
 
-### 5.7.1. __main__.__spec__¶
+### 5.7.1. __main__.__spec__
 
-Depending on how [`__main__`](https://docs.python.org/3/library/__main__.html
-#module-__main__ "__main__: The environment where the top-level script is
-run." ) is initialized, `__main__.__spec__` gets set appropriately or to
-`None`.
+根据[`__main__`](https://docs.python.org/3/library/__main__.html #module-__main__ "__main__: The environment where the top-level script is run." )的初始化方式，会正确地设置`__main__.__spec__`，或者设为`None`。
 
-When Python is started with the
-[`-m`](https://docs.python.org/3/using/cmdline.html#cmdoption-m) option,
-`__spec__` is set to the module spec of the corresponding module or package.
-`__spec__` is also populated when the `__main__` module is loaded as part of
-executing a directory, zipfile or other
-[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )
-entry.
+当带[`-m`](https://docs.python.org/3/using/cmdline.html#cmdoption-m)选项启动Python时，`__spec__`会被设置为相应模块或包的模块spec。当`__main__`模块作为执行一个目录、zip文件或者其他[`sys.path`](https://docs.python.org/3/library/sys.html#sys.path "sys.path" )入口的一部分加载的时候，也会填充`__spec__`。
 
-In [the remaining cases](https://docs.python.org/3/using/cmdline.html#using-
-on-interface-options) `__main__.__spec__` is set to `None`, as the code used
-to populate the [`__main__`](https://docs.python.org/3/library/__main__.html
-#module-__main__ "__main__: The environment where the top-level script is
-run." ) does not correspond directly with an importable module:
+在[其他情况](https://docs.python.org/3/using/cmdline.html#using-on-interface-options)下，设置`__main__.__spec__`为`None`，因为用来填充[`__main__`](https://docs.python.org/3/library/__main__.html#module-__main__ "__main__: The environment where the top-level script is run." )的代码不直接与一个可导入模块相对应：
 
-  * interactive prompt
-  * -c switch
-  * running from stdin
-  * running directly from a source or bytecode file
+  * 交互提示
+  * -c交换
+  * 从标准输入运行
+  * 直接从一个源代码或者字节码文件运行
 
-Note that `__main__.__spec__` is always `None` in the last case, _even if_ the
-file could technically be imported directly as a module instead. Use the
-[`-m`](https://docs.python.org/3/using/cmdline.html#cmdoption-m) switch if
-valid module metadata is desired in
-[`__main__`](https://docs.python.org/3/library/__main__.html#module-__main__
-"__main__: The environment where the top-level script is run." ).
+注意，在最后一种情况下，`__main__.__spec__`总是`None`，_即使_从技术上来讲，可以把文件当成模块直接导入。如果在[`__main__`](https://docs.python.org/3/library/__main__.html#module-__main__ "__main__: The environment where the top-level script is run." )中，需要有效的模块元数据，那么使用[`-m`](https://docs.python.org/3/using/cmdline.html#cmdoption-m)交换。
 
-Note also that even when `__main__` corresponds with an importable module and
-`__main__.__spec__` is set accordingly, they're still considered _distinct_
-modules. This is due to the fact that blocks guarded by `if __name__ ==
-"__main__":` checks only execute when the module is used to populate the
-`__main__` namespace, and not during normal import.
+还要注意，即使当`__main__`对应一个可导入模块，并且对应设置了`__main__.__spec__`，但它们仍然会被当成_有区别的_模块。这是因为，由`if __name__ == "__main__":`所监管的块检查只有当该模块被用来填充`__main__`名字空间，并且不是处于正常的导入过程中，才会执行。
 
-## 5.8. Open issues¶
+## 5.8. 已知问题
 
-XXX It would be really nice to have a diagram.
+XXX 要是有个图将会非常棒。
 
-XXX * (import_machinery.rst) how about a section devoted just to the
-attributes of modules and packages, perhaps expanding upon or supplanting the
-related entries in the data model reference page?
+XXX * (import_machinery.rst) 有个专用于模块和包属性的章节怎样？或许扩展或取代数据模型参考页面上的相关条目？
 
-XXX runpy, pkgutil, et al in the library manual should all get "See Also"
-links at the top pointing to the new import system section.
+XXX 库手册中的runpy，pkgutil等都应该有个“另见”链接，放在顶部，指向新的导入系统部分。
 
-XXX Add more explanation regarding the different ways in which `__main__` is
-initialized?
+XXX 添加关于初始化`__main__`的不同方式的更多解释？
 
-XXX Add more info on `__main__` quirks/pitfalls (i.e. copy from [**PEP
-395**](https://www.python.org/dev/peps/pep-0395)).
+XXX 增加关于`__main__`异常/陷阱的更多信息 (例如，从[**PEP 395**](https://www.python.org/dev/peps/pep-0395)拷贝过来)。
 
-## 5.9. References¶
+## 5.9. 参考
 
-The import machinery has evolved considerably since Python's early days. The
-original [specification for
-packages](http://legacy.python.org/doc/essays/packages.html) is still
-available to read, although some details have changed since the writing of
-that document.
+自Python早期起，导入机制已经发生了很大的变化。原始的[包规范](http://legacy.python.org/doc/essays/packages.html)仍然可读，虽然自编写那篇文档起，一些细节发生了改变。
 
-The original specification for
-[`sys.meta_path`](https://docs.python.org/3/library/sys.html#sys.meta_path
-"sys.meta_path" ) was [**PEP 302**](https://www.python.org/dev/peps/pep-0302),
-with subsequent extension in [**PEP
-420**](https://www.python.org/dev/peps/pep-0420).
+[`sys.meta_path`](https://docs.python.org/3/library/sys.html#sys.meta_path "sys.meta_path" )的原始规格是[**PEP 302**](https://www.python.org/dev/peps/pep-0302)，随后在[**PEP 420**](https://www.python.org/dev/peps/pep-0420)中进行了扩展。
 
-[**PEP 420**](https://www.python.org/dev/peps/pep-0420) introduced [namespace
-packages](https://docs.python.org/3/glossary.html#term-namespace-package) for
-Python 3.3. [**PEP 420**](https://www.python.org/dev/peps/pep-0420) also
-introduced the `find_loader()` protocol as an alternative to `find_module()`.
+[**PEP 420**](https://www.python.org/dev/peps/pep-0420)为Python 3.3引入了[名字空间包](https://docs.python.org/3/glossary.html#term-namespace-package)。[**PEP 420**](https://www.python.org/dev/peps/pep-0420)还引入了`find_loader()`协议，作为`find_module()`的一种替换。
 
-[**PEP 366**](https://www.python.org/dev/peps/pep-0366) describes the addition
-of the `__package__` attribute for explicit relative imports in main modules.
+[**PEP 366**](https://www.python.org/dev/peps/pep-0366)描述了`__package__`属性的附加信息，用于在主模块中的显式相对导入。
 
-[**PEP 328**](https://www.python.org/dev/peps/pep-0328) introduced absolute
-and explicit relative imports and initially proposed `__name__` for semantics
-[**PEP 366**](https://www.python.org/dev/peps/pep-0366) would eventually
-specify for `__package__`.
+[**PEP 328**](https://www.python.org/dev/peps/pep-0328)介绍了绝对和显式相对导入，并且为语义[**PEP 366**](https://www.python.org/dev/peps/pep-0366)最初提议的`__name__`，将最终指定`__package__`。
 
-[**PEP 338**](https://www.python.org/dev/peps/pep-0338) defines executing
-modules as scripts.
+[**PEP 338**](https://www.python.org/dev/peps/pep-0338)定义了将模块作为脚本执行。
 
-[**PEP 451**](https://www.python.org/dev/peps/pep-0451) adds the encapsulation
-of per-module import state in spec objects. It also off-loads most of the
-boilerplate responsibilities of loaders back onto the import machinery. These
-changes allow the deprecation of several APIs in the import system and also
-addition of new methods to finders and loaders.
+[**PEP 451**](https://www.python.org/dev/peps/pep-0451)添加了每个模块的导入状态的封装到spec对象中。它还卸载加载器的大部分样本责任到导入机制上。这些改动允许弃用导入系统中的一些API，以及添加新方法到查找器和加载器中。
 
-Footnotes
+脚注
 
-[1]| See [`types.ModuleType`](https://docs.python.org/3/library/types.html#typ
-es.ModuleType "types.ModuleType" ).  
----|---  
-[2]| The importlib implementation avoids using the return value directly.
-Instead, it gets the module object by looking the module name up in
-[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules
-"sys.modules" ). The indirect effect of this is that an imported module may
-replace itself in
-[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules
-"sys.modules" ). This is implementation-specific behavior that is not
-guaranteed to work in other Python implementations.  
----|---  
-[3]| In legacy code, it is possible to find instances of [`imp.NullImporter`](
-https://docs.python.org/3/library/imp.html#imp.NullImporter "imp.NullImporter"
-) in the [`sys.path_importer_cache`](https://docs.python.org/3/library/sys.htm
-l#sys.path_importer_cache "sys.path_importer_cache" ). It is recommended that
-code be changed to use `None` instead. See [Porting Python
-code](https://docs.python.org/3/whatsnew/3.3.html#portingpythoncode) for more
-details.  
+[1] 见[`types.ModuleType`](https://docs.python.org/3/library/types.html#types.ModuleType "types.ModuleType" )。
+
+[2] importlib实现避免了直接使用返回值。相反，它通过在[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules "sys.modules" )中查找模块名字来获取module对象。这种行为的非直接影响是，一个已导入的模块或许会替换掉[`sys.modules`](https://docs.python.org/3/library/sys.html#sys.modules "sys.modules" )中的自己。这是实现特有的行为，不保证在其他Python实现中也能工作。
+
+[3] 在遗留代码中，是有可能在[`sys.path_importer_cache`](https://docs.python.org/3/library/sys.html#sys.path_importer_cache "sys.path_importer_cache" )中找到[`imp.NullImporter`](https://docs.python.org/3/library/imp.html#imp.NullImporter "imp.NullImporter" )实例的。推荐修改代码，使用`None`来代替。见[Porting Python code](https://docs.python.org/3/whatsnew/3.3.html#portingpythoncode)，以了解更多细节。
